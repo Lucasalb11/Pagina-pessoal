@@ -5,9 +5,9 @@ const Education = () => {
   const education = [
     {
       icon: GraduationCap,
-      title: "University of Nicosia",
-      subtitle: "Blockchain & Digital Currency Program",
-      description: "Advanced blockchain technology and digital currency studies",
+      title: "UFPE - Universidade Federal de Pernambuco",
+      subtitle: "Ciências Econômicas",
+      description: "Formação em economia com foco em análise financeira e mercados",
     },
     {
       icon: Award,

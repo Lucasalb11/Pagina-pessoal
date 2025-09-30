@@ -19,8 +19,8 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "Get in touch",
-      href: "https://www.linkedin.com/in/lucasalb11/",
+      value: "lucasalb11@gmail.com",
+      href: "mailto:lucasalb11@gmail.com",
     },
   ];
 

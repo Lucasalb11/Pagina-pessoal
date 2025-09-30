@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Code2, Shield, TrendingUp, Lightbulb } from "lucide-react";
+import profileImage from "@/assets/profile.jpeg";
 
 const About = () => {
   const focuses = [
@@ -29,7 +30,16 @@ const About = () => {
     <section id="about" className="py-20 relative">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-4">
+          <div className="text-center space-y-6">
+            <div className="flex justify-center mb-6">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/30 shadow-elegant glow-primary">
+                <img 
+                  src={profileImage} 
+                  alt="Lucas de Almeida" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
             <h2 className="text-4xl md:text-5xl font-bold">
               About <span className="text-gradient">Me</span>
             </h2>

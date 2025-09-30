@@ -10,12 +10,14 @@ const Projects = () => {
       tech: ["Rust", "Systems Programming"],
       github: "https://github.com/Lucasalb11/crud-e",
       stars: 1,
+      image: undefined, // Adicione a imagem aqui quando disponível
     },
     {
       title: "Jogo de Adivinhação",
       description: "An interactive guessing game built with Rust, showcasing fundamental programming concepts and user interaction.",
       tech: ["Rust", "CLI"],
       github: "https://github.com/Lucasalb11/jogo_de_adivinhacao",
+      image: undefined, // Adicione a imagem aqui quando disponível
     },
   ];
 
@@ -39,6 +41,16 @@ const Projects = () => {
                 className="p-6 bg-card/50 backdrop-blur border-border hover:border-primary/50 transition-smooth hover:glow-primary group"
               >
                 <div className="space-y-4">
+                  {project.image && (
+                    <div className="w-full h-48 rounded-lg overflow-hidden bg-muted">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
+                  
                   <div className="flex items-start justify-between">
                     <h3 className="text-xl font-bold group-hover:text-gradient transition-smooth">
                       {project.title}
