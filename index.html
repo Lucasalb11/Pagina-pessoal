@@ -15,10 +15,71 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lucasalb_dev" />
     <meta name="twitter:image" content="/placeholder.svg" />
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.github.com;">
+    
+    <style>
+      /* Hide any Lovable widgets or floating buttons */
+      [id*="lovable"],
+      [class*="lovable"],
+      [data-lovable],
+      iframe[src*="lovable"],
+      iframe[src*="cdn.lovable"],
+      script[src*="lovable"],
+      script[src*="cdn.lovable"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+      }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Prevent Lovable widget injection
+      (function() {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.nodeType === 1) {
+                const element = node;
+                if (
+                  element.id && element.id.includes('lovable') ||
+                  element.className && (element.className.includes('lovable') || typeof element.className === 'string' && element.className.includes('lovable')) ||
+                  element.getAttribute && element.getAttribute('data-lovable') ||
+                  (element.tagName === 'IFRAME' && element.src && element.src.includes('lovable')) ||
+                  (element.tagName === 'SCRIPT' && element.src && element.src.includes('lovable'))
+                ) {
+                  element.remove();
+                }
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Block script loading
+        const originalAppendChild = Node.prototype.appendChild;
+        Node.prototype.appendChild = function(child) {
+          if (child.nodeName === 'SCRIPT' && child.src && child.src.includes('lovable')) {
+            return child;
+          }
+          if (child.nodeName === 'IFRAME' && child.src && child.src.includes('lovable')) {
+            return child;
+          }
+          return originalAppendChild.call(this, child);
+        };
+      })();
+    </script>
   </body>
 </html>

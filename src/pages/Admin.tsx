@@ -9,10 +9,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useProjects } from "@/hooks/useProjects";
 import { Project } from "@/lib/github";
-import { Github, Plus, Trash2, Eye, EyeOff, Edit, Lock, LogOut, Save, X } from "lucide-react";
+import { validateProjectData, sanitizeString, validateAndSanitizeUrl } from "@/lib/validation";
+import { verifyPassword, getAdminPassword, isLockedOut, getRemainingLockoutTime, clearLoginAttempts } from "@/lib/auth";
+import { Github, Plus, Trash2, Eye, EyeOff, Edit, Lock, LogOut, Save, X, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
-
-const ADMIN_PASSWORD = "blockchain2024"; // Simple password protection
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -42,12 +42,37 @@ const Admin = () => {
   }, []);
 
   const handleLogin = () => {
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("admin_auth", "true");
-      toast.success("Admin access granted");
-    } else {
-      toast.error("Invalid password");
+    // Check if locked out
+    if (isLockedOut()) {
+      const remaining = getRemainingLockoutTime();
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      toast.error(`Account locked. Try again in ${minutes}m ${seconds}s`);
+      return;
+    }
+
+    try {
+      const adminPassword = getAdminPassword();
+      const result = verifyPassword(password, adminPassword);
+
+      if (result.success) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("admin_auth", "true");
+        clearLoginAttempts();
+        toast.success("Admin access granted");
+        setPassword("");
+      } else {
+        if (result.locked) {
+          const minutes = Math.floor((result.lockoutTime || 0) / 60);
+          toast.error(`Too many failed attempts. Account locked for ${minutes} minutes.`);
+        } else {
+          toast.error(`Invalid password. ${result.remainingAttempts} attempt(s) remaining.`);
+        }
+        setPassword("");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+      toast.error("Authentication system error. Please check configuration.");
       setPassword("");
     }
   };
@@ -75,26 +100,54 @@ const Admin = () => {
   const [techInput, setTechInput] = useState("");
 
   const handleAddProject = () => {
-    if (!newProject.title || !newProject.description || !newProject.github) {
-      toast.error("Please fill in title, description, and GitHub URL");
+    // Validate and sanitize input
+    const validation = validateProjectData({
+      title: newProject.title,
+      description: newProject.description,
+      github: newProject.github,
+      homepage: newProject.homepage,
+      image: newProject.image,
+    });
+
+    if (!validation.valid) {
+      toast.error(validation.errors[0] || "Please check your input");
       return;
     }
 
-    const techArray = techInput.split(",").map((t) => t.trim()).filter(Boolean);
-    const topicsArray = techArray;
+    // Sanitize URLs
+    const githubUrl = validateAndSanitizeUrl(newProject.github!);
+    const homepageUrl = newProject.homepage ? validateAndSanitizeUrl(newProject.homepage) : undefined;
+    const imageUrl = newProject.image ? validateAndSanitizeUrl(newProject.image) : undefined;
+
+    if (!githubUrl) {
+      toast.error("Invalid GitHub URL");
+      return;
+    }
+
+    // Sanitize text inputs
+    const sanitizedTitle = sanitizeString(newProject.title!, 200);
+    const sanitizedDescription = sanitizeString(newProject.description!, 2000);
+    const sanitizedLanguage = newProject.language ? sanitizeString(newProject.language, 50) : null;
+
+    // Sanitize tech array
+    const techArray = techInput
+      .split(",")
+      .map((t) => sanitizeString(t.trim(), 50))
+      .filter(Boolean)
+      .slice(0, 20); // Limit to 20 technologies
 
     const project: Project = {
-      id: Date.now(), // Simple ID generation
-      title: newProject.title,
-      description: newProject.description,
+      id: Date.now(),
+      title: sanitizedTitle,
+      description: sanitizedDescription,
       tech: techArray.length > 0 ? techArray : ["Other"],
-      github: newProject.github,
-      homepage: newProject.homepage || undefined,
-      stars: newProject.stars || 0,
-      forks: newProject.forks || 0,
-      language: newProject.language || null,
-      topics: topicsArray,
-      image: newProject.image || undefined,
+      github: githubUrl,
+      homepage: homepageUrl || undefined,
+      stars: Math.max(0, Math.min(1000000, newProject.stars || 0)), // Clamp between 0 and 1M
+      forks: Math.max(0, Math.min(1000000, newProject.forks || 0)), // Clamp between 0 and 1M
+      language: sanitizedLanguage,
+      topics: techArray,
+      image: imageUrl || undefined,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -108,12 +161,54 @@ const Admin = () => {
   const handleUpdateProject = () => {
     if (!editingProject) return;
 
-    const techArray = techInput.split(",").map((t) => t.trim()).filter(Boolean);
-    
+    // Validate and sanitize input
+    const validation = validateProjectData({
+      title: newProject.title,
+      description: newProject.description,
+      github: newProject.github,
+      homepage: newProject.homepage,
+      image: newProject.image,
+    });
+
+    if (!validation.valid) {
+      toast.error(validation.errors[0] || "Please check your input");
+      return;
+    }
+
+    // Sanitize URLs
+    const githubUrl = validateAndSanitizeUrl(newProject.github!);
+    const homepageUrl = newProject.homepage ? validateAndSanitizeUrl(newProject.homepage) : undefined;
+    const imageUrl = newProject.image ? validateAndSanitizeUrl(newProject.image) : undefined;
+
+    if (!githubUrl) {
+      toast.error("Invalid GitHub URL");
+      return;
+    }
+
+    // Sanitize text inputs
+    const sanitizedTitle = sanitizeString(newProject.title!, 200);
+    const sanitizedDescription = sanitizeString(newProject.description!, 2000);
+    const sanitizedLanguage = newProject.language ? sanitizeString(newProject.language, 50) : null;
+
+    // Sanitize tech array
+    const techArray = techInput
+      .split(",")
+      .map((t) => sanitizeString(t.trim(), 50))
+      .filter(Boolean)
+      .slice(0, 20);
+
     updateCustomProject(editingProject.id, {
       ...editingProject,
+      title: sanitizedTitle,
+      description: sanitizedDescription,
+      github: githubUrl,
+      homepage: homepageUrl || undefined,
+      image: imageUrl || undefined,
+      language: sanitizedLanguage,
       tech: techArray.length > 0 ? techArray : editingProject.tech,
       topics: techArray.length > 0 ? techArray : editingProject.topics,
+      stars: Math.max(0, Math.min(1000000, newProject.stars || 0)),
+      forks: Math.max(0, Math.min(1000000, newProject.forks || 0)),
       updatedAt: new Date().toISOString(),
     });
 
@@ -162,7 +257,22 @@ const Admin = () => {
     setShowAddDialog(true);
   };
 
+  // Monitor lockout status for UI updates
+  const [, setLockoutCheck] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLockoutCheck(Date.now());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   if (!isAuthenticated) {
+    const locked = isLockedOut();
+    const remaining = getRemainingLockoutTime();
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <Card className="p-8 max-w-md w-full">
@@ -172,20 +282,43 @@ const Admin = () => {
               <h1 className="text-2xl font-bold">Admin Access</h1>
               <p className="text-muted-foreground">Enter password to access admin panel</p>
             </div>
+            
+            {locked && (
+              <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-destructive" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-destructive">Account Locked</p>
+                  <p className="text-xs text-muted-foreground">
+                    Too many failed attempts. Try again in {minutes}m {seconds}s
+                  </p>
+                </div>
+              </div>
+            )}
+
             <div className="space-y-4">
               <Input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleLogin()}
+                onKeyDown={(e) => e.key === "Enter" && !locked && handleLogin()}
+                disabled={locked}
+                className={locked ? "opacity-50 cursor-not-allowed" : ""}
               />
-              <Button onClick={handleLogin} className="w-full">
-                Login
+              <Button 
+                onClick={handleLogin} 
+                className="w-full"
+                disabled={locked}
+              >
+                {locked ? "Locked" : "Login"}
               </Button>
               <Button variant="ghost" onClick={() => navigate("/")} className="w-full">
                 Back to Home
               </Button>
+            </div>
+
+            <div className="text-center text-xs text-muted-foreground">
+              <p>Secure admin access with rate limiting</p>
             </div>
           </div>
         </Card>
