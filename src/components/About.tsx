@@ -44,7 +44,7 @@ const About = () => {
               About <span className="text-gradient">Me</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Senior blockchain developer with expertise in smart contract security, DeFi protocols, and Web3 infrastructure
+              Blockchain developer with expertise in smart contract security, DeFi protocols, and Web3 infrastructure
             </p>
           </div>
 

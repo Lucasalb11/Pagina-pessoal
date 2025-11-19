@@ -22,7 +22,7 @@ const Hero = () => {
           <div className="flex justify-center">
             <Badge variant="outline" className="px-4 py-1.5 text-sm border-primary/30 bg-primary/5">
               <Code2 className="w-3 h-3 mr-2" />
-              Senior Blockchain Developer
+              Blockchain Developer
             </Badge>
           </div>
 
@@ -32,7 +32,7 @@ const Hero = () => {
             </h1>
             <div className="space-y-3">
               <p className="text-2xl md:text-3xl font-semibold text-foreground/90">
-                Senior Blockchain & Smart Contract Developer
+                Blockchain & Smart Contract Developer
               </p>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Specializing in <span className="text-primary font-medium">Solidity</span>, <span className="text-primary font-medium">Rust</span>, and <span className="text-primary font-medium">Web3</span> infrastructure

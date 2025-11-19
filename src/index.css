@@ -6,22 +6,6 @@
 All colors MUST be HSL.
 */
 
-/* Hide any Lovable widgets or floating buttons */
-[id*="lovable"],
-[class*="lovable"],
-[data-lovable],
-iframe[src*="lovable"],
-iframe[src*="cdn.lovable"],
-script[src*="lovable"],
-script[src*="cdn.lovable"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  position: absolute !important;
-  left: -9999px !important;
-}
-
 @layer base {
   :root {
     --background: 240 10% 3.9%;
