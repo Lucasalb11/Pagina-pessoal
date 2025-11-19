@@ -1,24 +1,34 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Github, ExternalLink, Star, GitFork, Loader2, Code2, Shield, Zap } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchGitHubRepos } from "@/lib/github";
+import { Github, ExternalLink, Star, GitFork, Loader2, Code2, Shield, Zap, RefreshCw } from "lucide-react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchGitHubRepos, Project } from "@/lib/github";
 import { useProjects } from "@/hooks/useProjects";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 const GITHUB_USERNAME = "Lucasalb11";
 
 const Projects = () => {
-  const { projects, loading, setGitHubProjects } = useProjects();
+  const { projects, loading, setGitHubProjects, clearCache } = useProjects();
+  const queryClient = useQueryClient();
 
   // Fetch GitHub repositories
-  const { data: githubRepos, isLoading: isLoadingRepos } = useQuery({
+  const { data: githubRepos, isLoading: isLoadingRepos, refetch } = useQuery<Project[]>({
     queryKey: ["github-repos", GITHUB_USERNAME],
     queryFn: () => fetchGitHubRepos(GITHUB_USERNAME),
-    staleTime: 1000 * 60 * 30, // 30 minutes
+    staleTime: 0, // Always fetch fresh data
+    gcTime: 0, // Don't cache
     retry: 2,
   });
+
+  const handleRefresh = async () => {
+    clearCache();
+    queryClient.invalidateQueries({ queryKey: ["github-repos", GITHUB_USERNAME] });
+    await refetch();
+    toast.success("Projects refreshed from GitHub");
+  };
 
   // Update projects when GitHub repos are fetched
   useEffect(() => {
@@ -66,6 +76,16 @@ const Projects = () => {
                 <Zap className="w-3 h-3 mr-1" />
                 Production Ready
               </Badge>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                disabled={isLoading}
+                className="bg-background/50 hover:bg-primary/10 hover:border-primary/50"
+              >
+                <RefreshCw className={`w-3 h-3 mr-1 ${isLoading ? 'animate-spin' : ''}`} />
+                Refresh
+              </Button>
             </div>
           </div>
 

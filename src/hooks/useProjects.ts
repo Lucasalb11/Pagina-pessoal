@@ -98,6 +98,15 @@ export function useProjects() {
     );
   }, []);
 
+  const clearCache = useCallback(() => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      setProjects([]);
+    } catch (error) {
+      console.error("Error clearing cache:", error);
+    }
+  }, []);
+
   // Get visible projects (GitHub + custom, excluding hidden)
   const visibleProjects = [
     ...customProjects,
@@ -122,6 +131,7 @@ export function useProjects() {
     addCustomProject,
     removeCustomProject,
     updateCustomProject,
+    clearCache,
   };
 }
 
