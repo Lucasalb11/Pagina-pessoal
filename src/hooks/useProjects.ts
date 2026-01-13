@@ -109,10 +109,13 @@ export function useProjects() {
 
   // Get visible projects (GitHub + custom, excluding hidden)
   const visibleProjects = [
-    ...customProjects,
+    ...customProjects.map(p => ({ ...p, size: p.size || 0 })),
     ...projects.filter((p) => !hiddenIds.has(p.id)),
   ].sort((a, b) => {
-    // Sort by stars (descending), then by updated date
+    // Sort by size (descending), then by stars, then by updated date
+    if (b.size !== a.size) {
+      return b.size - a.size;
+    }
     if (b.stars !== a.stars) {
       return b.stars - a.stars;
     }

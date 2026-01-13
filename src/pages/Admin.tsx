@@ -95,6 +95,7 @@ const Admin = () => {
     language: "",
     topics: [],
     image: "",
+    size: 0,
   });
 
   const [techInput, setTechInput] = useState("");
@@ -148,6 +149,7 @@ const Admin = () => {
       language: sanitizedLanguage,
       topics: techArray,
       image: imageUrl || undefined,
+      size: Math.max(0, newProject.size || 0),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -209,6 +211,7 @@ const Admin = () => {
       topics: techArray.length > 0 ? techArray : editingProject.topics,
       stars: Math.max(0, Math.min(1000000, newProject.stars || 0)),
       forks: Math.max(0, Math.min(1000000, newProject.forks || 0)),
+      size: Math.max(0, newProject.size || editingProject.size || 0),
       updatedAt: new Date().toISOString(),
     });
 
@@ -235,6 +238,7 @@ const Admin = () => {
       language: "",
       topics: [],
       image: "",
+      size: 0,
     });
     setTechInput("");
   };
@@ -252,6 +256,7 @@ const Admin = () => {
       language: project.language || "",
       topics: project.topics,
       image: project.image || "",
+      size: project.size || 0,
     });
     setTechInput(project.tech.join(", "));
     setShowAddDialog(true);
@@ -557,7 +562,7 @@ const Admin = () => {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Stars</label>
                   <Input
@@ -573,6 +578,15 @@ const Admin = () => {
                     type="number"
                     value={newProject.forks}
                     onChange={(e) => setNewProject({ ...newProject, forks: parseInt(e.target.value) || 0 })}
+                    placeholder="0"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Size (KB)</label>
+                  <Input
+                    type="number"
+                    value={newProject.size}
+                    onChange={(e) => setNewProject({ ...newProject, size: parseInt(e.target.value) || 0 })}
                     placeholder="0"
                   />
                 </div>

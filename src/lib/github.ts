@@ -17,6 +17,7 @@ export interface GitHubRepo {
   created_at: string;
   updated_at: string;
   pushed_at: string;
+  size: number;
 }
 
 export interface Project {
@@ -34,6 +35,7 @@ export interface Project {
   featured?: boolean;
   createdAt: string;
   updatedAt: string;
+  size: number;
 }
 
 /**
@@ -69,6 +71,7 @@ function sanitizeRepoData(repo: GitHubRepo): Project {
     topics: (repo.topics || []).slice(0, 20),
     createdAt: repo.created_at || new Date().toISOString(),
     updatedAt: repo.updated_at || new Date().toISOString(),
+    size: Math.max(0, repo.size || 0),
   };
 }
 

@@ -57,8 +57,8 @@ const Hero = () => {
           </div>
           
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed pt-4">
-            Building secure, scalable, and privacy-focused blockchain solutions. Expert in EVM (Solidity + Hardhat/Foundry), 
-            Solana (Rust + Anchor), and Soroban (Stellar). Passionate about decentralized finance, tokenomics, and on-chain analytics.
+            Secure, scalable, privacy-first blockchain solutions.
+            Rust fundamentalist with deep expertise in Solana (Rust + Anchor) and Soroban (Stellar). Proficient in EVM development using Solidity, Hardhat, and Foundry. Passionate about building robust decentralized finance protocols, innovative tokenomics, and advanced on-chain analytics.
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center pt-6">
