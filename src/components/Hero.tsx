@@ -1,9 +1,9 @@
 import { Github, Linkedin, Mail, ChevronDown, ArrowRight } from "lucide-react";
 
 const STATS = [
-  { value: "22+",  label: "Repositories" },
-  { value: "4",    label: "Chains" },
-  { value: "2+",   label: "Years" },
+  { value: "22+", label: "Repositories" },
+  { value: "4",   label: "Chains" },
+  { value: "7+",  label: "Years Exp." },
 ];
 
 const Hero = () => {
@@ -44,12 +44,13 @@ const Hero = () => {
 
             {/* Description */}
             <p className="text-muted-foreground text-lg max-w-xl leading-relaxed">
-              Building{" "}
-              <span className="text-foreground font-medium">secure, scalable</span>{" "}
-              smart contracts and decentralized protocols across{" "}
-              <span className="text-primary font-medium">Solidity</span>,{" "}
-              <span className="text-primary font-medium">Rust</span>,{" "}
-              Solana, and Stellar. Privacy-first, production-ready.
+              Crypto-native professional combining{" "}
+              <span className="text-foreground font-medium">7+ years</span> of high-stakes
+              project leadership with deep expertise in{" "}
+              <span className="text-primary font-medium">DeFi</span>,{" "}
+              <span className="text-primary font-medium">Solidity</span>, and{" "}
+              <span className="text-primary font-medium">Rust</span>. Building
+              secure, scalable protocols across Ethereum, Solana, Stellar, and Base.
             </p>
 
             {/* CTAs */}
@@ -78,8 +79,8 @@ const Hero = () => {
             </div>
 
             {/* Stats */}
-            <div className="flex items-center gap-8 pt-2 border-t border-border/50 pt-6">
-              {STATS.map((stat, i) => (
+            <div className="flex items-center gap-8 border-t border-border/50 pt-6">
+              {STATS.map((stat) => (
                 <div key={stat.label}>
                   <div className="font-mono text-2xl font-bold text-primary">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-0.5 font-mono tracking-wide uppercase">
@@ -92,9 +93,9 @@ const Hero = () => {
             {/* Social */}
             <div className="flex items-center gap-4 pt-2">
               {[
-                { href: "https://github.com/Lucasalb11", icon: Github, label: "GitHub" },
+                { href: "https://github.com/Lucasalb11",           icon: Github,   label: "GitHub" },
                 { href: "https://www.linkedin.com/in/lucasalb11/", icon: Linkedin, label: "LinkedIn" },
-                { href: "mailto:lucasalb11@gmail.com", icon: Mail, label: "Email" },
+                { href: "mailto:lucasalb11@gmail.com",             icon: Mail,     label: "Email" },
               ].map(({ href, icon: Icon, label }) => (
                 <a
                   key={label}
@@ -132,6 +133,7 @@ const Hero = () => {
                       { name: "ethereum", fill: 9, color: "bg-primary" },
                       { name: "solana  ", fill: 9, color: "bg-accent" },
                       { name: "stellar ", fill: 8, color: "bg-primary" },
+                      { name: "base    ", fill: 7, color: "bg-accent" },
                     ].map((chain) => (
                       <div key={chain.name} className="flex items-center gap-3">
                         <span className="text-muted-foreground w-20">{chain.name}</span>

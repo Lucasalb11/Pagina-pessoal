@@ -1,18 +1,34 @@
-import { Code2, Shield, TrendingUp, Lightbulb } from "lucide-react";
+import { Code2, Shield, TrendingUp, Users } from "lucide-react";
 import profileImage from "@/assets/profile.jpeg";
 
 const FOCUSES = [
-  { icon: Code2,       title: "Smart Contracts",  description: "Solidity, Hardhat, Foundry development" },
-  { icon: Shield,      title: "Security First",    description: "Auditing and privacy-preserving Web3" },
-  { icon: TrendingUp,  title: "DeFi Protocols",    description: "Decentralized finance architecture" },
-  { icon: Lightbulb,   title: "On-Chain Analytics", description: "Blockchain explorers & analytics" },
+  {
+    icon:        Code2,
+    title:       "Smart Contracts",
+    description: "Solidity, Foundry, OpenZeppelin — EVM & Soroban",
+  },
+  {
+    icon:        Shield,
+    title:       "DeFi Research",
+    description: "Protocol analysis, whitepapers, governance forums",
+  },
+  {
+    icon:        TrendingUp,
+    title:       "Crypto Economics",
+    description: "Mechanism design, tokenomics, liquidity dynamics",
+  },
+  {
+    icon:        Users,
+    title:       "Leadership",
+    description: "7+ years directing large-scale operations & teams",
+  },
 ];
 
 const LEARNING = [
-  "Blockchain interoperability and cross-chain solutions",
-  "Privacy-preserving Web3 technologies (ZK, FHE)",
-  "Advanced tokenomics and scaling strategies",
-  "Rust for system-level blockchain tooling",
+  "Computer Engineering degree in progress at UFRPE",
+  "Advanced Solana development — School of Solana (Ackee)",
+  "Zero-knowledge proofs and privacy-preserving Web3",
+  "Cross-chain interoperability and bridge architecture",
 ];
 
 const About = () => {
@@ -40,6 +56,7 @@ const About = () => {
 
           {/* Main grid */}
           <div className="grid lg:grid-cols-[280px_1fr] gap-12 items-start">
+
             {/* Left — Photo + quick facts */}
             <div className="flex flex-col items-center lg:items-start gap-6">
               <div className="relative">
@@ -50,7 +67,6 @@ const About = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                {/* Orange accent bar */}
                 <div className="absolute -bottom-3 -right-3 w-16 h-16 rounded-xl bg-primary/10 border border-primary/20" />
                 <div className="absolute -top-3 -left-3 w-10 h-10 rounded-lg bg-accent/10 border border-accent/20" />
               </div>
@@ -58,9 +74,10 @@ const About = () => {
               {/* Quick facts */}
               <div className="space-y-3 w-full font-mono text-sm">
                 {[
-                  { label: "LOCATION", value: "Recife, BR" },
-                  { label: "FOCUS",    value: "Web3 / DeFi" },
-                  { label: "STATUS",   value: "Open to work" },
+                  { label: "LOCATION", value: "Recife, PE" },
+                  { label: "FOCUS",    value: "DeFi / Web3" },
+                  { label: "ENGLISH",  value: "B2 Level" },
+                  { label: "REMOTE",   value: "Ready" },
                 ].map((fact) => (
                   <div key={fact.label} className="flex justify-between border-b border-border/50 pb-2">
                     <span className="text-muted-foreground text-xs tracking-widest">{fact.label}</span>
@@ -68,7 +85,7 @@ const About = () => {
                   </div>
                 ))}
                 <div className="flex justify-between pb-2">
-                  <span className="text-muted-foreground text-xs tracking-widest">STATUS</span>
+                  <span className="text-muted-foreground text-xs tracking-widest font-mono">STATUS</span>
                   <span className="flex items-center gap-1.5 text-xs text-green-400">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                     Available
@@ -81,15 +98,22 @@ const About = () => {
             <div className="space-y-8">
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p className="text-lg text-foreground/90">
-                  Blockchain developer with a background in Economics from{" "}
-                  <span className="text-primary font-medium">UFPE</span>, combining financial
-                  thinking with deep technical expertise in Web3.
+                  Crypto-native professional with deep knowledge in{" "}
+                  <span className="text-primary font-medium">Decentralized Finance</span> and
+                  on-chain protocols, combining technical fluency with client-focused execution.
                 </p>
                 <p>
-                  I specialize in building{" "}
-                  <span className="text-foreground font-medium">secure smart contracts</span> and
-                  DeFi infrastructure across Ethereum, Solana, and Stellar ecosystems. My approach
-                  is privacy-first, performance-driven, and always security-audited.
+                  Co-founded and directed{" "}
+                  <span className="text-foreground font-medium">Arcos Construtora</span> for
+                  6 years — orchestrating 12 simultaneous construction projects, leading 100+
+                  employees, and securing institutional financing. That experience sharpened my
+                  ability to manage complexity, communicate risk, and deliver under pressure.
+                </p>
+                <p>
+                  Since 2023, applying the same discipline to{" "}
+                  <span className="text-foreground font-medium">Web3</span>: researching and
+                  deploying DeFi strategies across Ethereum, Solana, Stellar, and Base while
+                  building smart contracts and contributing to open-source protocols.
                 </p>
               </div>
 
@@ -115,7 +139,7 @@ const About = () => {
               <div className="p-5 rounded-lg bg-card border border-accent/20">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <h3 className="font-mono text-xs text-accent tracking-widest uppercase">Currently Learning</h3>
+                  <h3 className="font-mono text-xs text-accent tracking-widest uppercase">Currently</h3>
                 </div>
                 <ul className="space-y-2">
                   {LEARNING.map((item) => (

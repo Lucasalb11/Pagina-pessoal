@@ -1,26 +1,40 @@
 const SKILL_CATEGORIES = [
   {
     id:     "01",
-    title:  "Blockchain & Web3",
-    skills: ["Solidity", "Hardhat", "Foundry", "Smart Contracts", "DeFi", "Web3.js", "ethers.js"],
+    title:  "Blockchain & DeFi Engineering",
+    skills: ["Solidity", "Rust", "Foundry", "OpenZeppelin", "Soroban", "Thirdweb", "Git"],
     color:  "primary",
   },
   {
     id:     "02",
-    title:  "Rust Ecosystem",
-    skills: ["Rust", "Solana", "Anchor", "Soroban", "Stellar", "Cargo"],
+    title:  "Crypto Economics & Market Design",
+    skills: [
+      "Mechanism Design",
+      "Incentive Structures",
+      "Portfolio Theory",
+      "Liquidity Pool Dynamics",
+      "Capital Efficiency",
+      "Tokenomics",
+    ],
     color:  "accent",
   },
   {
     id:     "03",
-    title:  "Languages & Frontend",
-    skills: ["TypeScript", "JavaScript", "React", "Node.js", "HTML5", "CSS3"],
+    title:  "Ecosystems & Protocols",
+    skills: ["Ethereum", "Solana", "Anchor", "Stellar", "Base", "EVM", "Web3.js", "ethers.js"],
     color:  "primary",
   },
   {
     id:     "04",
-    title:  "Tooling & Focus Areas",
-    skills: ["Git", "Linux", "Privacy Tech", "Tokenomics", "On-chain Analytics", "Security Auditing"],
+    title:  "Leadership & Operations",
+    skills: [
+      "Project Leadership",
+      "Team Management",
+      "Negotiation",
+      "Budget Oversight",
+      "Risk Mitigation",
+      "Investor Relations",
+    ],
     color:  "accent",
   },
 ];
@@ -81,6 +95,23 @@ const Skills = () => {
                     cat.color === "primary" ? "bg-primary/40" : "bg-accent/40"
                   }`}
                 />
+              </div>
+            ))}
+          </div>
+
+          {/* Languages row */}
+          <div className="mt-6 p-5 rounded-xl bg-card border border-border flex flex-wrap items-center gap-4">
+            <span className="font-mono text-xs text-muted-foreground tracking-widest uppercase">Languages</span>
+            <div className="h-4 w-px bg-border" />
+            {[
+              { lang: "Portuguese", level: "Native" },
+              { lang: "English",    level: "B2" },
+            ].map(({ lang, level }) => (
+              <div key={lang} className="flex items-center gap-2">
+                <span className="text-sm text-foreground font-medium">{lang}</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-primary/10 text-primary border border-primary/20">
+                  {level}
+                </span>
               </div>
             ))}
           </div>

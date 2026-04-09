@@ -1,32 +1,59 @@
-import { GraduationCap, BookOpen, Award } from "lucide-react";
+import { GraduationCap, BookOpen, Award, Code2, Cpu } from "lucide-react";
 
 const EDUCATION = [
   {
     icon:        GraduationCap,
+    institution: "UFRPE",
+    title:       "Universidade Federal Rural de Pernambuco",
+    subtitle:    "Bachelor's in Computer Engineering",
+    description: "In progress. Core curriculum in algorithms, systems programming, distributed computing, and software engineering.",
+    tag:         "In Progress",
+    tagColor:    "accent",
+  },
+  {
+    icon:        GraduationCap,
     institution: "UFPE",
     title:       "Universidade Federal de Pernambuco",
-    subtitle:    "Ciências Econômicas",
-    description: "Formação em economia com foco em análise financeira e mercados. Base quantitativa aplicada ao desenvolvimento de protocolos DeFi.",
-    tag:         "Degree",
+    subtitle:    "Bachelor's in Economics — 2019/20",
+    description: "Formation in economic theory with focus on financial analysis and markets. Quantitative background applied to DeFi protocol design and tokenomics.",
+    tag:         "Completed",
+    tagColor:    "primary",
+  },
+  {
+    icon:        Cpu,
+    institution: "Ackee",
+    title:       "School of Solana — Ackee",
+    subtitle:    "Advanced Solana Development",
+    description: "In-depth Solana program development using Rust and Anchor framework. Covers PDAs, CPIs, token programs, and production-grade smart contract patterns.",
+    tag:         "Certification",
+    tagColor:    "primary",
+  },
+  {
+    icon:        Code2,
+    institution: "NearX",
+    title:       "NearX Academy",
+    subtitle:    "Rust Programming & WebAssembly Integration",
+    description: "Hands-on Rust fundamentals for blockchain tooling and WebAssembly targets. Applied to smart contract development on Soroban and Solana ecosystems.",
+    tag:         "Certification",
     tagColor:    "primary",
   },
   {
     icon:        Award,
     institution: "NearX",
     title:       "NearX Academy",
-    subtitle:    "Scale Web3 Developer Program",
-    description: "Intensive Web3 development program covering scaling strategies, DeFi architecture, and modern smart contract patterns.",
-    tag:         "Program",
-    tagColor:    "accent",
+    subtitle:    "Solidity 101",
+    description: "Foundational Solidity and EVM smart contract development covering security patterns, testing with Hardhat/Foundry, and OpenZeppelin standards.",
+    tag:         "Certification",
+    tagColor:    "primary",
   },
   {
     icon:        BookOpen,
-    institution: "Self",
-    title:       "The Rust Programming Language",
-    subtitle:    "Self-Study & Practice",
-    description: "Mastering Rust fundamentals for system-level programming, applied to Solana/Anchor development and blockchain tooling.",
-    tag:         "Self-study",
-    tagColor:    "primary",
+    institution: "DeFiverso",
+    title:       "DeFiverso",
+    subtitle:    "DeFi Research & Protocol Analysis",
+    description: "Deep-dive into DeFi protocol mechanics, whitepaper analysis, governance forums, and on-chain data interpretation. Liquidity pool dynamics and capital efficiency.",
+    tag:         "Program",
+    tagColor:    "accent",
   },
 ];
 
@@ -58,26 +85,26 @@ const Education = () => {
             {/* Vertical line */}
             <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
 
-            <div className="space-y-6">
-              {EDUCATION.map((item, index) => (
-                <div key={item.title} className="relative group">
+            <div className="space-y-5">
+              {EDUCATION.map((item) => (
+                <div key={`${item.institution}-${item.subtitle}`} className="relative group">
                   {/* Timeline dot */}
-                  <div className="absolute left-6 top-8 w-5 h-5 rounded-full bg-card border-2 border-primary hidden md:flex items-center justify-center z-10 group-hover:bg-primary transition-colors duration-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary group-hover:bg-primary-foreground transition-colors duration-300" />
+                  <div className="absolute left-6 top-7 w-5 h-5 rounded-full bg-card border-2 border-primary/50 hidden md:flex items-center justify-center z-10 group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors duration-300" />
                   </div>
 
-                  <div className="md:ml-20 p-6 rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 border-l-2 border-l-primary/30 hover:border-l-primary">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="md:ml-20 p-5 rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 border-l-2 border-l-primary/20 hover:border-l-primary/60">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div className="flex items-start gap-4 flex-1">
                         {/* Icon */}
-                        <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
+                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
                           <item.icon className="w-5 h-5 text-primary" />
                         </div>
 
                         {/* Text */}
                         <div className="space-y-1 flex-1">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <h3 className="font-bold text-foreground">{item.title}</h3>
+                            <h3 className="font-bold text-foreground text-sm">{item.title}</h3>
                             <span
                               className={`px-2 py-0.5 rounded text-[10px] font-mono font-medium uppercase tracking-wider
                                 ${item.tagColor === "primary"
@@ -89,12 +116,12 @@ const Education = () => {
                             </span>
                           </div>
                           <p className="text-primary text-sm font-medium">{item.subtitle}</p>
-                          <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                          <p className="text-muted-foreground text-xs leading-relaxed">{item.description}</p>
                         </div>
                       </div>
 
                       {/* Institution code */}
-                      <span className="font-mono text-3xl font-bold text-foreground/5 select-none shrink-0 self-end sm:self-start">
+                      <span className="font-mono text-3xl font-bold text-foreground/4 select-none shrink-0 self-end sm:self-start">
                         {item.institution}
                       </span>
                     </div>
