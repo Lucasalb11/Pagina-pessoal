@@ -106,7 +106,7 @@ const Projects = () => {
 
           {/* Header */}
           <div className="relative mb-2">
-            <span className="section-number select-none absolute -top-4 left-0 leading-none">03</span>
+            <span className="section-number select-none absolute -top-4 left-0 leading-none">04</span>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-px bg-primary" />

@@ -49,7 +49,7 @@ const Skills = () => {
 
           {/* Section header */}
           <div className="flex items-end gap-6 mb-16 relative">
-            <span className="section-number select-none absolute -top-4 left-0 leading-none">02</span>
+            <span className="section-number select-none absolute -top-4 left-0 leading-none">03</span>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-px bg-primary" />

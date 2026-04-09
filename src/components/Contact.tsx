@@ -34,7 +34,7 @@ const Contact = () => {
 
           {/* Section header */}
           <div className="flex items-end gap-6 mb-16 relative">
-            <span className="section-number select-none absolute -top-4 left-0 leading-none">05</span>
+            <span className="section-number select-none absolute -top-4 left-0 leading-none">06</span>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-px bg-primary" />
@@ -110,9 +110,18 @@ const Contact = () => {
                     Send an Email
                   </a>
                 </div>
-                <p className="text-xs text-muted-foreground text-center pt-2">
-                  Remote-friendly · Usually responds within 24h
-                </p>
+                <div className="pt-2 space-y-1.5 border-t border-border">
+                  <p className="text-xs text-muted-foreground text-center">
+                    Remote-friendly · Usually responds within 24h
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {["Full-time", "Freelance", "Audits", "Consulting"].map((t) => (
+                      <span key={t} className="text-[10px] font-mono px-2 py-0.5 rounded bg-primary/5 border border-primary/15 text-primary/70">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

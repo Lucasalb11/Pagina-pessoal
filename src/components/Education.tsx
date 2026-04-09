@@ -15,8 +15,8 @@ const EDUCATION = [
     institution: "UFPE",
     title:       "Universidade Federal de Pernambuco",
     subtitle:    "Bachelor's in Economics — 2019/20",
-    description: "Formation in economic theory with focus on financial analysis and markets. Quantitative background applied to DeFi protocol design and tokenomics.",
-    tag:         "Completed",
+    description: "Attended but did not complete the degree. Strong foundation in economic theory, financial analysis, and quantitative modeling — directly applied to DeFi protocol design and tokenomics research.",
+    tag:         "Incomplete",
     tagColor:    "primary",
   },
   {
@@ -67,7 +67,7 @@ const Education = () => {
 
           {/* Section header */}
           <div className="flex items-end gap-6 mb-16 relative">
-            <span className="section-number select-none absolute -top-4 left-0 leading-none">04</span>
+            <span className="section-number select-none absolute -top-4 left-0 leading-none">05</span>
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-px bg-primary" />
