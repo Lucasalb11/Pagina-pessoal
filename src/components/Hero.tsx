@@ -1,6 +1,5 @@
 import { Github, Linkedin, Mail, ChevronDown, ArrowRight, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
-import profileImage from "@/assets/profile.jpeg";
 
 const STATS = [
   { value: "22+", label: "Repositories" },
@@ -147,32 +146,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ── Right: photo + chain terminal ── */}
-          <div className="order-1 lg:order-2 flex flex-col items-center gap-5">
-
-            {/* Profile photo */}
-            <div className="relative animate-float">
-              {/* Decorative ring */}
-              <div className="absolute inset-0 rounded-2xl border border-primary/20 scale-105 animate-pulse" />
-
-              <div className="relative w-64 h-[300px] rounded-2xl overflow-hidden border-2 border-primary/30 shadow-[0_0_80px_hsl(22_100%_55%/0.2)]">
-                <img
-                  src={profileImage}
-                  alt="Lucas de Almeida"
-                  className="w-full h-full object-cover object-top"
-                />
-                {/* Subtle gradient overlay at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background/60 to-transparent" />
-              </div>
-
-              {/* Floating badges */}
-              <div className="absolute -top-3 -right-4 px-2.5 py-1 bg-card border border-primary/40 rounded-lg shadow-lg">
-                <span className="font-mono text-[11px] text-primary font-medium">Solidity ⟶</span>
-              </div>
-              <div className="absolute -bottom-3 -left-4 px-2.5 py-1 bg-card border border-accent/40 rounded-lg shadow-lg">
-                <span className="font-mono text-[11px] text-accent font-medium">⟵ Rust</span>
-              </div>
-            </div>
+          {/* ── Right: chain terminal ── */}
+          <div className="order-1 lg:order-2 flex flex-col items-center justify-center animate-float">
 
             {/* Chain status card with tooltips */}
             <div className="w-full max-w-[280px] rounded-xl border border-border bg-card overflow-hidden shadow-[0_0_40px_hsl(22_100%_55%/0.05)]">
