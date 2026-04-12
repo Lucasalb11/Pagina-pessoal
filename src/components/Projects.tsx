@@ -110,20 +110,27 @@ const Projects = () => {
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-px bg-primary" />
-                <span className="font-mono text-xs text-primary tracking-[0.2em] uppercase">Projects</span>
+                <span className="font-mono text-xs text-primary tracking-[0.2em] uppercase">Products & Open Source</span>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                <h2 className="text-4xl md:text-5xl font-bold">
-                  Featured <span className="text-gradient">Work</span>
-                </h2>
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold">
+                    Things I've{" "}
+                    <span className="text-gradient">Shipped</span>
+                  </h2>
+                  <p className="text-muted-foreground text-sm mt-2 max-w-lg">
+                    Real products, tools, and experiments — built to solve actual problems
+                    on-chain. Not just code exercises.
+                  </p>
+                </div>
                 <div className="flex items-center gap-3 flex-wrap">
                   <Badge variant="outline" className="bg-primary/5 border-primary/30">
                     <Shield className="w-3 h-3 mr-1" />
-                    Security Audited
+                    Open Source
                   </Badge>
                   <Badge variant="outline" className="bg-accent/5 border-accent/20 text-accent">
                     <Zap className="w-3 h-3 mr-1" />
-                    Production Ready
+                    Live Builds
                   </Badge>
                   <Button
                     variant="outline"
