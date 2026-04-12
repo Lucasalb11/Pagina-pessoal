@@ -80,10 +80,12 @@ const Hero = () => (
 
           {/* Value proposition */}
           <p className="text-muted-foreground text-base md:text-lg max-w-xl leading-relaxed">
-            Web3 builder with a background in real-world business, focused on understanding{" "}
-            <span className="text-foreground font-semibold">capital flows</span>{" "}
-            and building tools that create{" "}
-            <span className="text-primary font-medium">edge</span>.
+            Web3 builder with real-world business experience.<br />
+            Building tools and products that{" "}
+            <span className="text-foreground font-semibold">decode capital flows</span>{" "}
+            and deliver tools & products that{" "}
+            <span className="text-primary font-medium">actually matter</span>{" "}
+            in the real world.
           </p>
 
           {/* Credibility badges */}
@@ -222,25 +224,6 @@ const Hero = () => (
             </div>
           </div>
 
-          {/* Currently building card */}
-          <div className="w-full max-w-[300px] rounded-xl border border-accent/25 bg-accent/5 p-4 font-mono">
-            <div className="flex items-center gap-2 mb-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-              <span className="text-accent text-[10px] tracking-wider uppercase">Currently Building</span>
-            </div>
-            <p className="text-foreground font-semibold text-xs mb-1.5">On-chain Wallet Intelligence</p>
-            <p className="text-muted-foreground text-[11px] leading-relaxed">
-              DeFi tracker that surfaces wallet behavior patterns and identifies profitable
-              on-chain strategies.
-            </p>
-            <div className="flex gap-1 mt-3">
-              {["Rust", "Solana", "React"].map((t) => (
-                <span key={t} className="px-1.5 py-0.5 bg-accent/10 text-accent text-[9px] rounded border border-accent/20">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
