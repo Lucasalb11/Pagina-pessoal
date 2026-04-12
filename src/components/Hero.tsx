@@ -80,12 +80,10 @@ const Hero = () => (
 
           {/* Value proposition */}
           <p className="text-muted-foreground text-base md:text-lg max-w-xl leading-relaxed">
-            I build{" "}
-            <span className="text-foreground font-semibold">on-chain intelligence tools</span>{" "}
-            that track capital, surface alpha, and close the gap between DeFi and real-world
-            finance. Combining{" "}
-            <span className="text-primary font-medium">7+ years of operational execution</span>{" "}
-            with hands-on blockchain engineering.
+            Web3 builder with a background in real-world business, focused on understanding{" "}
+            <span className="text-foreground font-semibold">capital flows</span>{" "}
+            and building tools that create{" "}
+            <span className="text-primary font-medium">edge</span>.
           </p>
 
           {/* Credibility badges */}
