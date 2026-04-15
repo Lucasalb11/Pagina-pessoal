@@ -83,7 +83,7 @@ const Hero = () => (
             Web3 builder with real-world business experience.<br />
             Building tools and products that{" "}
             <span className="text-foreground font-semibold">decode capital flows</span>{" "}
-            and deliver tools & products that{" "}
+            and dapps that{" "}
             <span className="text-primary font-medium">actually matter</span>{" "}
             in the real world.
           </p>
