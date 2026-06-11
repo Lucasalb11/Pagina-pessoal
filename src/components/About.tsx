@@ -6,7 +6,7 @@ const CHAPTERS = [
     number:  "01",
     icon:    Building2,
     title:   "Built Real Businesses First",
-    period:  "2017 — 2024",
+    period:  "2019 — 2025",
     body:    "Co-founded a real estate development company from scratch. Led teams of 100+ people. Orchestrated 12 simultaneous construction projects across Caruaru and Recife. Secured institutional financing through Caixa Econômica Federal. I learned what real execution looks like — under pressure, with actual capital on the line, and no tolerance for theory without practice.",
     accent:  "primary" as const,
   },

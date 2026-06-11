@@ -16,6 +16,7 @@ const EXPERIENCE = [
       "22+ open-source repositories shipped on GitHub",
       "Solana certified — School of Solana (Ackee Blockchain)",
       "Whitepaper analysis, protocol governance, and on-chain data research",
+      "Mentored peers on DeFi onboarding, risk management, and portfolio structuring",
     ],
   },
   {
@@ -29,10 +30,10 @@ const EXPERIENCE = [
     description:
       "Built a construction company from zero. Not a side project — a real business with payroll, bank debt, legal complexity, and 100+ people depending on decisions I made. That pressure is what shaped how I think about risk, capital, and product.",
     highlights: [
-      "Orchestrated 12 simultaneous construction projects across the region",
-      "Led and scaled a workforce of 100+ employees",
-      "Secured institutional financing through Caixa Econômica Federal",
-      "Developed economic feasibility models and investor-grade project plans",
+      "Directed 12 concurrent projects, managing 100+ staff across engineering and architecture teams — all delivered on schedule and within budget",
+      "Secured institutional financing from Caixa Econômica Federal for high-value housing developments",
+      "Created detailed economic feasibility studies that enabled additional launches and improved projected ROI",
+      "Managed full project lifecycle: land acquisition, budget oversight, investor relations, and risk mitigation",
     ],
   },
 ];

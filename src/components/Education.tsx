@@ -58,7 +58,7 @@ const FORMAL = [
   {
     institution: "UFRPE",
     title:       "Bachelor's in Computer Engineering",
-    subtitle:    "Universidade Federal Rural de Pernambuco",
+    subtitle:    "Universidade Federal Rural de Pernambuco · Feb 2026 – Dec 2030",
     tag:         "In Progress",
   },
   {
