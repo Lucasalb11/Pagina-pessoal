@@ -1,47 +1,78 @@
-import { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Github, ExternalLink, Star, GitFork, Loader2, Code2, Shield, Zap, RefreshCw } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  Github,
+  ExternalLink,
+  Star,
+  GitFork,
+  Loader2,
+  Code2,
+  RefreshCw,
+  ArrowUpRight,
+  Sparkles,
+} from "lucide-react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { fetchGitHubRepos, enrichReposWithImages, Project } from "@/lib/github";
 import { useProjects } from "@/hooks/useProjects";
 import { toast } from "sonner";
+import { Reveal } from "@/components/motion/Reveal";
 
 const GITHUB_USERNAME = "Lucasalb11";
 
+/** Curated featured ships — shown first, always. */
+const FEATURED: Array<{
+  title: string;
+  tag: string;
+  description: string;
+  tech: string[];
+  link: string;
+  metric: string;
+  metricLabel: string;
+  context: string;
+}> = [
+  {
+    title: "Structa.finance",
+    tag: "Solana Frontier Hackathon",
+    description:
+      "On-chain structured products platform built on Solana. Programmable yield strategies with transparent risk profiles — bringing TradFi-grade structuring to DeFi.",
+    tech: ["Rust", "Anchor", "Solana", "TypeScript", "React"],
+    link: "https://github.com/Lucasalb11/structa-finance",
+    metric: "Hackathon",
+    metricLabel: "Solana Frontier",
+    context: "Hackathon build · Rust + Anchor",
+  },
+];
+
 const MARQUEE_ITEMS = [
   "Solidity", "Rust", "Web3", "DeFi", "Smart Contracts", "Solana", "Anchor",
-  "Ethereum", "Foundry", "Hardhat", "Soroban", "Stellar", "EVM",
-  "TypeScript", "React", "Node.js", "On-Chain Analytics", "Tokenomics",
+  "Ethereum", "Foundry", "Soroban", "Stellar", "EVM",
+  "TypeScript", "React", "On-Chain Analytics", "Tokenomics",
 ];
 
 const CATEGORIES = [
-  { label: "All", value: "all" },
-  {
-    label: "Blockchain",
-    value: "blockchain",
-    keywords: ["solidity", "ethereum", "evm", "hardhat", "foundry", "smart-contract", "blockchain", "web3"],
-  },
-  {
-    label: "Rust · Solana",
-    value: "solana",
-    keywords: ["rust", "solana", "anchor", "soroban", "stellar"],
-  },
-  {
-    label: "DeFi",
-    value: "defi",
-    keywords: ["defi", "protocol", "amm", "swap", "liquidity", "yield", "finance"],
-  },
+  { label: "All",           value: "all" },
+  { label: "Blockchain",    value: "blockchain", keywords: ["solidity", "ethereum", "evm", "hardhat", "foundry", "smart-contract", "blockchain", "web3"] },
+  { label: "Rust · Solana", value: "solana",     keywords: ["rust", "solana", "anchor", "soroban", "stellar"] },
+  { label: "DeFi",          value: "defi",       keywords: ["defi", "protocol", "amm", "swap", "liquidity", "yield", "finance"] },
 ];
 
+/** Drop noise: undescribed repos, Jupyter notebooks, tutorial dumps. */
+const isQualityProject = (p: Project) => {
+  if (!p.description || p.description === "No description available") return false;
+  const lang = (p.language || "").toLowerCase();
+  if (lang === "jupyter notebook" || lang === "html") return false;
+  const ttl = p.title.toLowerCase();
+  if (/(tutorial|exercise|playground|test|demo|hello)/.test(ttl)) return false;
+  return true;
+};
+
 const isBlockchainProject = (project: Project) => {
-  const blockchainKeywords = [
+  const kw = [
     "blockchain", "solidity", "smart-contract", "defi", "web3", "ethereum",
     "solana", "stellar", "soroban", "rust", "anchor", "hardhat", "foundry",
   ];
-  const searchText = `${project.title} ${project.description} ${project.tech.join(" ")}`.toLowerCase();
-  return blockchainKeywords.some((kw) => searchText.includes(kw));
+  const t = `${project.title} ${project.description} ${project.tech.join(" ")}`.toLowerCase();
+  return kw.some((k) => t.includes(k));
 };
 
 const Projects = () => {
@@ -68,115 +99,155 @@ const Projects = () => {
 
   useEffect(() => {
     if (!githubRepos || githubRepos.length === 0) return;
-
-    // Show repos immediately, then enrich with images in background
     setGitHubProjects(githubRepos);
     setIsEnrichingImages(true);
-
     enrichReposWithImages(githubRepos, GITHUB_USERNAME)
-      .then((enriched) => {
-        setGitHubProjects(enriched);
-      })
-      .catch(() => {
-        // Images failed — keep repos without images
-      })
+      .then((enriched) => setGitHubProjects(enriched))
+      .catch(() => {})
       .finally(() => setIsEnrichingImages(false));
   }, [githubRepos, setGitHubProjects]);
 
   const isLoading = loading || isLoadingRepos;
 
+  const qualityProjects = projects.filter(isQualityProject);
+
   const filteredProjects =
     activeFilter === "all"
-      ? projects
-      : projects.filter((p) => {
+      ? qualityProjects
+      : qualityProjects.filter((p) => {
           const category = CATEGORIES.find((c) => c.value === activeFilter);
           if (!category || !("keywords" in category)) return false;
-          const searchText =
-            `${p.title} ${p.description} ${p.tech.join(" ")} ${p.topics.join(" ")}`.toLowerCase();
-          return (category as { keywords: string[] }).keywords.some((kw) => searchText.includes(kw));
+          const t = `${p.title} ${p.description} ${p.tech.join(" ")} ${p.topics.join(" ")}`.toLowerCase();
+          return (category as { keywords: string[] }).keywords.some((kw) => t.includes(kw));
         });
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-primary/4 rounded-full blur-[140px] pointer-events-none" />
+    <section id="projects" className="py-32 relative overflow-hidden">
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-7xl mx-auto space-y-10">
+      <div className="absolute top-12 left-4 sm:left-12 section-marker">04</div>
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="max-w-[1400px] mx-auto">
 
           {/* Header */}
-          <div className="relative mb-2">
-            <span className="section-number select-none absolute -top-4 left-0 leading-none">04</span>
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-px bg-primary" />
-                <span className="font-mono text-xs text-primary tracking-[0.2em] uppercase">Products & Open Source</span>
-              </div>
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-                <div>
-                  <h2 className="text-4xl md:text-5xl font-bold">
-                    Things I've{" "}
-                    <span className="text-gradient">Shipped</span>
-                  </h2>
-                  <p className="text-muted-foreground text-sm mt-2 max-w-lg">
-                    Real products, tools, and experiments — built to solve actual problems
-                    on-chain. Not just code exercises.
-                  </p>
-                </div>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <Badge variant="outline" className="bg-primary/5 border-primary/30">
-                    <Shield className="w-3 h-3 mr-1" />
-                    Open Source
-                  </Badge>
-                  <Badge variant="outline" className="bg-accent/5 border-accent/20 text-accent">
-                    <Zap className="w-3 h-3 mr-1" />
-                    Live Builds
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleRefresh}
-                    disabled={isLoading || isEnrichingImages}
-                    className="bg-background/50 hover:bg-primary/10 hover:border-primary/50"
-                  >
-                    <RefreshCw className={`w-3 h-3 mr-1 ${isLoading || isEnrichingImages ? "animate-spin" : ""}`} />
-                    {isEnrichingImages ? "Loading images…" : "Refresh"}
-                  </Button>
-                </div>
-              </div>
+          <Reveal className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="w-12 h-px bg-primary" />
+              <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase">Products · Ships</span>
             </div>
-          </div>
+            <div className="flex items-end justify-between gap-6 flex-wrap">
+              <h2 className="text-display text-5xl sm:text-7xl lg:text-[7rem] leading-[0.9]">
+                Things I've<br />
+                <span className="font-serif italic font-normal text-muted-foreground/80">shipped.</span>
+              </h2>
+              <button
+                onClick={handleRefresh}
+                disabled={isLoading || isEnrichingImages}
+                data-cursor="hover"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card/60 backdrop-blur text-sm text-foreground hover:border-primary/40 hover:bg-primary/10 transition-all disabled:opacity-50"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoading || isEnrichingImages ? "animate-spin" : ""}`} />
+                {isEnrichingImages ? "Enriching…" : "Sync"}
+              </button>
+            </div>
+          </Reveal>
 
-          {/* Marquee strip */}
-          <div className="relative overflow-hidden border-y border-primary/20 py-3 bg-primary/5 -mx-4">
+          {/* Featured curated ships */}
+          <Reveal className="mb-16">
+            <div className="flex items-center gap-3 mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase">Featured</span>
+            </div>
+            <div className="grid lg:grid-cols-2 gap-4 lg:gap-6">
+              {FEATURED.map((f) => (
+                <a
+                  key={f.title}
+                  href={f.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  data-cursor-label={f.title}
+                  className="group relative grid sm:grid-cols-[1fr_auto] gap-6 p-6 lg:p-8 rounded-3xl border border-primary/25 bg-gradient-to-br from-primary/[0.08] via-card/60 to-transparent backdrop-blur-sm overflow-hidden hover:border-primary/50 transition-all"
+                >
+                  <div className="absolute -top-20 -right-20 w-[300px] h-[300px] bg-primary/30 rounded-full blur-[120px] pointer-events-none opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
+                  <div className="relative">
+                    <div className="flex items-center gap-2 mb-4 flex-wrap">
+                      <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase px-2 py-1 bg-primary/10 border border-primary/30 rounded-full">
+                        Featured
+                      </span>
+                      <span className="font-mono text-[10px] text-muted-foreground tracking-[0.25em] uppercase">
+                        {f.tag}
+                      </span>
+                    </div>
+                    <h3 className="text-display text-3xl lg:text-4xl leading-tight mb-2 group-hover:text-primary transition-colors">
+                      {f.title}
+                    </h3>
+                    <p className="font-mono text-[10px] text-muted-foreground tracking-wider uppercase mb-4">
+                      {f.context}
+                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5 max-w-md">
+                      {f.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {f.tech.map((t) => (
+                        <span key={t} className="px-2.5 py-1 rounded-full text-[10px] font-mono text-foreground/70 bg-secondary/60 border border-border/60">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="relative flex flex-col items-end justify-between gap-4">
+                    <ArrowUpRight className="w-5 h-5 text-foreground/60 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+                    <div className="text-right">
+                      <div className="font-display text-xl lg:text-2xl font-bold text-primary leading-none">
+                        {f.metric}
+                      </div>
+                      <div className="mt-1 font-mono text-[9px] tracking-[0.25em] uppercase text-muted-foreground">
+                        {f.metricLabel}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </Reveal>
+
+          {/* Marquee */}
+          <div className="relative overflow-hidden border-y border-border py-4 mb-12 -mx-4 sm:-mx-6">
             <div className="flex animate-marquee whitespace-nowrap">
               {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
-                <span key={i} className="mx-6 text-sm text-primary/70 font-mono tracking-wide">
-                  {item}{" "}
-                  <span className="text-primary/30 mx-1">·</span>
+                <span key={i} className="mx-8 text-base font-serif italic text-muted-foreground">
+                  {item}
+                  <span className="ml-8 text-primary">●</span>
                 </span>
               ))}
             </div>
           </div>
 
-          {/* Filter tabs */}
-          <div className="flex gap-2 flex-wrap justify-center">
-            {CATEGORIES.map((cat) => (
-              <Button
-                key={cat.value}
-                variant={activeFilter === cat.value ? "default" : "outline"}
-                size="sm"
-                onClick={() => setActiveFilter(cat.value)}
-                className={
-                  activeFilter === cat.value
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-primary/10 hover:border-primary/50"
-                }
-              >
-                {cat.label}
-              </Button>
-            ))}
-          </div>
+          {/* Filter pills */}
+          <Reveal className="mb-8">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.value}
+                    onClick={() => setActiveFilter(cat.value)}
+                    data-cursor="hover"
+                    className={`px-4 py-2 rounded-full text-sm transition-all border ${
+                      activeFilter === cat.value
+                        ? "bg-foreground text-background border-foreground"
+                        : "bg-card/40 text-muted-foreground border-border hover:border-foreground/40 hover:text-foreground"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-muted-foreground/60">
+                More open-source on GitHub
+              </p>
+            </div>
+          </Reveal>
 
           {/* Content */}
           {isLoading ? (
@@ -191,188 +262,130 @@ const Projects = () => {
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProjects.map((project) => {
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+                {filteredProjects.map((project, i) => {
                   const isBlockchain = isBlockchainProject(project);
+                  const tilt = i % 3 === 0 ? -1.5 : i % 3 === 1 ? 0 : 1.5;
                   return (
-                    <Card
-                      key={project.id}
-                      className={`bg-card/60 backdrop-blur border-border hover:border-primary/50 transition-all duration-300 hover:glow-primary group h-full flex flex-col relative overflow-hidden ${
-                        isBlockchain ? "ring-1 ring-primary/20" : ""
-                      }`}
-                    >
-                      {/* Blockchain badge */}
-                      {isBlockchain && (
-                        <div className="absolute top-3 right-3 z-20">
-                          <Badge
-                            variant="secondary"
-                            className="bg-primary/20 text-primary border-primary/30 text-xs"
-                          >
-                            <Shield className="w-3 h-3 mr-1" />
-                            Blockchain
-                          </Badge>
-                        </div>
-                      )}
-
-                      {/* Image section with hover overlay */}
-                      <div className="relative w-full h-48 overflow-hidden shrink-0">
-                        {project.image ? (
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                            <Code2 className="w-16 h-16 text-primary/30" />
-                          </div>
-                        )}
-
-                        {/* Hover overlay with action buttons */}
-                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                          <Button size="sm" className="bg-primary hover:bg-primary/90 shadow-lg" asChild>
-                            <a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label="View source code"
-                            >
-                              <Github className="w-4 h-4 mr-1.5" />
-                              Code
-                            </a>
-                          </Button>
-                          {project.homepage && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-white/30 hover:bg-white/10 text-white shadow-lg"
-                              asChild
-                            >
-                              <a
-                                href={project.homepage}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="View live demo"
-                              >
-                                <ExternalLink className="w-4 h-4 mr-1.5" />
-                                Demo
-                              </a>
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Card body */}
-                      <div className="p-6 space-y-4 flex-1 flex flex-col">
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="text-lg font-bold group-hover:text-gradient transition-smooth flex-1 leading-tight">
-                            {project.title}
-                          </h3>
-                          {project.language && (
-                            <Badge variant="secondary" className="text-xs shrink-0 bg-secondary/80">
-                              {project.language}
-                            </Badge>
-                          )}
-                        </div>
-
-                        <p className="text-muted-foreground text-sm line-clamp-3 flex-1 leading-relaxed">
-                          {project.description}
-                        </p>
-
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.tech.slice(0, 4).map((tech) => (
-                            <Badge
-                              key={tech}
-                              variant="outline"
-                              className="text-xs bg-primary/5 text-primary border-primary/20 hover:bg-primary/10 transition-colors"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                          {project.tech.length > 4 && (
-                            <Badge variant="outline" className="text-xs text-muted-foreground">
-                              +{project.tech.length - 4}
-                            </Badge>
-                          )}
-                        </div>
-
-                        <div className="flex items-center justify-between pt-3 border-t border-border">
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1 hover:text-primary transition-colors">
-                              <Star className="w-4 h-4" />
-                              <span className="font-medium">{project.stars}</span>
+                    <Reveal key={project.id} delay={(i % 6) * 0.05}>
+                      <motion.a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ y: -8, rotate: 0 }}
+                        initial={{ rotate: tilt }}
+                        transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                        data-cursor="hover"
+                        data-cursor-label={project.title}
+                        className="group block h-full relative rounded-3xl overflow-hidden border border-border bg-card/60 backdrop-blur-sm hover:border-primary/40 hover:shadow-[0_30px_60px_-20px_hsl(var(--primary)/0.4),_0_0_0_1px_hsl(var(--primary)/0.15)] transition-shadow duration-500"
+                      >
+                        <div className="relative w-full aspect-[16/10] overflow-hidden">
+                          {project.image ? (
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-primary/15 via-background to-accent/10 flex items-center justify-center">
+                              <Code2 className="w-12 h-12 text-foreground/20" />
                             </div>
-                            <div className="flex items-center gap-1 hover:text-primary transition-colors">
-                              <GitFork className="w-4 h-4" />
-                              <span className="font-medium">{project.forks}</span>
-                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
+
+                          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-background/80 backdrop-blur border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <ArrowUpRight className="w-3.5 h-3.5 text-foreground" />
                           </div>
-                          <div className="flex gap-2">
-                            {project.homepage && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="hover:bg-primary/10 hover:text-primary"
-                                asChild
-                              >
-                                <a
-                                  href={project.homepage}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  aria-label="Visit homepage"
-                                >
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              </Button>
+
+                          {isBlockchain && (
+                            <div className="absolute top-3 left-3 px-2 py-1 rounded-full bg-primary/90 text-primary-foreground text-[9px] font-mono tracking-wider uppercase">
+                              ⬢ Chain
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="p-5 space-y-3">
+                          <div className="flex items-start justify-between gap-3">
+                            <h3 className="font-display text-lg font-semibold text-foreground leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                              {project.title}
+                            </h3>
+                            {project.language && (
+                              <span className="shrink-0 text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full border border-border text-muted-foreground">
+                                {project.language}
+                              </span>
                             )}
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="hover:bg-primary/10 hover:border-primary/50 hover:text-primary"
-                              asChild
-                            >
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="View on GitHub"
-                              >
-                                <Github className="w-4 h-4" />
-                              </a>
-                            </Button>
+                          </div>
+
+                          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                            {project.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-1">
+                            {project.tech.slice(0, 3).map((t) => (
+                              <span key={t} className="text-[10px] font-mono px-1.5 py-0.5 rounded text-foreground/60 bg-secondary/60">
+                                {t}
+                              </span>
+                            ))}
+                            {project.tech.length > 3 && (
+                              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded text-muted-foreground/60">
+                                +{project.tech.length - 3}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="flex items-center justify-between pt-3 border-t border-border/60">
+                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                              <span className="flex items-center gap-1">
+                                <Star className="w-3 h-3" /> {project.stars}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <GitFork className="w-3 h-3" /> {project.forks}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              {project.homepage && (
+                                <span
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    window.open(project.homepage, "_blank");
+                                  }}
+                                  className="w-7 h-7 rounded-full border border-border flex items-center justify-center hover:bg-primary/10 hover:border-primary/40 hover:text-primary text-muted-foreground transition-all cursor-pointer"
+                                  aria-label="Live demo"
+                                >
+                                  <ExternalLink className="w-3 h-3" />
+                                </span>
+                              )}
+                              <span className="w-7 h-7 rounded-full border border-border flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
+                                <Github className="w-3 h-3" />
+                              </span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Card>
+                      </motion.a>
+                    </Reveal>
                   );
                 })}
               </div>
 
-              <div className="text-center space-y-3 pt-4">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="hover:bg-primary/10 hover:border-primary/50"
-                  asChild
+              <Reveal className="mt-16 text-center">
+                <a
+                  href={`https://github.com/${GITHUB_USERNAME}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cursor="hover"
+                  className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border bg-card/40 text-foreground font-medium hover:border-primary/50 hover:bg-primary/10 transition-all"
                 >
-                  <a
-                    href={`https://github.com/${GITHUB_USERNAME}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="w-5 h-5 mr-2" />
-                    View All Projects on GitHub
-                  </a>
-                </Button>
-                <p className="text-xs text-muted-foreground">
-                  {filteredProjects.length}{" "}
-                  {filteredProjects.length === 1 ? "project" : "projects"} displayed
-                  {isEnrichingImages && (
-                    <span className="ml-2 text-primary/50">· loading preview images…</span>
-                  )}
+                  <Github className="w-4 h-4" />
+                  See all on GitHub
+                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+                <p className="text-xs text-muted-foreground mt-4 font-mono tracking-wider">
+                  {filteredProjects.length} {filteredProjects.length === 1 ? "project" : "projects"} shown
+                  {isEnrichingImages && <span className="ml-2 text-primary/60">· enriching previews…</span>}
                 </p>
-              </div>
+              </Reveal>
             </>
           )}
         </div>

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Logo from "@/components/brand/Logo";
 
 const NAV_LINKS = [
-  { label: "Story",        href: "#about" },
-  { label: "Experience",   href: "#experience" },
-  { label: "Products",     href: "#projects" },
-  { label: "Proof of Work", href: "#education" },
-  { label: "Contact",      href: "#contact" },
+  { label: "Story",      href: "#about" },
+  { label: "Work",       href: "#experience" },
+  { label: "Products",   href: "#projects" },
+  { label: "Proof",      href: "#education" },
+  { label: "Signal",     href: "#signal" },
 ];
 
 const Navbar = () => {
@@ -14,7 +16,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -26,85 +28,93 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border"
-          : "bg-transparent"
-      }`}
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1.5rem)] sm:w-auto max-w-5xl"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-mono font-bold text-lg tracking-wider hover:text-primary transition-colors"
-          >
-            LUCAS<span className="text-primary">.</span>
-          </button>
+      <div
+        className={`flex items-center justify-between gap-2 sm:gap-6 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full border transition-all duration-500 ${
+          scrolled
+            ? "bg-background/75 backdrop-blur-xl border-border/80 shadow-[0_8px_40px_-12px_hsl(0_0%_0%/0.8)]"
+            : "bg-background/40 backdrop-blur-md border-border/40"
+        }`}
+      >
+        {/* Logo */}
+        <Logo
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="pl-1 pr-1 sm:pr-3"
+          size={26}
+        />
 
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleLink(link.href)}
-                className="relative text-sm text-muted-foreground hover:text-foreground transition-colors group"
-              >
-                {link.label}
-                <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-              </button>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            <a
-              href="https://github.com/Lucasalb11"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-1.5 text-sm font-medium border border-primary/50 text-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => handleLink(link.href)}
+              data-cursor="hover"
+              className="relative px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full"
             >
-              GitHub
-            </a>
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden text-muted-foreground hover:text-foreground transition-colors"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+              {link.label}
+            </button>
+          ))}
         </div>
+
+        {/* Contact CTA */}
+        <button
+          onClick={() => handleLink("#contact")}
+          data-cursor="hover"
+          data-cursor-label="Reach out"
+          data-magnetic
+          className="hidden md:inline-flex items-center gap-1.5 pl-4 pr-3 py-1.5 text-sm font-medium bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-all duration-200 shadow-[0_0_24px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_32px_hsl(var(--primary)/0.6)] shrink-0"
+        >
+          Contact
+          <ArrowUpRight className="w-3.5 h-3.5" />
+        </button>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+        >
+          {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+        </button>
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-card/95 backdrop-blur-md border-b border-border">
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
-            {NAV_LINKS.map((link) => (
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden mt-2 p-3 rounded-3xl bg-background/95 backdrop-blur-xl border border-border shadow-2xl"
+          >
+            <div className="flex flex-col gap-1">
+              {NAV_LINKS.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => handleLink(link.href)}
+                  className="text-left px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-2xl transition-colors"
+                >
+                  {link.label}
+                </button>
+              ))}
               <button
-                key={link.href}
-                onClick={() => handleLink(link.href)}
-                className="text-left text-muted-foreground hover:text-primary transition-colors py-1 font-medium"
+                onClick={() => handleLink("#contact")}
+                className="mt-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium bg-primary text-primary-foreground rounded-2xl"
               >
-                {link.label}
+                Contact <ArrowUpRight className="w-3.5 h-3.5" />
               </button>
-            ))}
-            <a
-              href="https://github.com/Lucasalb11"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 text-center px-4 py-2 text-sm font-medium border border-primary/50 text-primary rounded-md hover:bg-primary hover:text-primary-foreground transition-all"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
-      )}
-    </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

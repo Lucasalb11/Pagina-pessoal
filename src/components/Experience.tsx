@@ -1,145 +1,158 @@
-import { Building2, TrendingUp, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Briefcase } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 
 const EXPERIENCE = [
   {
-    icon:        TrendingUp,
-    company:     "Independent",
-    role:        "Web3 Builder & DeFi Researcher",
-    period:      "2023 — Present",
-    location:    "Remote",
-    type:        "Current",
-    typeColor:   "accent" as const,
-    description:
-      "Building on-chain products and researching DeFi protocols across Ethereum, Solana, Stellar, and Base. Developing smart contracts, shipping open-source tools, and entering hackathons. This isn't a side hobby — it's the main act.",
-    highlights: [
-      "Active across 4 blockchain ecosystems — Ethereum, Solana, Stellar, Base",
-      "22+ open-source repositories shipped on GitHub",
-      "Solana certified — School of Solana (Ackee Blockchain)",
-      "Whitepaper analysis, protocol governance, and on-chain data research",
-      "Mentored peers on DeFi onboarding, risk management, and portfolio structuring",
+    label:    "Current",
+    company:  "Independent",
+    role:     "Web3 Builder & DeFi Researcher",
+    period:   "2023 — Present",
+    yearTag:  "Now",
+    body:     "Building on-chain products across Solana, Stellar, Base and Ethereum. Shipping open-source tooling, competing in hackathons (Solana Frontier, Solana House), researching DeFi protocols full-time.",
+    outcomes: [
+      { k: "Ackee",     v: "School of Solana"  },
+      { k: "Rust · EVM", v: "Smart contract stack" },
+      { k: "Structa",   v: "Hackathon ship"    },
     ],
+    highlights: [
+      "Built Structa.finance at Solana Frontier hackathon",
+      "Solana certified — School of Solana (Ackee)",
+      "Active across Solana, Stellar, Base, EVM",
+      "Whitepaper, governance, on-chain data research",
+    ],
+    accent: "primary" as const,
   },
   {
-    icon:        Building2,
-    company:     "Arcos Construtora",
-    role:        "Co-Founder & Director",
-    period:      "2019 — 2025",
-    location:    "Caruaru, Brazil",
-    type:        "6 Years",
-    typeColor:   "primary" as const,
-    description:
-      "Built a construction company from zero. Not a side project — a real business with payroll, bank debt, legal complexity, and 100+ people depending on decisions I made. That pressure is what shaped how I think about risk, capital, and product.",
-    highlights: [
-      "Directed 12 concurrent projects, managing 100+ staff across engineering and architecture teams — all delivered on schedule and within budget",
-      "Secured institutional financing from Caixa Econômica Federal for high-value housing developments",
-      "Created detailed economic feasibility studies that enabled additional launches and improved projected ROI",
-      "Managed full project lifecycle: land acquisition, budget oversight, investor relations, and risk mitigation",
+    label:    "Founder",
+    company:  "Arcos Construtora",
+    role:     "Co-Founder & Director",
+    period:   "2019 — 2025",
+    yearTag:  "6 yrs",
+    body:     "Built a construction company from zero. A real business with payroll, bank debt, legal complexity, and 100+ people depending on the decisions I made. That pressure shaped how I think about risk, capital, and product.",
+    outcomes: [
+      { k: "100+",  v: "Team led"         },
+      { k: "12",    v: "Concurrent projects" },
+      { k: "Caixa", v: "Institutional debt" },
+      { k: "6 yrs", v: "Operating"        },
     ],
+    highlights: [
+      "Directed 12 concurrent projects with 100+ staff",
+      "Institutional financing — Caixa Econômica Federal",
+      "Built feasibility models, improved projected ROI",
+      "Full lifecycle: land, budget, investors, risk",
+    ],
+    accent: "accent" as const,
   },
 ];
 
 const Experience = () => (
-  <section id="experience" className="py-24 relative overflow-hidden">
-    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/4 rounded-full blur-[120px] pointer-events-none" />
+  <section id="experience" className="py-32 relative overflow-hidden">
 
-    <div className="container mx-auto px-4 relative z-10">
-      <div className="max-w-7xl mx-auto">
+    <div className="absolute top-12 left-4 sm:left-12 section-marker">02</div>
 
-        {/* Section header */}
-        <div className="flex items-end gap-6 mb-16 relative">
-          <span className="section-number select-none absolute -top-4 left-0 leading-none">02</span>
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px bg-primary" />
-              <span className="font-mono text-xs text-primary tracking-[0.2em] uppercase">Track Record</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              What I've{" "}
-              <span className="text-gradient">Built & Run</span>
-            </h2>
+    <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto">
+
+        {/* Header */}
+        <Reveal className="mb-20">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="w-12 h-px bg-primary" />
+            <span className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase">Track Record</span>
           </div>
-        </div>
+          <h2 className="text-display text-5xl sm:text-7xl lg:text-[7rem] leading-[0.9]">
+            What I've<br />
+            <span className="font-serif italic font-normal text-muted-foreground/80">built &amp; run.</span>
+          </h2>
+        </Reveal>
 
-        <div className="space-y-6">
-          {EXPERIENCE.map((exp) => (
-            <div
-              key={exp.role}
-              className="group p-7 rounded-xl bg-card border border-border hover:border-primary/40 transition-all duration-300 border-l-2 border-l-primary/25 hover:border-l-primary/70"
-            >
-              <div className="grid md:grid-cols-[1fr_auto] gap-6 items-start">
-                <div className="space-y-4">
+        {/* Bento positions */}
+        <div className="space-y-8 lg:space-y-12">
+          {EXPERIENCE.map((exp, i) => (
+            <Reveal key={exp.company} delay={i * 0.1}>
+              <article className="group relative grid lg:grid-cols-[1fr_400px] gap-6 lg:gap-8 p-6 sm:p-10 lg:p-12 rounded-3xl border border-border bg-card/40 backdrop-blur-sm overflow-hidden hover:border-foreground/20 transition-all duration-500">
 
-                  {/* Header */}
-                  <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors mt-0.5">
-                      <exp.icon className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-3 flex-wrap mb-1">
-                        <h3 className="font-bold text-lg text-foreground">{exp.role}</h3>
-                        <span
-                          className={`px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider ${
-                            exp.typeColor === "accent"
-                              ? "bg-accent/10 text-accent border border-accent/20"
-                              : "bg-primary/10 text-primary border border-primary/20"
-                          }`}
-                        >
-                          {exp.type}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-                        <span className="text-primary font-medium">{exp.company}</span>
-                        <span className="text-border">·</span>
-                        <span>{exp.period}</span>
-                        <span className="text-border">·</span>
-                        <span>{exp.location}</span>
-                      </div>
-                    </div>
+                <div className={`absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full blur-[120px] pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity duration-700 ${
+                  exp.accent === "primary" ? "bg-primary/40" : "bg-accent/30"
+                }`} />
+
+                <span className="absolute -bottom-8 -right-2 font-serif text-[10rem] sm:text-[14rem] leading-none text-foreground/[0.025] select-none pointer-events-none">
+                  {exp.period.split(" ")[0]}
+                </span>
+
+                <div className="relative space-y-6 z-10">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono tracking-[0.2em] uppercase ${
+                      exp.accent === "primary"
+                        ? "bg-primary/10 text-primary border border-primary/25"
+                        : "bg-accent/10 text-accent border border-accent/25"
+                    }`}>
+                      <Briefcase className="w-3 h-3" />
+                      {exp.label}
+                    </span>
+                    <span className="font-mono text-[10px] text-muted-foreground tracking-wider uppercase">{exp.period}</span>
                   </div>
 
-                  {/* Description */}
-                  <p className="text-muted-foreground text-sm leading-relaxed pl-[60px]">
-                    {exp.description}
+                  <div>
+                    <p className="text-sm text-muted-foreground mb-2 font-mono tracking-wider uppercase">{exp.company}</p>
+                    <h3 className="text-display text-3xl sm:text-4xl lg:text-5xl leading-[0.95]">
+                      {exp.role}
+                    </h3>
+                  </div>
+
+                  <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
+                    {exp.body}
                   </p>
 
-                  {/* Highlights */}
-                  <ul className="pl-[60px] space-y-1.5">
+                  <ul className="space-y-2 pt-2">
                     {exp.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <span className="text-primary mt-0.5 shrink-0">▸</span>
-                        {h}
+                      <li key={h} className="flex items-start gap-3 text-sm text-foreground/80">
+                        <span className={`mt-2 w-1 h-1 rounded-full shrink-0 ${exp.accent === "primary" ? "bg-primary" : "bg-accent"}`} />
+                        <span>{h}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Year watermark */}
-                <span className="font-mono text-5xl font-bold text-foreground/4 select-none shrink-0 hidden md:block">
-                  {exp.period.split(" ")[0]}
-                </span>
-              </div>
-            </div>
+                <div className="relative grid grid-cols-2 gap-3 self-start z-10">
+                  {exp.outcomes.map((o) => (
+                    <div key={o.v} className="p-4 rounded-2xl border border-border/80 bg-background/40 backdrop-blur-sm">
+                      <div className={`font-display text-2xl lg:text-3xl font-bold leading-tight ${
+                        exp.accent === "primary" ? "text-primary" : "text-accent"
+                      }`}>
+                        {o.k}
+                      </div>
+                      <div className="mt-1.5 font-mono text-[9px] text-muted-foreground tracking-[0.15em] uppercase">
+                        {o.v}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
 
-        {/* Unique edge callout */}
-        <div className="mt-10 p-6 rounded-xl bg-primary/5 border border-primary/20 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="flex-1 space-y-1">
-            <p className="font-semibold text-foreground">The edge most Web3 devs don't have</p>
-            <p className="text-sm text-muted-foreground">
-              7 years running a 100-person company means I understand incentives, capital flows, risk,
-              and what it actually takes to ship at scale. That operational DNA shapes every protocol
-              and product I build — because code without business thinking is just code.
-            </p>
+        {/* Edge callout */}
+        <Reveal className="mt-12">
+          <div className="p-8 lg:p-10 rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/[0.08] via-transparent to-transparent flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="max-w-2xl">
+              <p className="font-mono text-[10px] text-primary tracking-[0.3em] uppercase mb-3">The edge most Web3 devs don't have</p>
+              <p className="font-serif italic text-2xl lg:text-3xl leading-tight text-foreground">
+                "Seven years running a 100-person company taught me incentives, capital flows and risk — the operational DNA behind every protocol I build."
+              </p>
+            </div>
+            <a
+              href="/lucas-almeida-cv.pdf"
+              download
+              data-cursor="hover"
+              data-cursor-label="Download CV"
+              className="group shrink-0 inline-flex items-center gap-2 px-5 py-3 border border-primary/40 text-foreground rounded-full hover:bg-primary/10 hover:border-primary text-sm font-medium transition-all"
+            >
+              Full CV
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
-          <a
-            href="/lucas-almeida-cv.pdf"
-            download
-            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 border border-primary/40 text-primary text-sm font-medium rounded-lg hover:bg-primary/10 transition-colors"
-          >
-            Full CV <ArrowUpRight className="w-4 h-4" />
-          </a>
-        </div>
+        </Reveal>
       </div>
     </div>
   </section>

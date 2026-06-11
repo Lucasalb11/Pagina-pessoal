@@ -20,6 +20,7 @@ export default {
         sans:    ["Space Grotesk", "Inter", "system-ui", "sans-serif"],
         mono:    ["Space Mono", "Fira Code", "monospace"],
         display: ["Space Grotesk", "system-ui", "sans-serif"],
+        serif:   ["Instrument Serif", "Times New Roman", "serif"],
       },
       colors: {
         border:      "hsl(var(--border))",
