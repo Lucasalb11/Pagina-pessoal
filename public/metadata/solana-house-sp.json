@@ -1,0 +1,56 @@
+{
+  "name": "Solana House São Paulo",
+  "symbol": "LDA-CRED",
+  "description": "Builder participation at Solana House São Paulo — hands-on workshops and ecosystem programming.",
+  "image": "https://lucasalmeida.me/metadata/images/solana-house-sp.svg",
+  "external_url": "https://solana.com",
+  "attributes": [
+    {
+      "trait_type": "Program",
+      "value": "Builder Events"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "Solana Foundation"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "Solana"
+    },
+    {
+      "trait_type": "Attest",
+      "value": "Self-attested"
+    },
+    {
+      "trait_type": "Soulbound",
+      "value": "true"
+    },
+    {
+      "trait_type": "Event",
+      "value": "Solana House SP"
+    },
+    {
+      "trait_type": "Format",
+      "value": "In-person builder programming"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/solana-house-sp.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2BLB2yz5YgNBVNhHToFNDEMbFDSNEBrfh4yHdEMBX1bx",
+        "share": 100
+      }
+    ]
+  }
+}

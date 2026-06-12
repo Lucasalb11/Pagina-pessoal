@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="holo" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34F198" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#9945FF" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#34F198" stop-opacity="0.85"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="512" cy="512" r="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34F198" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#080808" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.2" fill="#ffffff" fill-opacity="0.04"/>
+    </pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
+  </defs>
+  <rect width="1024" height="1024" fill="#050505"/>
+  <rect width="1024" height="1024" fill="url(#dots)"/>
+  <rect width="1024" height="1024" fill="url(#halo)"/>
+  <rect x="24" y="24" width="976" height="976" rx="48" fill="#0a0a0a" stroke="url(#holo)" stroke-width="3"/>
+  <text x="512" y="430" text-anchor="middle" fill="#fafafa" font-family="system-ui, -apple-system, Helvetica, Arial, sans-serif" font-size="120" letter-spacing="-6" font-weight="500">LDA</text>
+  <text x="512" y="540" text-anchor="middle" fill="#9945FF" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="22" letter-spacing="8">CREDENTIALS · ON-CHAIN</text>
+  <text x="512" y="640" text-anchor="middle" fill="#34F198" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" letter-spacing="6">7 SOULBOUND</text>
+  <text x="512" y="900" text-anchor="middle" fill="#5a5a5a" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="14" letter-spacing="4">LUCAS DE ALMEIDA · COLLECTION</text>
+</svg>

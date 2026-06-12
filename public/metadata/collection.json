@@ -1,0 +1,16 @@
+{
+  "name": "Lucas de Almeida — Credentials",
+  "symbol": "LDA-CRED",
+  "description": "Soulbound on-chain credentials for Lucas de Almeida. Each asset is a verifiable proof of program completion, hackathon participation, or recognized issuer attestation. Non-transferable by design.",
+  "image": "https://lucasalmeida.me/metadata/images/collection.svg",
+  "external_url": "https://lucasalmeida.me/#credentials",
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/collection.svg",
+        "type": "image/svg+xml"
+      }
+    ]
+  }
+}

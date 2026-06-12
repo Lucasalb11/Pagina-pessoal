@@ -1,0 +1,60 @@
+{
+  "name": "Stellar Build Hackathon",
+  "symbol": "LDA-CRED",
+  "description": "Built KaleFi — collateralized lending on Stellar. Soroban contracts in Rust.",
+  "image": "https://lucasalmeida.me/metadata/images/stellar-build.svg",
+  "external_url": "https://stellar.org",
+  "attributes": [
+    {
+      "trait_type": "Program",
+      "value": "Soroban Contracts"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "Stellar Development Foundation"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2025-08"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "Stellar"
+    },
+    {
+      "trait_type": "Attest",
+      "value": "Issuer-attested"
+    },
+    {
+      "trait_type": "Soulbound",
+      "value": "true"
+    },
+    {
+      "trait_type": "Event",
+      "value": "Stellar Build"
+    },
+    {
+      "trait_type": "Project",
+      "value": "KaleFi"
+    },
+    {
+      "trait_type": "Stack",
+      "value": "Rust · Soroban"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/stellar-build.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2BLB2yz5YgNBVNhHToFNDEMbFDSNEBrfh4yHdEMBX1bx",
+        "share": 100
+      }
+    ]
+  }
+}

@@ -1,0 +1,168 @@
+export type Lang = "en" | "pt";
+
+export const dict = {
+  en: {
+    "hero.eyebrow": "RECIFE · BR · 2026",
+    "hero.display.before": "I build ",
+    "hero.display.accent": "capital",
+    "hero.display.after": " for the real economy.",
+    "hero.sub": "Operator turned on-chain builder. TradFi-grade primitives, shipped on Solana, against real assets.",
+    "hero.cta.primary": "See work",
+    "hero.cta.secondary": "Open signal",
+    "hero.stat.years": "yrs operator",
+    "hero.stat.creds": "on-chain credentials",
+    "hero.stat.slot": "slot",
+
+    "nav.story": "STORY",
+    "nav.track": "TRACK RECORD",
+    "nav.pillars": "PILLARS",
+    "nav.shipped": "SHIPPED",
+    "nav.signal": "SIGNAL",
+    "nav.cv": "CV.PDF",
+    "nav.contact": "Contact",
+
+    "story.kicker": "STORY",
+    "story.title.before": "Three chapters. One throughline: ",
+    "story.title.accent": "capital meets code.",
+    "story.ch1.title": "Ran the construction company.",
+    "story.ch1.body": "Seven years operating Arcos at 100 people. Concrete, payroll, capital stacks, deadlines that do not move.",
+    "story.ch2.title": "Found the on-ramp.",
+    "story.ch2.body": "Read the DeFi papers between site visits. Realized the rails I needed for real estate already existed on-chain.",
+    "story.ch3.title": "Building on Solana, full-time.",
+    "story.ch3.body": "Shipped Structa, KaleFi, Aegis, Blinkpay. Solana Frontier, Stellar Build, Ackee School of Solana cohort 6.",
+
+    "track.kicker": "TRACK RECORD",
+    "track.title": "Operator first. Engineer second. Both at once now.",
+    "track.role1.headline": "Ran a 100-person construction company.",
+    "track.role2.headline": "Building on-chain capital infrastructure.",
+
+    "pillars.kicker": "PILLARS",
+    "pillars.title": "Four sides of the same operator.",
+    "pillars.p1.title": "Product Thinking",
+    "pillars.p1.tag": "I scope what users will actually pay for.",
+    "pillars.p2.title": "Web3 & Blockchain",
+    "pillars.p2.tag": "Solana-first. Stellar-fluent. Solidity when needed.",
+    "pillars.p3.title": "Development",
+    "pillars.p3.tag": "Rust on-chain. TypeScript everywhere else.",
+    "pillars.p4.title": "Execution",
+    "pillars.p4.tag": "Seven years of shipping under real deadlines.",
+
+    "shipped.kicker": "SHIPPED",
+    "shipped.title": "A protocol, a lender, an aggregator, a payments rail.",
+    "shipped.featured.tagline": "On-chain fundraising for Brazilian real estate, paid in USDC.",
+    "shipped.featured.line": "16–22% APY backed by real developments. Live on Solana mainnet.",
+
+    "creds.kicker": "CREDENTIALS",
+    "creds.title": "Every certificate is minted, signed, and verifiable.",
+    "creds.sub": "Soulbound on Solana. No PDFs. No claims you have to trust.",
+
+    "signal.kicker": "SIGNAL",
+    "signal.title": "What I believe, on the record.",
+
+    "contact.kicker": "CONTACT",
+    "contact.title": "I am building. Tell me what you are building.",
+    "contact.status": "Open for collaboration",
+    "contact.signoff": "lucasalb11@gmail.com · Recife to anywhere.",
+
+    "footer.tagline": "Operator turned on-chain builder. Real-economy to Web3.",
+
+    "guide.title": "How to read this site",
+    "guide.subtitle": "60-second guide. Skip anytime.",
+    "guide.s1.title": "Scroll the chapters",
+    "guide.s1.body": "Story → Track Record → Shipped → Pillars → Credentials → Signal.",
+    "guide.s2.title": "Credentials are real Solana NFTs",
+    "guide.s2.body": "Soulbound, on devnet. Click any badge to verify on Solscan.",
+    "guide.s3.title": "Switch EN ↔ PT",
+    "guide.s3.body": "Toggle in the top nav. Saved to your browser.",
+    "guide.s4.title": "Open the signal",
+    "guide.s4.body": "Hit Contact when you find something worth building together.",
+    "guide.cta.dismiss": "Got it",
+    "guide.cta.openCreds": "See credentials",
+    "guide.reopen": "Guide",
+  },
+  pt: {
+    "hero.eyebrow": "RECIFE · BR · 2026",
+    "hero.display.before": "Construo ",
+    "hero.display.accent": "capital",
+    "hero.display.after": " para a economia real.",
+    "hero.sub": "De operador a construtor on-chain. Primitivos TradFi, em produção na Solana, lastreados em ativos reais.",
+    "hero.cta.primary": "Ver projetos",
+    "hero.cta.secondary": "Sinal",
+    "hero.stat.years": "anos operando",
+    "hero.stat.creds": "credenciais on-chain",
+    "hero.stat.slot": "slot",
+
+    "nav.story": "HISTÓRIA",
+    "nav.track": "TRAJETÓRIA",
+    "nav.pillars": "PILARES",
+    "nav.shipped": "ENTREGUES",
+    "nav.signal": "SINAL",
+    "nav.cv": "CV.PDF",
+    "nav.contact": "Contato",
+
+    "story.kicker": "HISTÓRIA",
+    "story.title.before": "Três capítulos. Um fio condutor: ",
+    "story.title.accent": "capital encontra código.",
+    "story.ch1.title": "Operei a construtora.",
+    "story.ch1.body": "Sete anos operando a Arcos com 100 pessoas. Concreto, folha, estruturação de capital, prazos que não se movem.",
+    "story.ch2.title": "Achei a entrada.",
+    "story.ch2.body": "Li os papers de DeFi entre visitas de obra. Percebi que os trilhos que eu precisava para imóveis já existiam on-chain.",
+    "story.ch3.title": "Construindo em Solana, full-time.",
+    "story.ch3.body": "Shipei Structa, KaleFi, Aegis, Blinkpay. Solana Frontier, Stellar Build, School of Solana da Ackee.",
+
+    "track.kicker": "TRAJETÓRIA",
+    "track.title": "Operador primeiro. Engenheiro depois. Os dois agora.",
+    "track.role1.headline": "Operei uma construtora de 100 pessoas.",
+    "track.role2.headline": "Construindo infraestrutura de capital on-chain.",
+
+    "pillars.kicker": "PILARES",
+    "pillars.title": "Quatro lados do mesmo operador.",
+    "pillars.p1.title": "Produto",
+    "pillars.p1.tag": "Eu escopo o que usuários vão de fato pagar.",
+    "pillars.p2.title": "Web3 & Blockchain",
+    "pillars.p2.tag": "Solana primeiro. Stellar fluente. Solidity quando preciso.",
+    "pillars.p3.title": "Desenvolvimento",
+    "pillars.p3.tag": "Rust on-chain. TypeScript em todo o resto.",
+    "pillars.p4.title": "Execução",
+    "pillars.p4.tag": "Sete anos entregando sob prazos reais.",
+
+    "shipped.kicker": "ENTREGUES",
+    "shipped.title": "Um protocolo, um lender, um agregador, uma trilha de pagamentos.",
+    "shipped.featured.tagline": "Captação on-chain para imóveis brasileiros, paga em USDC.",
+    "shipped.featured.line": "16–22% APY lastreados em empreendimentos reais. Vivo na Solana mainnet.",
+
+    "creds.kicker": "CREDENCIAIS",
+    "creds.title": "Todo certificado é mintado, assinado e verificável.",
+    "creds.sub": "Soulbound na Solana. Sem PDF. Sem reivindicação que precise de confiança.",
+
+    "signal.kicker": "SINAL",
+    "signal.title": "O que eu acredito, registrado.",
+
+    "contact.kicker": "CONTATO",
+    "contact.title": "Estou construindo. Me conta o que você está construindo.",
+    "contact.status": "Aberto a colaborar",
+    "contact.signoff": "lucasalb11@gmail.com · de Recife para qualquer lugar.",
+
+    "footer.tagline": "De operador a construtor on-chain. Economia real para Web3.",
+
+    "guide.title": "Como ler este site",
+    "guide.subtitle": "Guia de 60 segundos. Pula quando quiser.",
+    "guide.s1.title": "Percorra os capítulos",
+    "guide.s1.body": "História → Trajetória → Entregues → Pilares → Credenciais → Sinal.",
+    "guide.s2.title": "Credenciais são NFTs reais na Solana",
+    "guide.s2.body": "Soulbound, em devnet. Clique em qualquer badge pra verificar no Solscan.",
+    "guide.s3.title": "Troque EN ↔ PT",
+    "guide.s3.body": "Botão no topo da nav. Salvo no seu navegador.",
+    "guide.s4.title": "Abra o sinal",
+    "guide.s4.body": "Vá em Contato quando tiver algo pra construir junto.",
+    "guide.cta.dismiss": "Entendi",
+    "guide.cta.openCreds": "Ver credenciais",
+    "guide.reopen": "Guia",
+  },
+} as const;
+
+export type DictKey = keyof typeof dict["en"];
+
+export function t(lang: Lang, key: DictKey): string {
+  return dict[lang][key];
+}

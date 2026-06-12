@@ -1,0 +1,60 @@
+{
+  "name": "Solana Frontier — Colosseum",
+  "symbol": "LDA-CRED",
+  "description": "Built Structa.finance: on-chain fundraising for Brazilian real estate, paid in USDC.",
+  "image": "https://lucasalmeida.me/metadata/images/colosseum-frontier.svg",
+  "external_url": "https://colosseum.com/frontier",
+  "attributes": [
+    {
+      "trait_type": "Program",
+      "value": "Hackathon"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "Colosseum"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2025-Q2"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "Solana"
+    },
+    {
+      "trait_type": "Attest",
+      "value": "Issuer-attested"
+    },
+    {
+      "trait_type": "Soulbound",
+      "value": "true"
+    },
+    {
+      "trait_type": "Event",
+      "value": "Solana Frontier"
+    },
+    {
+      "trait_type": "Project",
+      "value": "Structa.finance"
+    },
+    {
+      "trait_type": "Stack",
+      "value": "Anchor · USDC · React"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/colosseum-frontier.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2BLB2yz5YgNBVNhHToFNDEMbFDSNEBrfh4yHdEMBX1bx",
+        "share": 100
+      }
+    ]
+  }
+}

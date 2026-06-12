@@ -1,0 +1,56 @@
+{
+  "name": "NearX — Rust & WebAssembly",
+  "symbol": "LDA-CRED",
+  "description": "Hands-on Rust fundamentals for blockchain tooling and WebAssembly targets. Applied to Soroban and Solana.",
+  "image": "https://lucasalmeida.me/metadata/images/nearx-rust-wasm.svg",
+  "external_url": "https://nearx.com.br",
+  "attributes": [
+    {
+      "trait_type": "Program",
+      "value": "Rust Programming"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "NearX Academy"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "Solana"
+    },
+    {
+      "trait_type": "Attest",
+      "value": "Issuer-attested"
+    },
+    {
+      "trait_type": "Soulbound",
+      "value": "true"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "NearX"
+    },
+    {
+      "trait_type": "Program",
+      "value": "Rust + WASM"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/nearx-rust-wasm.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2BLB2yz5YgNBVNhHToFNDEMbFDSNEBrfh4yHdEMBX1bx",
+        "share": 100
+      }
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "School of Solana — Cohort 6",
+  "symbol": "LDA-CRED",
+  "description": "Production-grade Solana programs with Rust + Anchor. PDAs, CPIs, token programs, security patterns.",
+  "image": "https://lucasalmeida.me/metadata/images/ackee-sos-6.svg",
+  "external_url": "https://ackee.xyz/school-of-solana",
+  "attributes": [
+    {
+      "trait_type": "Program",
+      "value": "Advanced Solana Development"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "Ackee Blockchain"
+    },
+    {
+      "trait_type": "Date",
+      "value": "2024-12"
+    },
+    {
+      "trait_type": "Ecosystem",
+      "value": "Solana"
+    },
+    {
+      "trait_type": "Attest",
+      "value": "Issuer-attested"
+    },
+    {
+      "trait_type": "Soulbound",
+      "value": "true"
+    },
+    {
+      "trait_type": "Issuer",
+      "value": "Ackee Blockchain"
+    },
+    {
+      "trait_type": "Program",
+      "value": "School of Solana"
+    },
+    {
+      "trait_type": "Cohort",
+      "value": "6"
+    },
+    {
+      "trait_type": "Stack",
+      "value": "Rust · Anchor · SPL"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://lucasalmeida.me/metadata/images/ackee-sos-6.svg",
+        "type": "image/svg+xml"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2BLB2yz5YgNBVNhHToFNDEMbFDSNEBrfh4yHdEMBX1bx",
+        "share": 100
+      }
+    ]
+  }
+}

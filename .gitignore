@@ -33,3 +33,6 @@ dist-ssr
 bun.lockb
 yarn.lock
 pnpm-lock.yaml
+
+# Mint output (contains on-chain addresses, safe but rebuilt on each run)
+scripts/.mint-output.json
