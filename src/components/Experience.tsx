@@ -7,18 +7,18 @@ const TrackRecord = () => {
   const roles = [
     {
       label:    "OPERATOR",
-      org:      "Arcos Construtora",
-      period:   "2017 — 2024",
+      org:      "Grupo Arcos · Caruaru, PE",
+      period:   "2019 — 2025",
       headline: t("track.role1.headline"),
       bullets: [
-        "100 people on payroll across 12 concurrent projects",
-        "Institutional debt — Caixa Econômica Federal",
-        "Capital stacks, feasibility, ROI modeling, risk",
+        "Founding member · Construtora Arcos (Feb 2021 → Mar 2025)",
+        "Admin director · Arcos Estratégias em Arquitetura e Engenharia",
+        "Owner · Arcos Premoldados — capital, payroll, suppliers, delivery",
       ],
       stats: [
-        { k: "100",  v: "TEAM" },
-        { k: "12",   v: "PROJECTS" },
-        { k: "7 YR", v: "TENURE" },
+        { k: "3",    v: "COMPANIES" },
+        { k: "6 YR", v: "TENURE" },
+        { k: "PE",   v: "CARUARU" },
       ],
       accent: "warm",
     },
@@ -28,9 +28,9 @@ const TrackRecord = () => {
       period:   "2024 — NOW",
       headline: t("track.role2.headline"),
       bullets: [
-        "Structa: on-chain fundraising for Brazilian RWA (USDC)",
-        "KaleFi: Soroban-based collateralized lending on Stellar",
-        "Aegis, Blinkpay: aggregation + payments primitives",
+        "Structa: on-chain fundraising for Brazilian RWA, settled in USDC",
+        "KaleFi: collateralized lending on Stellar Soroban (Rust)",
+        "Aegis, Blinkpay: yield aggregation + Solana Blinks payments",
       ],
       stats: [
         { k: "4",   v: "PROTOCOLS" },

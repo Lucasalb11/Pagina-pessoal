@@ -35,7 +35,7 @@ const OnChainHUD = () => {
       transition={{ duration: 0.6, delay: 1.4 }}
       className="font-code text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
     >
-      <span className="text-foreground">7</span> {t("hero.stat.years")}
+      <span className="text-foreground">6</span> {t("hero.stat.years")}
       <span className="mx-2 text-border">·</span>
       <span className="text-onchain">{credentialCount}</span>
       <span className="ml-1">{t("hero.stat.creds")}</span>

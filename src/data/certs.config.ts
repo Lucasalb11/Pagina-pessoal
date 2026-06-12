@@ -22,8 +22,8 @@ export interface Cert {
 
 export const CERTS: Cert[] = [
   {
-    credentialId: "ackee-sos-6",
-    name: "School of Solana — Cohort 6",
+    credentialId: "ackee-sos-8",
+    name: "School of Solana — Season 8",
     program: "Advanced Solana Development",
     issuer: "Ackee Blockchain",
     dateIssued: "2024-12",
@@ -37,7 +37,7 @@ export const CERTS: Cert[] = [
     attributes: [
       { trait_type: "Issuer",  value: "Ackee Blockchain" },
       { trait_type: "Program", value: "School of Solana" },
-      { trait_type: "Cohort",  value: "6" },
+      { trait_type: "Season",  value: "8" },
       { trait_type: "Stack",   value: "Rust · Anchor · SPL" },
     ],
     featured: true,
@@ -153,18 +153,19 @@ export const CERTS: Cert[] = [
     ],
   },
   {
-    credentialId: "ufrpe-cs",
-    name: "BSc Computer Engineering",
+    credentialId: "ufpe-econ",
+    name: "BSc Economics",
     program: "Academic — In Progress",
-    issuer: "UFRPE",
-    dateIssued: "2026-02 → 2030-12",
+    issuer: "UFPE",
+    dateIssued: "In Progress",
     ecosystem: "Academic",
     icon: GraduationCap,
-    description: "Bachelor's in Computer Engineering at Universidade Federal Rural de Pernambuco.",
+    description: "Bachelor's in Economics at Universidade Federal de Pernambuco — capital markets, monetary theory, applied micro and game theory.",
     status: "PENDING",
     attest: "issuer",
     attributes: [
-      { trait_type: "Institution", value: "UFRPE" },
+      { trait_type: "Institution", value: "UFPE" },
+      { trait_type: "Field",       value: "Economics" },
       { trait_type: "Status",      value: "In Progress" },
     ],
   },

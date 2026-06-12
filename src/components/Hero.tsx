@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import CredentialHologram from "@/components/hero/CredentialHologram";
+import PortraitCard from "@/components/hero/PortraitCard";
 import OnChainHUD from "@/components/web3/OnChainHUD";
 import WalletPill from "@/components/web3/WalletPill";
 import { useLang } from "@/hooks/useLang";
@@ -16,10 +16,10 @@ const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-32 sm:pt-36 pb-20">
       {/* Atmospherics */}
-      <div className="absolute inset-0 bg-dot opacity-25 pointer-events-none" />
+      <div className="absolute inset-0 bg-dot opacity-30 pointer-events-none" />
       <div className="absolute inset-0 gradient-hero pointer-events-none" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[720px] h-[180px] bg-primary/15 blur-[110px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[720px] h-[140px] bg-primary/8 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-[1400px] mx-auto">
@@ -78,7 +78,7 @@ const Hero = () => {
                   onClick={scrollTo("#shipped")}
                   data-cursor="hover"
                   data-cursor-label={t("hero.cta.primary")}
-                  className="group inline-flex items-center gap-2 pl-5 pr-4 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-all duration-300 shadow-[0_0_40px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_60px_hsl(var(--primary)/0.65)] text-sm"
+                  className="group inline-flex items-center gap-2 pl-5 pr-4 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-all duration-300 shadow-[0_10px_30px_-12px_hsl(var(--primary)/0.55)] hover:shadow-[0_18px_44px_-16px_hsl(var(--primary)/0.7)] text-sm"
                 >
                   {t("hero.cta.primary")}
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -103,7 +103,7 @@ const Hero = () => {
               </motion.div>
             </div>
 
-            <CredentialHologram />
+            <PortraitCard />
           </div>
         </div>
       </div>
