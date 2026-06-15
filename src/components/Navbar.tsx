@@ -16,10 +16,9 @@ const Navbar = () => {
   }, []);
 
   const links = [
-    { label: t("nav.story"),    href: "#story" },
-    { label: t("nav.track"),    href: "#track" },
     { label: t("nav.shipped"),  href: "#shipped" },
-    { label: t("nav.pillars"),  href: "#pillars" },
+    { label: t("nav.track"),    href: "#track" },
+    { label: t("nav.story"),    href: "#story" },
     { label: t("nav.signal"),   href: "#signal" },
   ];
 

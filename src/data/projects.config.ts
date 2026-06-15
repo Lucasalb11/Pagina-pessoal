@@ -12,6 +12,12 @@ export interface Ship {
   metricLabel: string;
   github?: string;
   live?: string;
+  /**
+   * Optional preview image of the project's site. Drop a PNG/JPG into
+   * src/assets/projects/ and reference it with an `@/assets/...` import,
+   * or use an absolute URL. Falls back to a styled gradient placeholder.
+   */
+  image?: string;
   featured?: boolean;
 }
 
@@ -19,15 +25,16 @@ export const SHIPS: Ship[] = [
   {
     id: "structa",
     name: "Structa.finance",
-    tagline: "On-chain fundraising for Brazilian real estate, paid in USDC.",
+    tagline: "On-chain fundraising for Brazilian real estate, settled in USDC.",
     body:
-      "Issuer raises capital against a real development; investors earn 16–22% APY backed by the asset. Built at Solana Frontier — production Anchor program + USDC settlement.",
+      "A Brazilian developer raises capital against a real project; investors receive yield in USDC backed by the building's cash flows. Pilot phase on Solana, originally built at Solana Frontier.",
     stack: ["Anchor", "USDC", "React", "RWA"],
     ecosystem: "Solana",
     status: "LIVE",
     metric: "16–22%",
-    metricLabel: "APY · USDC",
+    metricLabel: "Target APY · USDC",
     github: "https://github.com/Lucasalb11/Structa",
+    live: "https://github.com/Lucasalb11/Structa",
     featured: true,
   },
   {
@@ -40,8 +47,9 @@ export const SHIPS: Ship[] = [
     ecosystem: "Stellar",
     status: "BUILT",
     metric: "Soroban",
-    metricLabel: "STELLAR BUILD",
+    metricLabel: "Stellar Build",
     github: "https://github.com/Lucasalb11/KaleFi",
+    live: "https://github.com/Lucasalb11/KaleFi",
   },
   {
     id: "aegis",
@@ -53,21 +61,23 @@ export const SHIPS: Ship[] = [
     ecosystem: "Solana",
     status: "WIP",
     metric: "Multi-vault",
-    metricLabel: "AGGREGATOR",
+    metricLabel: "Aggregator",
     github: "https://github.com/Lucasalb11/Aegis",
+    live: "https://github.com/Lucasalb11/Aegis",
   },
   {
     id: "blinkpay",
     name: "Blinkpay",
-    tagline: "Solana Blinks → real merchant rails.",
+    tagline: "Solana Blinks for real merchant payments.",
     body:
       "Single-action payment links that settle in USDC on Solana. Built for the Brazilian SMB layer that runs on Pix today.",
     stack: ["Solana Blinks", "USDC", "Next.js"],
     ecosystem: "Solana",
     status: "WIP",
     metric: "Blinks",
-    metricLabel: "PAYMENTS",
+    metricLabel: "Payments",
     github: "https://github.com/Lucasalb11/Blinkpay",
+    live: "https://github.com/Lucasalb11/Blinkpay",
   },
 ];
 

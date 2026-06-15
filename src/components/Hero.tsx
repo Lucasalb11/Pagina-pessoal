@@ -15,7 +15,6 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-32 sm:pt-36 pb-20">
-      {/* Atmospherics */}
       <div className="absolute inset-0 bg-dot opacity-30 pointer-events-none" />
       <div className="absolute inset-0 gradient-hero pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1100px] h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent" />
@@ -23,7 +22,6 @@ const Hero = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-[1400px] mx-auto">
-          {/* Kicker row */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -42,36 +40,47 @@ const Hero = () => {
             <WalletPill />
           </motion.div>
 
-          {/* The split: headline + hologram */}
-          <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-end">
-            <div className="relative">
+          <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-start">
+            <div className="relative max-w-[640px]">
               <motion.h1
-                initial={{ opacity: 0, y: 36 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-display text-[12vw] sm:text-[9vw] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.88]"
+                transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="text-display text-3xl sm:text-4xl lg:text-[3.25rem] leading-[1.1] mb-10"
               >
-                <span className="block">{t("hero.display.before")}</span>
-                <span className="block font-serif italic font-normal text-primary">
-                  {t("hero.display.accent")}
-                </span>
-                <span className="block">{t("hero.display.after").trim()}</span>
+                {t("hero.greeting")}
               </motion.h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-9 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed"
-              >
-                {t("hero.sub")}
-              </motion.p>
+              <div className="space-y-5 text-base sm:text-[17px] leading-relaxed text-foreground/85">
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.25 }}
+                >
+                  {t("hero.p1")}
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                >
+                  {t("hero.p2")}
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.55 }}
+                  className="text-muted-foreground"
+                >
+                  {t("hero.p3")}
+                </motion.p>
+              </div>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.55 }}
-                className="mt-8 flex flex-wrap gap-3"
+                transition={{ duration: 0.7, delay: 0.7 }}
+                className="mt-9 flex flex-wrap gap-3"
               >
                 <a
                   href="#shipped"
@@ -83,20 +92,12 @@ const Hero = () => {
                   {t("hero.cta.primary")}
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
-                <a
-                  href="#signal"
-                  onClick={scrollTo("#signal")}
-                  data-cursor="hover"
-                  className="inline-flex items-center gap-2 px-5 py-3 border border-border text-foreground rounded-full hover:border-foreground/40 hover:bg-secondary/40 transition-all text-sm"
-                >
-                  {t("hero.cta.secondary")}
-                </a>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.4 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
                 className="mt-10"
               >
                 <OnChainHUD />
@@ -108,7 +109,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

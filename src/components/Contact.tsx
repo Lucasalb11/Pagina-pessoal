@@ -12,26 +12,32 @@ const CONTACTS = [
 const Contact = () => {
   const { t } = useLang();
   return (
-    <section id="contact" className="py-20 relative overflow-hidden">
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1400px] h-[600px] bg-primary/12 rounded-full blur-[160px] pointer-events-none" />
+    <section id="contact" className="py-24 relative overflow-hidden">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1400px] h-[600px] bg-primary/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="max-w-[1100px] mx-auto">
           <Reveal className="mb-10">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-6">
               <span className="w-12 h-px bg-primary" />
               <span className="font-code text-[10px] text-primary tracking-[0.3em] uppercase">
                 {t("contact.kicker")}
               </span>
             </div>
+            <h2 className="text-display text-3xl sm:text-4xl lg:text-[3.5rem] leading-[1.1] max-w-3xl mb-6">
+              {t("contact.title")}
+            </h2>
+            <p className="max-w-[640px] text-base sm:text-[17px] leading-relaxed text-foreground/80">
+              {t("contact.body")}
+            </p>
           </Reveal>
 
           <Reveal>
             <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end border-t border-border pt-10">
               <div>
                 <p className="font-code text-[10px] text-muted-foreground tracking-[0.3em] uppercase mb-4">
-                  REACH
+                  Reach
                 </p>
                 <div>
                   {CONTACTS.map((c) => (
@@ -72,7 +78,7 @@ const Contact = () => {
                   data-cursor-label="lucasalb11@gmail.com"
                   className="group inline-flex items-center gap-2 pl-6 pr-5 py-4 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-all duration-300 shadow-[0_0_50px_hsl(var(--primary)/0.4)] hover:shadow-[0_0_80px_hsl(var(--primary)/0.7)]"
                 >
-                  Send a message
+                  Send an email
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
                 <p className="font-code text-[10px] tracking-[0.22em] uppercase text-muted-foreground mt-2">
