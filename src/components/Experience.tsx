@@ -54,7 +54,7 @@ const TrackRecord = () => {
                 {t("track.kicker")}
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[6rem] leading-[0.92] max-w-4xl">
+            <h2 className="text-display text-4xl sm:text-5xl lg:text-[5rem] leading-[0.95] max-w-4xl">
               {t("track.title")}
             </h2>
           </Reveal>

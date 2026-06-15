@@ -12,26 +12,23 @@ const CONTACTS = [
 const Contact = () => {
   const { t } = useLang();
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
+    <section id="contact" className="py-20 relative overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1400px] h-[600px] bg-primary/12 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="max-w-[1400px] mx-auto">
-          <Reveal className="mb-14">
-            <div className="flex items-center gap-3 mb-6">
+        <div className="max-w-[1100px] mx-auto">
+          <Reveal className="mb-10">
+            <div className="flex items-center gap-3">
               <span className="w-12 h-px bg-primary" />
               <span className="font-code text-[10px] text-primary tracking-[0.3em] uppercase">
                 {t("contact.kicker")}
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[8rem] leading-[0.88] max-w-5xl">
-              {t("contact.title")}
-            </h2>
           </Reveal>
 
           <Reveal>
-            <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-end border-t border-border pt-12">
+            <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-end border-t border-border pt-10">
               <div>
                 <p className="font-code text-[10px] text-muted-foreground tracking-[0.3em] uppercase mb-4">
                   REACH
@@ -45,12 +42,12 @@ const Contact = () => {
                       rel="noopener noreferrer"
                       data-cursor="hover"
                       data-cursor-label={c.label}
-                      className="group flex items-center justify-between gap-6 py-4 border-b border-border/60 last:border-b-0 hover:pl-3 transition-all"
+                      className="group flex items-center justify-between gap-6 py-3 border-b border-border/60 last:border-b-0 hover:pl-3 transition-all"
                     >
                       <div className="flex items-center gap-4 min-w-0">
                         <c.icon className="w-4 h-4 text-muted-foreground group-hover:text-primary shrink-0 transition-colors" />
                         <div className="min-w-0">
-                          <div className="font-display text-xl lg:text-2xl text-foreground group-hover:text-primary transition-colors">
+                          <div className="font-display text-base lg:text-lg text-foreground group-hover:text-primary transition-colors">
                             {c.label}
                           </div>
                           <p className="font-code text-xs text-muted-foreground">{c.handle}</p>

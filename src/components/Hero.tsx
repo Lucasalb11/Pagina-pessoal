@@ -49,7 +49,7 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 36 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="text-display text-[15vw] sm:text-[11vw] lg:text-[8.2rem] xl:text-[10rem] leading-[0.86]"
+                className="text-display text-[12vw] sm:text-[9vw] lg:text-[6.5rem] xl:text-[7.5rem] leading-[0.88]"
               >
                 <span className="block">{t("hero.display.before")}</span>
                 <span className="block font-serif italic font-normal text-primary">

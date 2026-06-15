@@ -38,7 +38,7 @@ const Story = () => {
                 {t("story.kicker")}
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[6.5rem] leading-[0.92] max-w-5xl">
+            <h2 className="text-display text-4xl sm:text-5xl lg:text-[5rem] leading-[0.95] max-w-5xl">
               {t("story.title.before")}
               <span className="font-serif italic font-normal text-primary">
                 {t("story.title.accent")}

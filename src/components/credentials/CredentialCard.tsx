@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ExternalLink, Copy, ShieldCheck, User } from "lucide-react";
 import type { Cert } from "@/data/certs.config";
@@ -19,9 +19,18 @@ const CredentialCard = ({ cert }: Props) => {
   const reduce = useReducedMotion();
   const [flipped, setFlipped] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const status = STATUS_STYLES[cert.status];
   const Icon = cert.icon;
   const isAttested = cert.attest === "issuer";
+
+  useEffect(() => {
+    const mq = window.matchMedia?.("(hover: none), (pointer: coarse)");
+    setIsTouch(!!mq?.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsTouch(e.matches);
+    mq?.addEventListener?.("change", onChange);
+    return () => mq?.removeEventListener?.("change", onChange);
+  }, []);
 
   const copy = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -34,11 +43,13 @@ const CredentialCard = ({ cert }: Props) => {
     } catch { /* ignore */ }
   };
 
+  const useHover = !reduce && !isTouch;
+
   return (
     <motion.div
-      onHoverStart={() => !reduce && setFlipped(true)}
-      onHoverEnd={() => !reduce && setFlipped(false)}
-      onClick={() => reduce && setFlipped((f) => !f)}
+      onHoverStart={() => useHover && setFlipped(true)}
+      onHoverEnd={() => useHover && setFlipped(false)}
+      onClick={() => !useHover && setFlipped((f) => !f)}
       data-cursor="hover"
       data-cursor-label={cert.name}
       whileHover={{ y: -4 }}

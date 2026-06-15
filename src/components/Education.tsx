@@ -28,7 +28,7 @@ const Credentials = () => {
                 </span>
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[5.5rem] leading-[0.95] max-w-5xl">
+            <h2 className="text-display text-4xl sm:text-5xl lg:text-[4.5rem] leading-[0.95] max-w-5xl">
               {t("creds.title")}
             </h2>
             <p className="font-serif italic text-xl lg:text-2xl text-muted-foreground mt-6 max-w-3xl leading-snug">

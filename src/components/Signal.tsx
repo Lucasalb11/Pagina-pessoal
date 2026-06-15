@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "@/components/motion/Reveal";
-import { Terminal, Activity, Quote } from "lucide-react";
+import { Terminal, Activity, Quote, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/hooks/useLang";
+import { CHAINS } from "@/data/projects.config";
 
 /* Rotating thesis lines typed into the terminal */
 const THESIS_LINES = [
@@ -32,12 +34,7 @@ const TENETS = [
   },
 ];
 
-const CHAIN_BEACONS = [
-  { id: "SOL",  name: "Solana",   focus: "Programs · Anchor · MPL Core" },
-  { id: "XLM",  name: "Stellar",  focus: "Soroban · Contracts"       },
-  { id: "ETH",  name: "Ethereum", focus: "Solidity · Foundry"         },
-  { id: "BASE", name: "Base",     focus: "L2 · OP Stack"              },
-];
+const CHAIN_BEACONS = CHAINS;
 
 const Typewriter = () => {
   const reduce = useReducedMotion();
@@ -112,7 +109,7 @@ const Signal = () => {
                 <span className="font-code text-[9px] tracking-[0.22em] uppercase text-primary">ONLINE</span>
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[6rem] leading-[0.92] max-w-4xl">
+            <h2 className="text-display text-4xl sm:text-5xl lg:text-[5rem] leading-[0.95] max-w-4xl">
               {t("signal.title")}
             </h2>
           </Reveal>
@@ -158,21 +155,22 @@ const Signal = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.08 }}
-                      className="group flex items-center gap-3 p-3 rounded-2xl border border-border/60 bg-background/40 hover:border-primary/30 hover:bg-primary/[0.03] transition-all"
                     >
-                      <div className="w-9 h-9 rounded-xl border border-border bg-card flex items-center justify-center font-code text-[10px] font-bold text-primary tracking-wider">
-                        {c.id}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-foreground">{c.name}</div>
-                        <div className="font-code text-[9px] text-muted-foreground/70 tracking-[0.18em] uppercase mt-0.5">
-                          {c.focus}
+                      <Link
+                        to={`/chain/${c.slug}`}
+                        className="group flex items-center gap-3 p-3 rounded-2xl border border-border/60 bg-background/40 hover:border-primary/40 hover:bg-primary/[0.04] transition-all"
+                      >
+                        <div className="w-9 h-9 rounded-xl border border-border bg-card flex items-center justify-center font-code text-[10px] font-bold text-primary tracking-wider">
+                          {c.id}
                         </div>
-                      </div>
-                      <span className="relative inline-flex h-1.5 w-1.5 shrink-0">
-                        <span className="absolute inset-0 animate-ping rounded-full bg-primary/50" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-                      </span>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">{c.name}</div>
+                          <div className="font-code text-[9px] text-muted-foreground/70 tracking-[0.18em] uppercase mt-0.5">
+                            {c.focus}
+                          </div>
+                        </div>
+                        <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                      </Link>
                     </motion.div>
                   ))}
                 </div>

@@ -2,77 +2,7 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/motion/Reveal";
 import { useLang } from "@/hooks/useLang";
-
-interface Ship {
-  id: string;
-  name: string;
-  tagline: string;
-  body: string;
-  stack: string[];
-  ecosystem: "Solana" | "Stellar" | "EVM" | "Multi";
-  status: "LIVE" | "BUILT" | "WIP";
-  metric: string;
-  metricLabel: string;
-  github?: string;
-  live?: string;
-  featured?: boolean;
-}
-
-const SHIPS: Ship[] = [
-  {
-    id: "structa",
-    name: "Structa.finance",
-    tagline: "On-chain fundraising for Brazilian real estate, paid in USDC.",
-    body:
-      "Issuer raises capital against a real development; investors earn 16–22% APY backed by the asset. Built at Solana Frontier — production Anchor program + USDC settlement.",
-    stack: ["Anchor", "USDC", "React", "RWA"],
-    ecosystem: "Solana",
-    status: "LIVE",
-    metric: "16–22%",
-    metricLabel: "APY · USDC",
-    github: "https://github.com/Lucasalb11/structa-finance",
-    featured: true,
-  },
-  {
-    id: "kalefi",
-    name: "KaleFi",
-    tagline: "Collateralized lending on Stellar Soroban.",
-    body:
-      "Lend against on-chain collateral with transparent liquidations. Rust contracts on Soroban. Stellar Build Hackathon submission.",
-    stack: ["Rust", "Soroban", "Stellar"],
-    ecosystem: "Stellar",
-    status: "BUILT",
-    metric: "Soroban",
-    metricLabel: "STELLAR BUILD",
-    github: "https://github.com/Lucasalb11",
-  },
-  {
-    id: "aegis",
-    name: "Aegis",
-    tagline: "Yield aggregation across Solana DeFi.",
-    body:
-      "Routes deposits across vetted strategies. One deposit, programmable rebalancing, transparent risk surface.",
-    stack: ["Anchor", "SPL", "TypeScript"],
-    ecosystem: "Solana",
-    status: "WIP",
-    metric: "Multi-vault",
-    metricLabel: "AGGREGATOR",
-    github: "https://github.com/Lucasalb11",
-  },
-  {
-    id: "blinkpay",
-    name: "Blinkpay",
-    tagline: "Solana Blinks → real merchant rails.",
-    body:
-      "Single-action payment links that settle in USDC on Solana. Built for the Brazilian SMB layer that runs on Pix today.",
-    stack: ["Solana Blinks", "USDC", "Next.js"],
-    ecosystem: "Solana",
-    status: "WIP",
-    metric: "Blinks",
-    metricLabel: "PAYMENTS",
-    github: "https://github.com/Lucasalb11",
-  },
-];
+import { SHIPS, type Ship } from "@/data/projects.config";
 
 const STATUS_STYLES: Record<Ship["status"], string> = {
   LIVE:  "bg-primary/10 text-primary border-primary/30",
@@ -98,7 +28,7 @@ const Shipped = () => {
                 {t("shipped.kicker")}
               </span>
             </div>
-            <h2 className="text-display text-4xl sm:text-6xl lg:text-[6rem] leading-[0.92] max-w-5xl">
+            <h2 className="text-display text-4xl sm:text-5xl lg:text-[5rem] leading-[0.95] max-w-5xl">
               {t("shipped.title")}
             </h2>
           </Reveal>
