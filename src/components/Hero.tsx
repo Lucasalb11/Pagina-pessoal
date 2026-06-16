@@ -1,17 +1,10 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import PortraitCard from "@/components/hero/PortraitCard";
-import OnChainHUD from "@/components/web3/OnChainHUD";
 import WalletPill from "@/components/web3/WalletPill";
 import { useLang } from "@/hooks/useLang";
 
 const Hero = () => {
   const { t } = useLang();
-
-  const scrollTo = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-32 sm:pt-36 pb-20">
@@ -66,42 +59,7 @@ const Hero = () => {
                 >
                   {t("hero.p2")}
                 </motion.p>
-                <motion.p
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.55 }}
-                  className="text-muted-foreground"
-                >
-                  {t("hero.p3")}
-                </motion.p>
               </div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.7 }}
-                className="mt-9 flex flex-wrap gap-3"
-              >
-                <a
-                  href="#shipped"
-                  onClick={scrollTo("#shipped")}
-                  data-cursor="hover"
-                  data-cursor-label={t("hero.cta.primary")}
-                  className="group inline-flex items-center gap-2 pl-5 pr-4 py-3 bg-primary text-primary-foreground font-medium rounded-full hover:bg-primary/90 transition-all duration-300 shadow-[0_10px_30px_-12px_hsl(var(--primary)/0.55)] hover:shadow-[0_18px_44px_-16px_hsl(var(--primary)/0.7)] text-sm"
-                >
-                  {t("hero.cta.primary")}
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 1.2 }}
-                className="mt-10"
-              >
-                <OnChainHUD />
-              </motion.div>
             </div>
 
             <PortraitCard />

@@ -196,7 +196,7 @@ const Shipped = () => {
               Every project is open on GitHub
             </a>
             <a
-              href="https://x.com/Lucasalb11"
+              href="https://x.com/11lucasa"
               target="_blank"
               rel="noopener noreferrer"
               data-cursor="hover"

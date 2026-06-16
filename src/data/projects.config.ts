@@ -1,4 +1,4 @@
-export type Ecosystem = "Solana" | "Stellar" | "EVM" | "Base" | "Multi";
+export type Ecosystem = "Solana" | "Stellar" | "EVM";
 
 export interface Ship {
   id: string;
@@ -27,14 +27,13 @@ export const SHIPS: Ship[] = [
     name: "Structa.finance",
     tagline: "On-chain fundraising for Brazilian real estate, settled in USDC.",
     body:
-      "A Brazilian developer raises capital against a real project; investors receive yield in USDC backed by the building's cash flows. Pilot phase on Solana, originally built at Solana Frontier.",
+      "A Brazilian developer raises capital against a real project; investors hold on-chain claims paid out in USDC from the underlying cash flows. Built at Solana Frontier; currently in pilot design. Code open on GitHub.",
     stack: ["Anchor", "USDC", "React", "RWA"],
     ecosystem: "Solana",
-    status: "LIVE",
-    metric: "16–22%",
-    metricLabel: "Target APY · USDC",
+    status: "WIP",
+    metric: "RWA",
+    metricLabel: "Solana · Pilot",
     github: "https://github.com/Lucasalb11/Structa",
-    live: "https://github.com/Lucasalb11/Structa",
     featured: true,
   },
   {
@@ -49,21 +48,19 @@ export const SHIPS: Ship[] = [
     metric: "Soroban",
     metricLabel: "Stellar Build",
     github: "https://github.com/Lucasalb11/KaleFi",
-    live: "https://github.com/Lucasalb11/KaleFi",
   },
   {
     id: "aegis",
     name: "Aegis",
     tagline: "Yield aggregation across Solana DeFi.",
     body:
-      "Routes deposits across vetted strategies. One deposit, programmable rebalancing, transparent risk surface.",
+      "Aggregator routing one deposit across multiple Solana DeFi strategies. WIP — exploring how to surface per-strategy risk on-chain instead of off-chain dashboards.",
     stack: ["Anchor", "SPL", "TypeScript"],
     ecosystem: "Solana",
     status: "WIP",
     metric: "Multi-vault",
     metricLabel: "Aggregator",
     github: "https://github.com/Lucasalb11/Aegis",
-    live: "https://github.com/Lucasalb11/Aegis",
   },
   {
     id: "blinkpay",
@@ -77,7 +74,6 @@ export const SHIPS: Ship[] = [
     metric: "Blinks",
     metricLabel: "Payments",
     github: "https://github.com/Lucasalb11/Blinkpay",
-    live: "https://github.com/Lucasalb11/Blinkpay",
   },
 ];
 
@@ -98,7 +94,7 @@ export const CHAINS: ChainMeta[] = [
     focus: "Programs · Anchor · MPL Core",
     ecosystem: "Solana",
     blurb:
-      "Anchor programs, MPL Core mints, USDC settlement. Where most of my on-chain work lives today — School of Solana Season 8, Solana Frontier, and production code shipped to devnet/mainnet.",
+      "Anchor programs, MPL Core mints, USDC settlement. Where most of my on-chain work lives today — School of Solana Season 8, Solana Frontier hackathon, devnet deployments.",
   },
   {
     slug: "stellar",
@@ -116,16 +112,7 @@ export const CHAINS: ChainMeta[] = [
     focus: "Solidity · Foundry",
     ecosystem: "EVM",
     blurb:
-      "Solidity fundamentals, Solidity 101 cert, Foundry testing, ZKP fundamentals. EVM is where I prototype primitives before porting them to where they ship.",
-  },
-  {
-    slug: "base",
-    id: "BASE",
-    name: "Base",
-    focus: "L2 · OP Stack",
-    ecosystem: "Base",
-    blurb:
-      "Coinbase L2 on the OP Stack. Exploring Smart Wallet integrations, OnchainKit mini-apps, and Farcaster Frames for the consumer surface area.",
+      "Solidity fundamentals, Solidity 101 cert, Foundry testing. EVM is where I prototype primitives before porting them to where they ship.",
   },
 ];
 

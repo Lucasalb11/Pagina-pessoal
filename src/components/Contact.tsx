@@ -5,7 +5,7 @@ import { useLang } from "@/hooks/useLang";
 const CONTACTS = [
   { icon: Mail,     label: "EMAIL",    handle: "lucasalb11@gmail.com",                 href: "mailto:lucasalb11@gmail.com" },
   { icon: Linkedin, label: "LINKEDIN", handle: "lucasalb11",                           href: "https://www.linkedin.com/in/lucasalb11/" },
-  { icon: Twitter,  label: "X",        handle: "@Lucasalb11",                          href: "https://x.com/Lucasalb11" },
+  { icon: Twitter,  label: "X",        handle: "@11lucasa",                            href: "https://x.com/11lucasa" },
   { icon: Github,   label: "GITHUB",   handle: "@Lucasalb11",                          href: "https://github.com/Lucasalb11" },
 ];
 
