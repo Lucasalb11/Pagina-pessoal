@@ -1,45 +1,81 @@
 # Lucas de Almeida — Portfolio
 
-Founder/builder brand. Operator turned on-chain builder, building capital for the real economy.
+Editorial-first personal site for a blockchain engineer. One column, warm paper theme,
+live on-chain data from Solana devnet, MDX for essays and project deep-dives.
 
 **Live:** [lucasalmeida.me](https://lucasalmeida.me)
 
 ## Stack
 
-| Layer        | Tools                                          |
-| ------------ | ---------------------------------------------- |
-| Framework    | React 18 + Vite + TypeScript                   |
-| Styling      | Tailwind CSS                                   |
-| Motion       | framer-motion                                  |
-| Routing      | React Router                                   |
-| i18n         | Custom hook (EN/PT), localStorage-backed       |
-| On-chain     | Solana devnet · MPL Core · Umi · Helius RPC    |
+| Layer         | Tools                                                      |
+| ------------- | ---------------------------------------------------------- |
+| Framework     | Next.js 16 (App Router) · React 19 · TypeScript            |
+| Styling       | Tailwind CSS v4 (CSS-first tokens) · `@theme` block        |
+| Typography    | Instrument Serif · Space Grotesk · Space Mono (next/font)  |
+| Content       | MDX (next-mdx-remote-client) · Shiki for code highlight    |
+| i18n          | URL segments `/en` and `/pt` · proxy.ts detects language   |
+| On-chain      | Solana devnet · MPL Core · Helius RPC                      |
+| SEO           | Dynamic sitemap · robots · JSON-LD (Person / WebSite / BlogPosting) · OG image via `next/og` |
 
-## Sections
+## Routes
 
-`Hero → Story → Track Record → Shipped → Pillars → Credentials → Signal → Contact`
+```
+/                            → 307 → /{lang}   (proxy.ts)
+/en, /pt                     home
+/{lang}/work                 selected work list
+/{lang}/work/[slug]          MDX deep-dive per project (Structa etc.)
+/{lang}/writing              essay index
+/{lang}/writing/[slug]       MDX essay
+/{lang}/chain/[slug]         page per ecosystem (Solana / Stellar / Ethereum)
+/{lang}/credentials          full soulbound NFT list w/ Solscan links
+/api/onchain/latest          Helius-backed live wallet / slot / latest tx
+/sitemap.xml, /robots.txt    dynamic
+/opengraph-image             1200×630 PNG via next/og
+```
 
-Credentials are real soulbound NFTs minted on Solana devnet via MPL Core with a `PermanentFreezeDelegate` plugin.
+## Content
+
+- `content/writing/*.{en,pt}.mdx` — essays. Frontmatter: `title`, `date`, `summary`, `tags`.
+- `content/work/*.{en,pt}.mdx` — project deep-dives. Optional frontmatter: `programId`, `network`, `deployedAt`.
+- `data/projects.config.ts` — projects and chains (list view registry).
+- `data/certs.config.ts` — credentials (source of truth for chip row + `/credentials`).
+- `lib/i18n.ts` — dictionary and helpers (`getDict`, `langPath`, `isLang`).
 
 ## Develop
 
 ```bash
 npm install
-npm run dev          # http://localhost:5173
+npm run dev          # http://localhost:3000
 npm run build
-npm run preview
+npm run start
 ```
 
-## Mint credentials (devnet)
+## On-chain credentials
+
+Real soulbound NFTs on Solana devnet, minted via MPL Core with a `PermanentFreezeDelegate`.
 
 ```bash
-# requires .env.local: DEPLOYER_SECRET, SOLANA_DEVNET_RPC, METADATA_BASE_URL
-npx tsx scripts/mint-credentials.ts
+# .env.local must have DEPLOYER_SECRET + SOLANA_DEVNET_RPC + METADATA_BASE_URL
+npm run mint         # idempotent: resumes from scripts/.mint-output.json
 ```
 
-Idempotent — resumes from `scripts/.mint-output.json`.
+## Environment
 
-## Contact
+`.env.local` (server-only, never exposed to browser):
 
-- GitHub: [Lucasalb11](https://github.com/Lucasalb11)
-- LinkedIn: [Lucas de Almeida](https://www.linkedin.com/in/lucasalb11/)
+```
+HELIUS_RPC=<devnet URL with api key>
+SOLANA_DEVNET_RPC=<same or different devnet RPC>
+LUCAS_WALLET=<public key of deployer>
+SOLANA_CLUSTER=devnet
+CERT_COLLECTION=<MPL Core collection address>
+DEPLOYER_SECRET=<base58 keypair for the mint script only>
+DEPLOYER_PUBKEY=<sanity check>
+METADATA_BASE_URL=https://lucasalmeida.me/metadata
+```
+
+## Reach
+
+- [Email](mailto:lucasalb11@gmail.com)
+- [GitHub](https://github.com/Lucasalb11)
+- [LinkedIn](https://www.linkedin.com/in/lucasalb11/)

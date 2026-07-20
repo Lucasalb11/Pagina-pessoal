@@ -1,0 +1,83 @@
+---
+title: Settlement is a timing problem
+date: "2026-07-15"
+summary: "Why the interesting on-chain use cases for small businesses in Brazil aren’t about rates — they’re about the timing of money."
+tags: [settlement, brazil, defi, rwa]
+---
+
+The most common way people pitch on-chain products for small business in Brazil is with a
+rate story — some version of *"we save you X percent versus what your bank charges."* It is
+not a bad story. It is just the wrong one for most of the businesses it targets, because
+for most of them the binding constraint isn&rsquo;t the price of money. It&rsquo;s the
+*timing* of money.
+
+I ran a construction company for six years. Twelve concurrent projects, a hundred people on
+payroll, institutional financing lines with Caixa Econômica Federal. The math looked fine
+on paper — the projects had margin, the loans had rate. The operational reality was
+different. Every week I made decisions about which supplier to pay Friday and which to hold
+to next Wednesday because a Caixa disbursement was coming or not coming or coming three days
+late. Every month payroll had to clear on the fifth business day regardless of whether a
+buyer had transferred an installment. Every buyer transferred late by default. Payments
+happened on business-day rails; the business happened on real-time rails; the gap between
+the two was where every problem lived.
+
+None of that was a rate problem. It was a scheduling problem shaped like a rate problem —
+because if money moved faster you would need less of it in float, which would show up as a
+smaller effective cost of capital, which people would then describe as a rate improvement.
+But the underlying thing being fixed is time.
+
+## What sub-second settlement changes
+
+Solana settles a transfer in about four hundred milliseconds. Stellar clears in three to
+five seconds. Pix, remarkably, clears in about the same window for BRL transfers within
+Brazil. Meanwhile, most of the SME credit stack still lives on T+1 and T+2 — invoice
+factoring, cross-border USD receivables, working-capital lines against future card sales.
+
+For a small business, moving those flows from T+2 to sub-second changes the shape of the
+business. A merchant who accepts USDC directly instead of BRL-then-conversion removes one
+FX surprise and one banking round trip. A builder who receives investor deposits on-chain
+against a specific project doesn&rsquo;t need a treasurer chasing bank statements to know
+what has cleared. A remittance company that clears in seconds doesn&rsquo;t need to hold a
+buffer of pre-funded liquidity in the destination country. Every one of these is a real
+cost that comes down when timing gets faster, and none of them show up as a headline rate
+improvement — they show up as *less operational drag*, which is what small businesses
+actually feel.
+
+## Where this argument stops working
+
+I am not making the argument that faster settlement fixes credit. It doesn&rsquo;t. It
+still has to be extended, underwritten, and repaid, and none of that is a settlement-layer
+question. What I am arguing is that the specific frictions that make credit and payments
+painful for the businesses I care about are timing frictions, and on-chain rails happen to
+be very good at compressing them.
+
+I am also not making the argument that on-chain yield farming solves anything real. The
+DeFi loop I find interesting is the one that touches actual cash flows — a building that
+produces rent, a merchant that produces sales, a receivable that resolves to a specific
+invoice — not the loop that produces emissions and calls them yield. Yield you can point to
+in the real economy is durable in a way emissions never are.
+
+## What I&rsquo;m building because of this
+
+The projects I&rsquo;m spending my time on are all bets on this framing:
+
+- [**Structa**](/work/structa) — on-chain fundraising for Brazilian real estate, where
+  investor deposits and pro-rata payouts settle in USDC. The whole point is compressing
+  the time between a unit sale closing and the investor receiving their share.
+- [**Blinkpay**](/work/blinkpay) — Solana Blinks as a merchant rail, so a small
+  Brazilian business can receive USDC directly at point of sale, removing the
+  BRL-then-conversion round trip.
+- [**KaleFi**](/work/kalefi) — collateralized lending on Stellar Soroban, where the
+  liquidation and repayment loops both clear in seconds instead of days.
+
+None of these are "yield" pitches. They are settlement-timing pitches with credit and
+custody wrapped around them. That is the field I want to work in for the next decade.
+
+The specific businesses I have in mind — small Brazilian builders, small merchants,
+regional remittance flows — will not adopt on-chain rails because someone gave a talk
+about DeFi. They will adopt them the day a specific transaction they do every week clears
+in under a second instead of two business days, and the person on the other side of the
+transaction shows up ready to receive it. Getting to that day is most of the work.
+
+That&rsquo;s what I&rsquo;m building. If you&rsquo;re building in the same corner —
+issuer, wallet, merchant tech, Brazilian fintech — I&rsquo;d like to compare notes.

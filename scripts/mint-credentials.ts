@@ -34,7 +34,7 @@ import {
 } from "@metaplex-foundation/mpl-core";
 
 import { renderCertCardSvg, renderCollectionSvg } from "./lib/certCardSvg.js";
-import { CERTS } from "../src/data/certs.config.js";
+import { CERTS } from "../data/certs.config.js";
 
 // -----------------------------------------------------------------------------
 // Setup
@@ -43,11 +43,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
 loadEnv({ path: join(repoRoot, ".env.local") });
 
-const RPC = process.env.SOLANA_DEVNET_RPC ?? process.env.VITE_HELIUS_RPC;
+const RPC = process.env.SOLANA_DEVNET_RPC ?? process.env.HELIUS_RPC;
 const DEPLOYER_SECRET = process.env.DEPLOYER_SECRET;
 const METADATA_BASE = process.env.METADATA_BASE_URL ?? "https://lucasalmeida.me/metadata";
 
-if (!RPC) throw new Error("Missing SOLANA_DEVNET_RPC / VITE_HELIUS_RPC in .env.local");
+if (!RPC) throw new Error("Missing SOLANA_DEVNET_RPC / HELIUS_RPC in .env.local");
 if (!DEPLOYER_SECRET) throw new Error("Missing DEPLOYER_SECRET in .env.local");
 
 const METADATA_DIR = join(repoRoot, "public", "metadata");
@@ -254,5 +254,5 @@ log("Assets:     ", Object.keys(output.assets).length);
 log("Output:     ", outputPath);
 log("");
 log("Next steps:");
-log(" 1. Set VITE_CERT_COLLECTION in .env.local to:", output.collectionAddress);
-log(" 2. Update src/data/certs.config.ts with mintAddress + status: 'MINTED' for each cert.");
+log(" 1. Set CERT_COLLECTION in .env.local to:", output.collectionAddress);
+log(" 2. Update data/certs.config.ts with mintAddress + status: 'MINTED' for each cert.");

@@ -1,0 +1,84 @@
+---
+title: Liquidação é um problema de tempo
+date: "2026-07-15"
+summary: Por que os casos de uso on-chain interessantes pra pequeno negócio no Brasil não são sobre taxa — são sobre o tempo do dinheiro.
+tags: [liquidacao, brasil, defi, rwa]
+---
+
+A forma mais comum de pitchar produto on-chain pra pequeno negócio no Brasil é com história
+de taxa — alguma variação de *"a gente reduz X% do que o seu banco cobra."* Não é uma
+história ruim. É só a história errada pra maior parte dos negócios que ela mira, porque, pra
+maior parte deles, a restrição binding não é o preço do dinheiro. É o *tempo* do dinheiro.
+
+Toquei uma construtora por seis anos. Doze obras em paralelo, cem funcionários na folha,
+linhas institucionais na Caixa. A matemática fechava no papel — os projetos tinham margem,
+os empréstimos tinham taxa. A realidade operacional era outra. Toda semana eu decidia qual
+fornecedor pagar sexta e qual segurar pra próxima quarta porque um desembolso da Caixa
+estava chegando, ou não estava chegando, ou estava chegando com três dias de atraso. Todo
+mês a folha tinha que rodar no quinto dia útil independentemente de o comprador ter feito a
+transferência da parcela. Todo comprador transferia atrasado por padrão. Os pagamentos
+aconteciam em trilho de dia útil; o negócio acontecia em tempo real; o gap entre os dois
+era onde todo problema morava.
+
+Nada disso era problema de taxa. Era problema de tempo com formato de problema de taxa —
+porque, se o dinheiro andasse mais rápido, você precisaria de menos dele em float, o que
+apareceria como um custo efetivo de capital menor, o que as pessoas então descreveriam como
+melhoria de taxa. Mas a coisa que está sendo consertada por trás disso é tempo.
+
+## O que liquidação em menos de um segundo muda
+
+Solana liquida uma transferência em cerca de quatrocentos milissegundos. Stellar em três a
+cinco segundos. O Pix, notavelmente, liquida na mesma janela pra transferências em BRL
+dentro do Brasil. Enquanto isso, boa parte da pilha de crédito PME ainda vive em D+1 e D+2
+— antecipação de recebíveis, contas a receber em dólar cross-border, capital de giro contra
+venda futura de cartão.
+
+Pra um pequeno negócio, tirar esse fluxo de D+2 pra menos de um segundo muda o formato do
+negócio. Um lojista que recebe USDC direto no lugar de BRL-com-conversão elimina uma
+surpresa cambial e uma ida e volta no sistema bancário. Um construtor que recebe depósitos
+de investidor on-chain contra um projeto específico não precisa de tesoureiro caçando
+extrato pra saber o que liquidou. Uma empresa de remessa que liquida em segundos não
+precisa manter buffer de liquidez pré-fundeada no país destino. Cada um desses é um custo
+real que cai quando o tempo comprime, e nenhum deles aparece como melhoria de taxa em
+manchete — eles aparecem como *menos atrito operacional*, que é o que o pequeno negócio
+sente de verdade.
+
+## Onde o argumento para de funcionar
+
+Não estou argumentando que liquidação mais rápida resolve crédito. Não resolve. Crédito
+ainda precisa ser concedido, subscrito e pago, e nada disso é uma questão de camada de
+liquidação. O que eu estou argumentando é que os atritos específicos que tornam crédito e
+pagamento dolorosos pros negócios com que eu me importo são atritos de tempo, e trilhos
+on-chain são muito bons em comprimi-los.
+
+Também não estou argumentando que farm de yield on-chain resolve alguma coisa real. O loop
+de DeFi que me interessa é o que toca fluxo de caixa de verdade — um prédio que gera
+aluguel, um lojista que gera venda, um recebível que resolve pra uma nota específica —
+não o loop que gera emissão e chama de yield. Yield que você consegue apontar na economia
+real é durável de um jeito que emissão nunca é.
+
+## O que estou construindo por causa disso
+
+Os projetos em que estou colocando meu tempo são todos apostas nesse frame:
+
+- [**Structa**](/work/structa) — captação on-chain pra imóveis brasileiros, onde depósito
+  de investidor e distribuição pro-rata liquidam em USDC. O ponto inteiro é comprimir o
+  tempo entre uma unidade fechar venda e o investidor receber sua parte.
+- [**Blinkpay**](/work/blinkpay) — Solana Blinks como trilho pra comerciante, pro pequeno
+  negócio brasileiro receber USDC direto no ponto de venda, cortando a ida-e-volta
+  BRL-com-conversão.
+- [**KaleFi**](/work/kalefi) — crédito colateralizado em Stellar Soroban, onde o loop de
+  liquidação e pagamento clareia em segundos no lugar de dias.
+
+Nenhum desses é pitch de "yield". Todos são pitch de tempo de liquidação, com crédito e
+custódia embrulhados em volta. É o campo em que quero trabalhar pela próxima década.
+
+Os negócios específicos que eu tenho em mente — pequeno construtor brasileiro, pequeno
+comerciante, corredor regional de remessa — não vão adotar trilho on-chain porque alguém
+deu palestra sobre DeFi. Vão adotar no dia em que uma transação específica que eles fazem
+toda semana clareia em menos de um segundo no lugar de dois dias úteis, e a pessoa do
+outro lado dessa transação aparece pronta pra receber. Chegar nesse dia é a maior parte do
+trabalho.
+
+É o que eu estou construindo. Se você está construindo no mesmo canto — emissor,
+carteira, tecnologia pra comerciante, fintech brasileira — quero comparar notas.

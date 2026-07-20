@@ -1,0 +1,24 @@
+## The thesis
+
+Yield aggregation on Solana solves a real problem — reallocating a single deposit across
+multiple strategies as their yields drift — but the current generation of aggregators
+tends to hide too much. A depositor sees an APY number and a vault address; the actual
+per-strategy risk lives in an off-chain dashboard nobody reads.
+
+Aegis is an experiment in bringing that risk surface on-chain. Each strategy the aggregator
+routes to reports its own risk parameters as an account, and the router respects a
+depositor-configured risk ceiling when reallocating.
+
+## Where it is
+
+Work in progress. The routing and reallocation primitives compile and pass basic tests on
+localnet; the risk-surface accounts are still design-stage.
+
+## What I&rsquo;m thinking through
+
+- Whether the risk surface should be a strategy-emitted attestation or a keeper-computed
+  observation.
+- How reallocation gas is billed — whether depositors amortize it via a fee, or a keeper
+  bidding market covers it.
+- The failure mode when a strategy fails to update its risk account — how long the router
+  waits before treating the position as opaque.
