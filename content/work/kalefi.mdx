@@ -1,0 +1,43 @@
+## The problem
+
+KALE holders on Stellar had no way to borrow against their tokens. KaleFi is a single-market
+lending contract: deposit KALE, borrow USDC up to a loan-to-value limit, and repay.
+
+## How it works
+
+One Soroban contract in Rust:
+
+```text
+deposit(KALE) ─► collateral[user] += amount
+borrow(USDC)  ─► health factor after the borrow must stay ≥ 1
+withdraw      ─► health factor after the withdrawal must stay ≥ 1
+repay         ─► debt[user] -= amount (can't exceed the debt)
+```
+
+The health factor is collateral value × LTV ÷ debt, read by the frontend so users see how
+close they are to the limit.
+
+## Design decisions
+
+- **Isolated market.** One collateral, one debt asset, one contract. A bad price in this
+  market can't spread to another.
+- **Health checked after the change.** `borrow` and `withdraw` compute the position as it
+  would be afterwards, so the check can't be bypassed by ordering.
+- **Every state change needs `require_auth()`** from the user whose position it touches.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Borrowing for someone else | Mitigated: `require_auth()` on the position owner |
+| Withdrawing collateral that backs debt | Mitigated: health factor checked after the withdrawal |
+| Overpaying debt | Mitigated: repayment above the debt is rejected |
+| Overflow in valuation | Mitigated: checked multiplication with an explicit panic |
+| **Mock price (High)** | **Open.** Collateral is priced from `set_mock_price`, set by the admin. Whoever holds the admin key sets everyone's borrowing power. Fix: read the Reflector oracle with a staleness bound |
+| **No liquidations (High)** | **Open.** Underwater positions can't be liquidated, so bad debt just accumulates. Fix: a `liquidate` entrypoint with a close factor and a bonus for the liquidator |
+| Error handling | Open: `panic!` with strings instead of typed contract errors |
+
+## Status
+
+Built for Stellar Build (2025). The oracle and liquidation work come before the testnet demo
+is back up.

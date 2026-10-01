@@ -1,0 +1,79 @@
+## The problem
+
+A mid-sized Brazilian builder funds a development in one of two ways: a line from Caixa
+Econômica Federal (cheap, slow, heavy on collateral), or private investors buying claims on
+a specific project (fast, expensive, and run on spreadsheets). I ran the second path for six
+years. Knowing who owns which claim, paying each holder as units sell, and unwinding
+everything when a project is cancelled was a full-time job.
+
+Structa moves that accounting on-chain. Each development raises USDC against a fixed number
+of **cotas**, distributes yield pro-rata as units sell, and can refund principal if the
+project stops.
+
+## My role
+
+Co-founder, responsible for the product and the protocol design: the cota model, the
+three-vault split, the yield accumulator and the refund path. Engineering of the program,
+backend and frontend was led by my co-founder, Eduardo Manczenko.
+
+## How it works
+
+One Anchor program serves every development. A project is a set of PDAs derived from a
+32-byte seed, so a new development costs account rent, not a new deploy.
+
+```text
+admin ── initialize_project ─► ProjectState  PDA["project", seed]
+                               ├─ cota mint     (authority: project PDA)
+                               ├─ vault_principal (USDC)
+                               ├─ vault_yield     (USDC)
+                               └─ vault_burn      (USDC)
+
+investor ── buy_cotas ──► USDC → vault_principal, cotas minted to a frozen ATA
+admin ──── distribute_yield ──► cumulative_yield_per_token += amount · 1e12 / supply
+investor ── claim_yield ──► (cumulative − snapshot) · balance / 1e12
+admin ──── unlock_burn ──► remaining principal → vault_burn
+investor ── burn_cotas ──► burn, refund at the original price
+```
+
+## Design decisions
+
+- **Yield is O(1).** `distribute_yield` bumps a scaled accumulator; holders claim the delta
+  against their own snapshot. No loops over holders, so it works for any number of them.
+- **Cotas can't move.** The program freezes every cota account right after minting and only
+  thaws inside its own burn path. Yield is keyed to `HolderState`, so a plain SPL transfer
+  would otherwise split ownership from payouts.
+- **No retroactive yield.** A new holder's snapshot starts at the current accumulator, and
+  every buy or burn settles pending yield before the balance changes.
+- **One vault per purpose.** Principal, yield and refunds never share a token account.
+- **Distributions must be funded.** `distribute_yield` requires the yield vault to hold
+  everything already promised plus the new amount.
+
+```rust
+let outstanding = project
+    .total_yield_distributed
+    .checked_sub(project.total_yield_claimed)
+    .ok_or(StructaError::MathOverflow)?;
+let needed = outstanding.checked_add(amount).ok_or(StructaError::MathOverflow)?;
+require!(ctx.accounts.vault_yield.amount >= needed, StructaError::InsufficientYieldVault);
+```
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Unauthorised admin calls | Mitigated: every admin context checks `has_one = authority` and seeded PDAs |
+| Vault or mint substitution | Mitigated: vaults pinned with `address = project.vault_*` |
+| Arithmetic overflow | Mitigated: `checked_*` throughout, `u128` intermediates, supply capped at 1e10 |
+| Buying just before a distribution to capture it | Mitigated: snapshot on entry, settle before every balance change |
+| Secondary transfers breaking yield accounting | Mitigated: cota accounts frozen by the program |
+| Rounding | Accumulator truncates; dust stays in the yield vault, which favours solvency |
+| **Single-key authority (High)** | **Open.** `withdraw_principal` can send the whole principal vault to any USDC account at any time. Fix: `transfer_authority` to a Squads multisig with a timelock, and milestone-gated withdrawals |
+| **Refund shortfall (Medium)** | **Open.** After a partial withdrawal, `burn_cotas` refunds at the original price first come, first served. Fix: refund pro-rata to the burn-vault balance at unlock time |
+| One-step authority transfer | Open. A wrong key in `transfer_authority` locks admin out. Fix: propose and accept in two steps |
+| Legal wrapper | Off-chain by design: issuer KYC, the cota's legal form, and reconciliation with the property registry |
+
+## Status
+
+The program is deployed on Solana devnet and the investor flow runs end to end at the live
+app: wallet login, cota purchase, portfolio and yield history. The integration suite covers
+every instruction, including multi-holder yield and the full burn and refund cycle.

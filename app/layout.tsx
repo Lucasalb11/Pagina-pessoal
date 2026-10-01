@@ -1,179 +1,103 @@
-import type { Metadata } from "next";
-import { Instrument_Serif, Space_Grotesk, Space_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import { SITE_URL, PROFILE } from "@/data/profile";
 import "./globals.css";
 
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-instrument-serif",
-  display: "swap",
-});
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
-  display: "swap",
-});
-
-const SITE_URL = "https://lucasalmeida.me";
+const TITLE = "Lucas de Almeida — Protocol Engineer · Solana · Stellar";
+const DESCRIPTION =
+  "Protocol engineer building on Solana (Anchor) and Stellar (Soroban), with a threat model for everything I ship. Open to full-time remote roles.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Lucas de Almeida — Blockchain Engineer · Solana · Web3 Builder",
-    template: "%s · Lucas de Almeida",
-  },
-  description:
-    "Blockchain engineer building on-chain capital infrastructure for the Brazilian real economy. Rust on Solana (Anchor) and Stellar (Soroban), Solidity on EVM (Foundry). Ackee School of Solana, Season 8.",
+  title: { default: TITLE, template: "%s · Lucas de Almeida" },
+  description: DESCRIPTION,
   keywords: [
-    "blockchain engineer",
-    "Solana developer",
+    "protocol engineer",
     "smart contract engineer",
-    "Rust blockchain",
+    "Solana developer",
     "Anchor",
-    "Solidity",
-    "Foundry",
+    "Rust",
     "Soroban",
     "Stellar",
+    "Solidity",
+    "Foundry",
+    "smart contract security",
     "DeFi engineer",
-    "real-world assets",
-    "USDC settlement",
+    "remote blockchain engineer",
     "Lucas de Almeida",
-    "founding engineer Web3",
-    "Recife blockchain",
-    "LATAM blockchain",
   ],
-  authors: [{ name: "Lucas de Almeida", url: SITE_URL }],
-  creator: "Lucas de Almeida",
+  authors: [{ name: PROFILE.name, url: SITE_URL }],
+  creator: PROFILE.name,
   openGraph: {
     type: "profile",
     locale: "en_US",
-    alternateLocale: "pt_BR",
     url: SITE_URL,
-    siteName: "Lucas de Almeida",
-    title: "Lucas de Almeida — Blockchain Engineer · Solana · Web3 Builder",
-    description:
-      "Operator turned on-chain builder. Seven years running a 100-person real-economy business — now writing smart contracts across Solana, Stellar and EVM.",
+    siteName: PROFILE.name,
+    title: TITLE,
+    description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    site: "@11lucasa",
     creator: "@11lucasa",
-    title: "Lucas de Almeida — Blockchain Engineer",
-    description:
-      "Operator turned on-chain builder. Rust · Anchor · Solidity · Soroban. Open to founding teams and builder partnerships.",
+    title: TITLE,
+    description: DESCRIPTION,
   },
-  robots: {
-    index: true,
-    follow: true,
-    "max-snippet": -1,
-    "max-image-preview": "large",
-    "max-video-preview": -1,
-  },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  robots: { index: true, follow: true, "max-image-preview": "large" },
+  alternates: { canonical: SITE_URL },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0f0d",
+  colorScheme: "dark",
 };
 
 const jsonLdPerson = {
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": `${SITE_URL}/#lucas`,
-  name: "Lucas de Almeida",
-  givenName: "Lucas",
-  familyName: "de Almeida",
+  name: PROFILE.name,
   url: SITE_URL,
-  image: `${SITE_URL}/lucas-portrait.jpg`,
-  email: "mailto:lucasalb11@gmail.com",
-  jobTitle: "Blockchain Engineer",
-  description:
-    "Blockchain engineer building on-chain capital infrastructure for the Brazilian real economy.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Recife",
-    addressRegion: "PE",
-    addressCountry: "BR",
-  },
-  nationality: "Brazilian",
+  image: `${SITE_URL}/portrait-duotone.jpg`,
+  email: `mailto:${PROFILE.email}`,
+  jobTitle: "Protocol Engineer",
+  description: DESCRIPTION,
+  address: { "@type": "PostalAddress", addressLocality: "Recife", addressRegion: "PE", addressCountry: "BR" },
   knowsLanguage: ["Portuguese", "English"],
-  knowsAbout: [
-    "Smart Contract Development",
-    "Solana",
-    "Rust",
-    "Anchor",
-    "Solidity",
-    "Foundry",
-    "Soroban",
-    "Stellar",
-    "USDC settlement",
-    "Real-world assets",
-    "SPL Tokens",
-    "PDAs",
-    "CPIs",
-  ],
+  knowsAbout: ["Solana", "Anchor", "Rust", "Soroban", "Stellar", "Solidity", "Foundry", "Smart contract security", "DeFi"],
   alumniOf: [
-    {
-      "@type": "EducationalOrganization",
-      name: "Ackee — School of Solana",
-      url: "https://ackee.xyz/solana/school-of-solana/",
-    },
-    { "@type": "EducationalOrganization", name: "NearX Academy" },
-    {
-      "@type": "EducationalOrganization",
-      name: "Universidade Federal Rural de Pernambuco (UFRPE)",
-      url: "https://ufrpe.br/",
-    },
+    { "@type": "EducationalOrganization", name: "Ackee Blockchain — School of Solana" },
+    { "@type": "CollegeOrUniversity", name: "Universidade Federal Rural de Pernambuco" },
+    { "@type": "CollegeOrUniversity", name: "Universidade Federal de Pernambuco" },
   ],
-  sameAs: [
-    "https://github.com/Lucasalb11",
-    "https://www.linkedin.com/in/lucasalb11/",
-    "https://x.com/11lucasa",
-  ],
+  sameAs: [PROFILE.github, PROFILE.linkedin, PROFILE.x],
 };
 
-const jsonLdWebsite = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  url: SITE_URL,
-  name: "Lucas de Almeida — Blockchain Engineer",
-  publisher: { "@id": `${SITE_URL}/#lucas` },
-  inLanguage: ["en", "pt-BR"],
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${instrumentSerif.variable} ${spaceGrotesk.variable} ${spaceMono.variable}`}
-    >
+    <html lang="en" className={`${geist.variable} ${geistMono.variable}`}>
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="theme-color" content="#f4efe4" />
-        <meta name="geo.region" content="BR-PE" />
-        <meta name="geo.placename" content="Recife" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
-        />
       </head>
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--color-mint)] focus:px-3 focus:py-2 focus:text-[var(--color-ink)]"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
+        <div id="main">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

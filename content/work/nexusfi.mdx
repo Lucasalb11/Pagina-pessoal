@@ -1,0 +1,50 @@
+## The problem
+
+Around 1.4 billion adults have a phone but no credit history, so no bank will lend to them.
+NexusFi scores people on their on-chain history instead, and keeps the sensitive parts of
+that decision off-chain.
+
+## How it works
+
+Three layers on three networks:
+
+- **Chainlink CRE workflows** (TypeScript compiled to WASM, run by a Chainlink DON): proof of
+  reserves, credit scoring, risk monitoring, and a confidential eligibility check.
+- **Solidity on Sepolia**: four attestation contracts that only accept writes from the CRE
+  forwarder.
+- **Soroban on Stellar testnet**: the nUSD and nBRL stablecoins, a score registry, and the
+  credit line itself.
+
+```text
+user wallet ─► CRE WF2: every node fetches tx history ─► median consensus ─► score
+            ─► CreditScoreAttestation.sol (Sepolia, onlyForwarder)
+            ─► backend reads score ─► credit_line.open_credit_line() on Soroban
+CRE WF1 every 30s: reserves ÷ supply ─► ReserveAttestation.sol ─► alert below 0.95
+```
+
+## Design decisions
+
+- **Consensus before anything is written.** Each CRE node fetches its own data; the
+  workflow takes the median (or requires identical answers for eligibility), so one bad node
+  can't move a score.
+- **No personal data on-chain.** The eligibility check keeps the API key in CRE secrets and
+  publishes only `keccak256(userId)` and a boolean.
+- **Limits come from tiers.** The credit line maps a score to a fixed limit and rate, so
+  the contract never does open-ended math on an external number.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Forged attestations | Mitigated: `onlyForwarder` on every Sepolia write |
+| One oracle node lying | Mitigated: median or identical aggregation across the DON |
+| PII leakage | Mitigated: hashed user id plus boolean only |
+| Unauthorised credit use | Mitigated: `require_auth()` on `use_credit` and `repay` |
+| Forged MoonPay webhooks | Mitigated: HMAC-SHA256 with constant-time comparison |
+| **Trusted bridge between chains (Medium)** | **Open.** The Soroban credit line trusts the admin key to submit the score; it doesn't verify the Sepolia attestation. Fix: relay the attestation with a signature the Soroban contract checks |
+| Gas growth in attestation history | Open: history shifts the whole array on each write; replace with a ring-buffer index |
+
+## Status
+
+Built for the Chainlink Convergence Hackathon (2026). The four Soroban contracts are live on
+Stellar testnet; the app is being redeployed.

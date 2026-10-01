@@ -1,0 +1,45 @@
+## The problem
+
+To understand the Stellar economy today you stitch together Horizon, stellar.expert,
+DefiLlama, CoinGecko and a spreadsheet. Worse, many dashboards show stale or made-up numbers
+without saying so.
+
+## How it works
+
+A server-rendered Next.js 16 app with nine routes: TVL by protocol, stablecoin supply,
+capital flows, tokenised real-world assets, Soroban activity, a layered price oracle and a
+0–100 trust score for the top protocols.
+
+Every number goes through the same five-layer pipeline:
+
+```text
+upstream API ─► adapter (fetch + Zod) ─► fallback (typed, logged) ─► aggregator ('use cache')
+             ─► server component ─► presentational client component
+```
+
+## Design decisions
+
+- **No silent mocks.** Every row carries a source badge. If an upstream fails, the value is
+  marked *illustrative* in the UI and a structured log line is written, never a quiet
+  placeholder.
+- **Schemas at the edge.** Every external response is parsed with Zod before it reaches the
+  app, so a changed API breaks loudly in one adapter instead of quietly in a chart.
+- **A layered oracle.** XLM/USD falls back from CoinGecko to the Reflector Soroban contract
+  to the Horizon order book, with a 0.95–1.05 peg band that rejects nonsense prices.
+- **Assets are keyed by code and issuer.** Asset codes like USDT collide on Stellar.
+
+## Threat model
+
+This is a read-only app, so the risks are integrity and availability, not funds.
+
+| Vector | Status |
+| --- | --- |
+| Poisoned or malformed upstream data | Mitigated: Zod validation per adapter, peg band on prices |
+| Upstream outage | Mitigated: typed fallbacks, labelled as illustrative |
+| Cache abuse | Mitigated: revalidation endpoint behind a secret |
+| Malicious outbound links | Mitigated: 22-entry protocol registry, HTTPS only, `noopener noreferrer`, no `javascript:` or `data:` |
+| Score gaming | Partly: the trust-score formula is public and deterministic, which helps review but is also easy to optimise for |
+
+## Status
+
+Live, with 192 passing tests. The next step is per-protocol alerting on trust-score drops.

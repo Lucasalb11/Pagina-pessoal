@@ -1,0 +1,43 @@
+## The problem
+
+A user who swaps through a router picks the route and eats whatever MEV comes with it. With
+intents, the user says what they want ("at least X of token B for Y of token A, before T") and
+solvers compete to fill it.
+
+## How it works
+
+```text
+user ── create_intent(in, min_out, expiry) ──► Intent PDA, input locked in a vault
+solver ── register_solver(stake) ──► Solver PDA with reputation
+solver ── submit_solution(out) ──► best output wins
+winner ── execute_settlement ──► output to user, fees to protocol and solver
+user ── cancel_intent (before execution) ──► input refunded
+```
+
+Fees are 0.15% total: 0.05% protocol and 0.10% to the solver, with a reputation score
+updated on every settlement.
+
+## Design decisions
+
+- **Solvers stake to play.** A minimum stake makes spamming fake solutions costly, and
+  the stake is what a future slashing rule would take.
+- **Only the winning solver settles.** `execute_settlement` checks the signer against
+  `intent.winning_solver`.
+- **Expiry is enforced on-chain.** Intents can't settle or be cancelled once they expire,
+  using the Clock sysvar.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Settlement by a losing solver | Mitigated: winner checked on settlement |
+| Settling an expired intent | Mitigated: `can_settle` checks status and expiry |
+| Cancel after execution | Mitigated: `can_cancel` requires an unexecuted intent |
+| Fee overflow | Mitigated: checked arithmetic |
+| **Settlement pays the minimum (High)** | **Open.** The user receives `min_output_amount` minus fees instead of the solver's winning quote, so the competition gives the user nothing. Worse, the fees are taken out of that minimum, so the user can end up below what they asked for |
+| **Input never released (High)** | **Open.** Settlement moves the solver's output but never moves the locked input to the solver; the input stays in the vault. Fix: transfer `input_amount` to the solver in the same instruction, and pay out the quoted amount with fees on top |
+| Front-running submissions | Open: solutions are public; a commit-reveal round would make bids sealed |
+
+## Status
+
+Program and tests written; settlement is being rewritten before the devnet deploy and demo.

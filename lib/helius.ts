@@ -35,7 +35,7 @@ async function rpc<T>(method: string, params: unknown): Promise<T | null> {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ jsonrpc: "2.0", id: "lda", method, params }),
-      cache: "no-store",
+      next: { revalidate: 60 },
     });
     if (!res.ok) return null;
     const json = await res.json();

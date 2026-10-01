@@ -43,3 +43,4 @@ scripts/.mint-output.json
 
 # TypeScript
 *.tsbuildinfo
+.shots/

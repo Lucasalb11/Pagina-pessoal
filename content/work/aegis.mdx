@@ -1,0 +1,50 @@
+## The problem
+
+AI agents are starting to hold keys. An agent with a hot wallet and a swap router can drain
+itself in one bad loop, or be steered into a manipulated pool. Aegis puts the guardrails
+on-chain, where the agent can't talk its way around them.
+
+## How it works
+
+One Anchor program with three parts:
+
+- **Policy vaults.** An agent's funds sit in a vault with a daily spending limit and a
+  large-transaction threshold. Swaps under the threshold run immediately; above it they become
+  a `PendingAction` that a human must approve; anything over the daily limit is rejected.
+- **Constant-product AMM.** Pools with configurable fees, LP tokens, and a minimum first
+  deposit so the pool can't be initialised at a manipulated ratio.
+- **Oracle checks.** A Pyth reader with a configurable staleness bound, meant to compare the
+  pool price against the market before a swap goes through.
+
+```text
+agent ── request_swap(amount) ──► daily window reset? ──► over daily limit → reject
+                                                     └─► over threshold   → PendingAction
+                                                     └─► otherwise        → swap
+human ── approve_pending_action ──► swap
+```
+
+## Design decisions
+
+- **The 24-hour window resets from on-chain time.** The vault stores `last_reset_timestamp`
+  from the Clock sysvar, so an agent can't fake the clock.
+- **The threshold must sit below the daily limit**, checked at vault creation, so every
+  vault has a path where a human sees a large trade.
+- **Swaps take `min_amount_out`.** Slippage protection is enforced in the program, not left
+  to the client.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Runaway agent spending | Designed: daily limit plus human approval above a threshold |
+| Sandwich and slippage | Mitigated: `min_amount_out` enforced on every swap |
+| Pool initialised at a skewed ratio | Mitigated: first deposit must mint at least `MIN_LIQUIDITY` |
+| Arithmetic overflow | Mostly mitigated with `u128` and checked math; one `checked_add(...).unwrap()` in the daily-limit path should return an error instead |
+| **Policy not reachable (Medium)** | **Open.** The vault, deposit, approval and swap-request instructions are written but not exported from `lib.rs`; the deployed program only exposes the AMM and rewards. Fix: wire them into `#[program]`, add tests, redeploy |
+| Swap is simulated | Open: the approved path updates `daily_spent` but doesn't yet CPI into Jupiter |
+| Oracle not compiled | Open: `oracle.rs` (Pyth reader with staleness bound) isn't declared as a module, so swaps don't compare against the market price yet |
+
+## Status
+
+Built for the Solana Student Hackathon, Fall 2025. The demo is being redeployed together with
+the vault instructions.

@@ -1,0 +1,53 @@
+## The problem
+
+To pay someone in crypto you need their wallet address. Most people in Brazil don't have one,
+but everyone has an Instagram, X or WhatsApp handle. Paga no @ lets you pay the handle: the
+money waits in escrow until the person behind it claims it.
+
+## How it works
+
+Three Anchor programs:
+
+- **Registry** maps `(platform, sha256(handle))` to a destination wallet. Handles are hashed
+  before they touch the chain.
+- **Vault** holds each payment in its own PDA, seeded by `["vault", sender, nonce]`, for
+  seven days. The recipient claims, or the sender gets a refund after expiry.
+- **Fee collector** takes 0.5% on creation.
+
+```text
+sender ── create_vault(@alice, 10 USDC) ──► PaymentVault PDA (7-day escrow)
+alice  ── login with X (Privy) ──► register_handle ──► HandleRecord PDA
+alice  ── claim_vault ──► checks handle hash, verified flag, destination == signer
+sender ── refund_vault (after expiry) ──► funds back
+```
+
+Recipients don't need a wallet first: Privy creates an embedded one at social login, so the
+claim link works for someone who has never touched crypto.
+
+## Design decisions
+
+- **Per-sender nonces.** Vault addresses are deterministic and can't collide, so the
+  frontend can show a claim link before the transaction confirms.
+- **The claim reads the registry directly.** The vault program derives the expected
+  `HandleRecord` address, checks the owning program, and reads the verified flag and
+  destination wallet at fixed offsets instead of trusting an account passed by the caller.
+- **Status is one-way.** `Pending` moves to `Claimed` or `Refunded`, and the vault account is
+  closed on claim, so a payment can't be claimed twice.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Claim by the wrong recipient | Mitigated: claim checks the stored handle hash and that the signer is the registered destination |
+| Double claim | Mitigated: status must be `Pending`; the vault closes on claim |
+| Spoofed handle record | Mitigated: PDA re-derived from the vault's own fields and owner checked against the registry program |
+| Sender griefing | Mitigated: refunds only after the 7-day window |
+| Fee manipulation | Mitigated: fee bps stored in a config PDA only the authority can update |
+| Overflow and re-initialisation | Mitigated: checked arithmetic; `init` (not `init_if_needed`) for config accounts |
+| **Handle squatting (Critical)** | **Open.** `register_handle` sets `verified = true` for any non-empty `proof_data`, and anyone can call it. Whoever registers an unclaimed handle first controls every escrow sent to it. Fix: registration only with an ed25519 attestation signed by the backend after OAuth (checked via the instructions sysvar), and later a ZK proof of account ownership |
+| Rent left in closed accounts | Open: close SPL vault accounts on refund too |
+
+## Status
+
+Programs deployed on Solana devnet, and the PWA live with send, claim, wallet and settings
+flows. Fixing the registration proof comes before anything else on mainnet.

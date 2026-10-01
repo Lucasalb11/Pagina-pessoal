@@ -1,0 +1,43 @@
+## The problem
+
+Merchants want two things a plain transfer doesn't give them: a payment request the customer
+can open and pay, and a charge that runs again next month without anyone remembering to send
+it.
+
+## How it works
+
+One Anchor program with two account types:
+
+- **Payment requests**: a PDA describing amount, token and recipient that anyone can
+  fulfil.
+- **Scheduled charges**: one-off or recurring transfers in SOL or PYUSD that become
+  executable at `execute_at`, with an optional interval and a maximum number of runs.
+
+```text
+payer ── create_scheduled_charge(amount, recipient, execute_at, interval, max) ──► PDA
+anyone ── execute_scheduled_charge (once due) ──► transfer, then schedule the next run
+payer ── cancel_scheduled_charge ──► account closed, rent back
+```
+
+## Design decisions
+
+- **Permissionless execution.** Anyone can trigger a due charge, so the merchant doesn't
+  need to run a crank; the money can only ever go to the recipient fixed at creation.
+- **State before transfer.** The execution count and next run time are written before the
+  CPI, following checks-effects-interactions.
+- **Only the creator cancels**, checked against the stored authority.
+
+## Threat model
+
+| Vector | Status |
+| --- | --- |
+| Charge redirected to another recipient | Mitigated: recipient fixed in the PDA at creation |
+| Executing early | Mitigated: on-chain Clock check against `execute_at` (5-minute tolerance) |
+| Executing too many times | Mitigated: `max_executions` and status checked before each run |
+| Cancelling someone else's charge | Mitigated: authority constraint on cancel |
+| Paying from the wrong token account | Mitigated: owner checked against the stored authority |
+| **Client-supplied timestamp (Medium)** | **Open.** `current_time` is an instruction argument used in PDA seeds and `created_at`. It doesn't affect execution timing, but it lets clients backdate records and choose addresses. Fix: read `Clock::get()` and seed on a counter |
+
+## Status
+
+Program and frontend built; the demo is being redeployed after the timestamp fix.
