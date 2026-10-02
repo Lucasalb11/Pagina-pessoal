@@ -27,7 +27,7 @@ payer ── cancel_scheduled_charge ──► account closed, rent back
   CPI, following checks-effects-interactions.
 - **Only the creator cancels**, checked against the stored authority.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -36,8 +36,15 @@ payer ── cancel_scheduled_charge ──► account closed, rent back
 | Executing too many times | Mitigated: `max_executions` and status checked before each run |
 | Cancelling someone else's charge | Mitigated: authority constraint on cancel |
 | Paying from the wrong token account | Mitigated: owner checked against the stored authority |
-| **Client-supplied timestamp (Medium)** | **Open.** `current_time` is an instruction argument used in PDA seeds and `created_at`. It doesn't affect execution timing, but it lets clients backdate records and choose addresses. Fix: read `Clock::get()` and seed on a counter |
+| Client-supplied timestamp | Fixed. `created_at` and the "is this in the future" check now read the Clock sysvar; the old argument is only a PDA nonce |
+| SPL payment sent to the wrong account | Fixed. `pay_request` didn't check the recipient token account, so a payer could mark a request paid while sending tokens to themselves. Both token accounts are now checked for owner and mint, with a regression test |
 
-## Status
+## What I learned
 
-Program and frontend built; the demo is being redeployed after the timestamp fix.
+Two of the bugs above were in the program from the start and the tests still passed, because the
+tests made the same assumptions as the code: one passed a fake "current time", the other never
+tried paying into the wrong account. Writing the test from the attacker's side is what caught them.
+
+## Where it stands
+
+A self-study project, redeployed to Solana devnet with the fixes above.

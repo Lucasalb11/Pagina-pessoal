@@ -32,7 +32,7 @@ human ── approve_pending_action ──► swap
 - **Swaps take `min_amount_out`.** Slippage protection is enforced in the program, not left
   to the client.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -44,7 +44,6 @@ human ── approve_pending_action ──► swap
 | Swap is simulated | Open: the approved path updates `daily_spent` but doesn't yet CPI into Jupiter |
 | Oracle not compiled | Open: `oracle.rs` (Pyth reader with staleness bound) isn't declared as a module, so swaps don't compare against the market price yet |
 
-## Status
+## Where it stands
 
-Built for the Solana Student Hackathon, Fall 2025. The demo is being redeployed together with
-the vault instructions.
+A hackathon project. I'm reworking the vault so the spending rules actually move funds, not just track them.

@@ -1,147 +1,123 @@
 export type Chain = "Solana" | "Stellar" | "Multichain";
 
+/**
+ * Learning projects from hackathons and self-study. None of them are running
+ * products; the wording here should never suggest otherwise.
+ */
 export interface Project {
   id: string;
   name: string;
-  /** One sentence: what it does, for whom. */
+  /** One plain sentence: what I tried to build. */
   summary: string;
   chain: Chain;
-  /** Where/when it was built. Submissions only — no placements claimed. */
+  /** Where it came from: hackathon name or "self-study". */
   context: string;
   year: number;
   stack: string[];
-  /** GitHub `owner/repo`. Used to resolve the live URL at runtime. */
+  /** GitHub `owner/repo`. Used to resolve a demo link at runtime. */
   repo: string;
-  /** Static fallback when neither Vercel nor GitHub report a live URL. */
+  /** Static fallback demo URL when neither Vercel nor GitHub report one. */
   live?: string;
-  /** Screenshot in /public/projects. Projects without one get a generated cover. */
+  /** Screenshot in /public/projects, shown on the notes page. */
   image?: string;
-  /** Short flow drawn on the generated cover, left to right. */
-  flow: string[];
-  /** Explorer link for the deployed program / contract, when there is one. */
   onchain?: { label: string; href: string };
   role?: string;
-  featured?: boolean;
 }
 
 export const PROJECTS: Project[] = [
   {
-    id: "aegis",
-    name: "Aegis",
-    summary:
-      "Spending guardrails for AI agents trading on Solana: per-vault daily limits, human approval above a threshold, and a slippage-protected AMM.",
+    id: "paga-no-arroba",
+    name: "Paga no @",
+    summary: "Sending crypto to a social handle instead of a wallet address, held in escrow until the owner claims it.",
     chain: "Solana",
-    context: "Solana Student Hackathon, Fall 2025",
-    year: 2025,
-    stack: ["Rust", "Anchor", "Pyth", "Next.js"],
-    repo: "Lucasalb11/Aegis",
-    flow: ["agent", "policy vault", "approval", "swap"],
-    featured: true,
-  },
-  {
-    id: "nexusfi",
-    name: "NexusFi",
-    summary:
-      "Credit lines for people without a credit history: Chainlink CRE workflows score on-chain activity, attest reserves, and gate eligibility without putting personal data on-chain.",
-    chain: "Multichain",
-    context: "Chainlink Convergence Hackathon, 2026",
+    context: "Colosseum Frontier hackathon",
     year: 2026,
-    stack: ["Soroban", "Solidity", "Foundry", "Chainlink CRE"],
-    repo: "Lucasalb11/NexusFi",
-    image: "/projects/nexusfi.webp",
-    flow: ["CRE DON", "attestation", "credit line"],
+    stack: ["Anchor", "Privy", "Next.js"],
+    repo: "Lucasalb11/pay-on-handle",
+    image: "/projects/paganoarroba.webp",
     onchain: {
-      label: "Credit line contract · Stellar testnet",
-      href: "https://stellar.expert/explorer/testnet/contract/CAOOW56V4KKK2HNTTXOCL7VXJU7GEFOJLUWCRUYMUNOSHX74TZH7RFJN",
+      label: "Vault program on devnet",
+      href: "https://explorer.solana.com/address/EgS854XfeyTkuTKpYzDD3h5kiKMt4h3J37hGaBfuDN4H?cluster=devnet",
     },
-    featured: true,
   },
   {
     id: "structa",
     name: "Structa",
-    summary:
-      "Fundraising for Brazilian real-estate developments in USDC: investors buy non-transferable cotas, earn pro-rata yield as units sell, and can be refunded if a project stops.",
+    summary: "Tokenized funding for real-estate developments, with payouts tied to the stages of a project.",
     chain: "Solana",
-    context: "Colosseum Frontier, 2026",
+    context: "Colosseum Frontier hackathon, with Eduardo Manczenko",
     year: 2026,
-    stack: ["Anchor", "SPL Token", "USDC", "NestJS"],
+    stack: ["Anchor", "SPL Token", "USDC"],
     repo: "Lucasalb11/Structa",
     live: "https://structa-frontend.vercel.app",
     image: "/projects/structa.webp",
-    flow: ["investor", "cota mint", "3 vaults", "yield"],
     onchain: {
-      label: "Program · Solana devnet",
+      label: "Program on devnet",
       href: "https://explorer.solana.com/address/2vEvLqNyMKPx7B6nz1yaKJgNBMV7DeXv17dTYR8T5SSf?cluster=devnet",
     },
-    role: "Co-founder · protocol design",
-    featured: true,
+    role: "Co-founder, product and protocol design",
   },
   {
-    id: "paga-no-arroba",
-    name: "Paga no @",
-    summary:
-      "Send SOL or USDC to an Instagram, X or WhatsApp handle. Funds wait in a 7-day escrow until the owner of the handle claims them, or go back to the sender.",
-    chain: "Solana",
-    context: "Colosseum Frontier · Superteam Brazil, 2026",
+    id: "nexusfi",
+    name: "NexusFi",
+    summary: "Exploring Chainlink's Runtime Environment for risk monitoring and cross-chain financial integrations.",
+    chain: "Multichain",
+    context: "Chainlink Convergence hackathon",
     year: 2026,
-    stack: ["Anchor", "Privy", "Next.js", "TypeScript SDK"],
-    repo: "Lucasalb11/pay-on-handle",
-    image: "/projects/paganoarroba.webp",
-    flow: ["sender", "escrow PDA", "handle proof", "claim"],
-    onchain: {
-      label: "Vault program · Solana devnet",
-      href: "https://explorer.solana.com/address/EgS854XfeyTkuTKpYzDD3h5kiKMt4h3J37hGaBfuDN4H?cluster=devnet",
-    },
-    featured: true,
+    stack: ["Chainlink CRE", "Soroban", "Solidity"],
+    repo: "Lucasalb11/NexusFi",
+    image: "/projects/nexusfi.webp",
   },
   {
     id: "stellar-pulse",
     name: "Stellar Pulse",
-    summary:
-      "One dashboard for the Stellar economy — TVL, stablecoins, RWAs, Soroban activity — where every number carries its source or is marked illustrative.",
+    summary: "A dashboard for the Stellar economy where every number shows where it came from.",
     chain: "Stellar",
-    context: "Independent, 2026",
+    context: "Self-study",
     year: 2026,
-    stack: ["Next.js 16", "Zod", "Reflector", "Horizon"],
+    stack: ["Next.js", "Zod", "Horizon"],
     repo: "Lucasalb11/Stellar-pulse",
     image: "/projects/stellarpulse.webp",
-    flow: ["upstream", "adapter", "fallback", "cache"],
   },
   {
-    id: "foxfi",
-    name: "FoxFi",
-    summary:
-      "Intent-based swaps on Solana: users lock what they want to trade, staked solvers compete to fill it, and settlement enforces the user's minimum.",
+    id: "aegis",
+    name: "Aegis",
+    summary: "Spending limits for an AI agent's wallet: small payments go through, large ones wait for a human.",
     chain: "Solana",
-    context: "Independent, 2025",
+    context: "Solana Student Hackathon",
     year: 2025,
-    stack: ["Rust", "Anchor", "TypeScript"],
-    repo: "Lucasalb11/FoxFi",
-    flow: ["intent", "solvers", "settlement"],
-  },
-  {
-    id: "kalefi",
-    name: "KaleFi",
-    summary:
-      "Borrow USDC against KALE collateral on Stellar, with a health factor checked on every borrow and withdrawal.",
-    chain: "Stellar",
-    context: "Stellar Build Hackathon, 2025",
-    year: 2025,
-    stack: ["Rust", "Soroban", "Freighter"],
-    repo: "Lucasalb11/KaleFi",
-    flow: ["collateral", "health factor", "borrow"],
+    stack: ["Rust", "Anchor"],
+    repo: "Lucasalb11/Aegis",
   },
   {
     id: "blinkpay",
     name: "Blinkpay",
-    summary:
-      "Payment requests and scheduled charges on Solana in SOL or PYUSD, executable by anyone once they come due.",
+    summary: "Payment links on Solana: create a request, share it, get paid in SOL or USDC.",
     chain: "Solana",
-    context: "Independent, 2025",
+    context: "Self-study",
     year: 2025,
-    stack: ["Anchor", "PYUSD", "Next.js"],
+    stack: ["Anchor", "Next.js"],
     repo: "Lucasalb11/Blinkpay",
-    flow: ["request", "schedule", "execute"],
+  },
+  {
+    id: "foxfi",
+    name: "FoxFi",
+    summary: "An intent-based swap where solvers compete to fill a user's order.",
+    chain: "Solana",
+    context: "Self-study",
+    year: 2025,
+    stack: ["Rust", "Anchor"],
+    repo: "Lucasalb11/FoxFi",
+  },
+  {
+    id: "kalefi",
+    name: "KaleFi",
+    summary: "Borrowing USDC against KALE collateral on Stellar.",
+    chain: "Stellar",
+    context: "Stellar Build hackathon",
+    year: 2025,
+    stack: ["Rust", "Soroban"],
+    repo: "Lucasalb11/KaleFi",
   },
 ];
 

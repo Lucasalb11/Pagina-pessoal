@@ -10,7 +10,7 @@ Structa moves that accounting on-chain. Each development raises USDC against a f
 of **cotas**, distributes yield pro-rata as units sell, and can refund principal if the
 project stops.
 
-## My role
+## My part
 
 Co-founder, responsible for the product and the protocol design: the cota model, the
 three-vault split, the yield accumulator and the refund path. Engineering of the program,
@@ -57,7 +57,7 @@ let needed = outstanding.checked_add(amount).ok_or(StructaError::MathOverflow)?;
 require!(ctx.accounts.vault_yield.amount >= needed, StructaError::InsufficientYieldVault);
 ```
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -72,8 +72,6 @@ require!(ctx.accounts.vault_yield.amount >= needed, StructaError::InsufficientYi
 | One-step authority transfer | Open. A wrong key in `transfer_authority` locks admin out. Fix: propose and accept in two steps |
 | Legal wrapper | Off-chain by design: issuer KYC, the cota's legal form, and reconciliation with the property registry |
 
-## Status
+## Where it stands
 
-The program is deployed on Solana devnet and the investor flow runs end to end at the live
-app: wallet login, cota purchase, portfolio and yield history. The integration suite covers
-every instruction, including multi-holder yield and the full burn and refund cycle.
+A hackathon prototype. The program is on Solana devnet and the investor flow works end to end in the demo, against test USDC. It isn't an operating product.

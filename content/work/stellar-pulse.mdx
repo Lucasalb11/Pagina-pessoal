@@ -28,7 +28,7 @@ upstream API ─► adapter (fetch + Zod) ─► fallback (typed, logged) ─►
   to the Horizon order book, with a 0.95–1.05 peg band that rejects nonsense prices.
 - **Assets are keyed by code and issuer.** Asset codes like USDT collide on Stellar.
 
-## Threat model
+## What could go wrong
 
 This is a read-only app, so the risks are integrity and availability, not funds.
 
@@ -40,6 +40,6 @@ This is a read-only app, so the risks are integrity and availability, not funds.
 | Malicious outbound links | Mitigated: 22-entry protocol registry, HTTPS only, `noopener noreferrer`, no `javascript:` or `data:` |
 | Score gaming | Partly: the trust-score formula is public and deterministic, which helps review but is also easy to optimise for |
 
-## Status
+## Where it stands
 
-Live, with 192 passing tests. The next step is per-protocol alerting on trust-score drops.
+A demo is online with 192 passing tests. It's a learning project, not a maintained data product; numbers marked illustrative are exactly that.

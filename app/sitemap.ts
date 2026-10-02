@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/work/${p.id}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: p.featured ? 0.8 : 0.6,
+      priority: 0.6,
     })),
   ];
 }

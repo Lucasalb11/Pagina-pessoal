@@ -26,7 +26,7 @@ updated on every settlement.
 - **Expiry is enforced on-chain.** Intents can't settle or be cancelled once they expire,
   using the Clock sysvar.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -38,6 +38,6 @@ updated on every settlement.
 | **Input never released (High)** | **Open.** Settlement moves the solver's output but never moves the locked input to the solver; the input stays in the vault. Fix: transfer `input_amount` to the solver in the same instruction, and pay out the quoted amount with fees on top |
 | Front-running submissions | Open: solutions are public; a commit-reveal round would make bids sealed |
 
-## Status
+## Where it stands
 
-Program and tests written; settlement is being rewritten before the devnet deploy and demo.
+A self-study project. Settlement needs the fixes above before it's worth a demo.

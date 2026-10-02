@@ -34,7 +34,7 @@ claim link works for someone who has never touched crypto.
 - **Status is one-way.** `Pending` moves to `Claimed` or `Refunded`, and the vault account is
   closed on claim, so a payment can't be claimed twice.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -47,7 +47,6 @@ claim link works for someone who has never touched crypto.
 | **Handle squatting (Critical)** | **Open.** `register_handle` sets `verified = true` for any non-empty `proof_data`, and anyone can call it. Whoever registers an unclaimed handle first controls every escrow sent to it. Fix: registration only with an ed25519 attestation signed by the backend after OAuth (checked via the instructions sysvar), and later a ZK proof of account ownership |
 | Rent left in closed accounts | Open: close SPL vault accounts on refund too |
 
-## Status
+## Where it stands
 
-Programs deployed on Solana devnet, and the PWA live with send, claim, wallet and settings
-flows. Fixing the registration proof comes before anything else on mainnet.
+A hackathon prototype on Solana devnet. The handle-verification problem above is the main thing I'd fix before calling it anything more than an experiment.

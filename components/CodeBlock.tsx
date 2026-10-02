@@ -8,22 +8,14 @@ export interface CodeBlockProps {
 export default async function CodeBlock({ code, lang = "rust" }: CodeBlockProps) {
   const html = await codeToHtml(code.trim(), {
     lang: lang as BundledLanguage,
-    theme: "vitesse-dark",
-    transformers: [
-      {
-        pre(node) {
-          node.properties.style = "background:transparent";
-        },
-      },
-    ],
+    themes: { light: "github-light", dark: "github-dark-dimmed" },
+    defaultColor: false,
   });
 
   return (
-    <figure className="my-8 overflow-hidden rounded-lg border border-[var(--color-line)] bg-[var(--color-panel)]">
-      <div
-        className="overflow-x-auto p-4 font-mono text-[13px] leading-[1.6] [&_pre]:!bg-transparent"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    </figure>
+    <div
+      className="shiki-wrap my-6 overflow-x-auto rounded-md border border-[var(--color-rule)] p-4 font-mono text-[13px] leading-[1.6]"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }

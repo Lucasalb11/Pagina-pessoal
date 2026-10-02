@@ -25,7 +25,7 @@ close they are to the limit.
   would be afterwards, so the check can't be bypassed by ordering.
 - **Every state change needs `require_auth()`** from the user whose position it touches.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -37,7 +37,6 @@ close they are to the limit.
 | **No liquidations (High)** | **Open.** Underwater positions can't be liquidated, so bad debt just accumulates. Fix: a `liquidate` entrypoint with a close factor and a bonus for the liquidator |
 | Error handling | Open: `panic!` with strings instead of typed contract errors |
 
-## Status
+## Where it stands
 
-Built for Stellar Build (2025). The oracle and liquidation work come before the testnet demo
-is back up.
+A hackathon project. Pricing and liquidations are the missing pieces.

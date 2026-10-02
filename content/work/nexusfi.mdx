@@ -32,7 +32,7 @@ CRE WF1 every 30s: reserves ÷ supply ─► ReserveAttestation.sol ─► alert
 - **Limits come from tiers.** The credit line maps a score to a fixed limit and rate, so
   the contract never does open-ended math on an external number.
 
-## Threat model
+## What could go wrong
 
 | Vector | Status |
 | --- | --- |
@@ -44,7 +44,6 @@ CRE WF1 every 30s: reserves ÷ supply ─► ReserveAttestation.sol ─► alert
 | **Trusted bridge between chains (Medium)** | **Open.** The Soroban credit line trusts the admin key to submit the score; it doesn't verify the Sepolia attestation. Fix: relay the attestation with a signature the Soroban contract checks |
 | Gas growth in attestation history | Open: history shifts the whole array on each write; replace with a ring-buffer index |
 
-## Status
+## Where it stands
 
-Built for the Chainlink Convergence Hackathon (2026). The four Soroban contracts are live on
-Stellar testnet; the app is being redeployed.
+A hackathon project. The Soroban contracts are still on Stellar testnet; the app itself is offline.

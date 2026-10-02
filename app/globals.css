@@ -1,47 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  /* Ink — the portrait's duotone shadow, lifted a step */
-  --color-ink: #0a0f0d;
-  --color-panel: #0f1613;
-  --color-raised: #141d19;
-  --color-line: #1f2b26;
-  --color-line-strong: #2c3b35;
-
-  --color-bone: #e4eee8;
-  --color-dim: #a3b3ac;
-  --color-faint: #6f807a;
-
-  /* Mint — the duotone highlight. Means: verified, live, link. */
-  --color-mint: #9df2c9;
-  --color-mint-deep: #5fcf9c;
-  /* Amber — only for open risks and work in progress. */
-  --color-amber: #f0b865;
-  --color-coral: #f2877a;
+  --color-paper: #ffffff;
+  --color-ink: #161616;
+  --color-soft: #5f5f5f;
+  --color-faint: #8d8d8d;
+  --color-rule: #ebebeb;
+  /* One accent, used only for links. */
+  --color-link: #1a56db;
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #141414;
+    --color-ink: #ececec;
+    --color-soft: #a8a8a8;
+    --color-faint: #7a7a7a;
+    --color-rule: #2a2a2a;
+    --color-link: #7aa2ff;
+  }
+}
+
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    color-scheme: dark;
   }
 
   body {
-    background: var(--color-ink);
-    color: var(--color-bone);
+    background: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-sans);
-    font-feature-settings: "ss01" 1, "cv11" 1;
+    font-size: 16px;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  ::selection {
-    background: color-mix(in oklab, var(--color-mint) 30%, transparent);
-    color: var(--color-bone);
   }
 
   a {
@@ -50,7 +45,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-mint);
+    outline: 2px solid var(--color-link);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -58,69 +53,38 @@
 
 @layer components {
   .link {
-    color: var(--color-mint);
+    color: var(--color-link);
     text-decoration: underline;
-    text-decoration-color: color-mix(in oklab, var(--color-mint) 35%, transparent);
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: text-decoration-color 150ms;
+    text-decoration-color: color-mix(in oklab, var(--color-link) 35%, transparent);
   }
   .link:hover {
-    text-decoration-color: var(--color-mint);
+    text-decoration-color: var(--color-link);
   }
 
-  /* Hairline section heading row */
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-line);
+  .heading {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 1rem;
   }
-}
-
-/* One orchestrated moment: the inspector rows resolve in sequence on load. */
-@keyframes resolve {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.resolve > * {
-  animation: resolve 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-.resolve > *:nth-child(1) { animation-delay: 80ms; }
-.resolve > *:nth-child(2) { animation-delay: 140ms; }
-.resolve > *:nth-child(3) { animation-delay: 200ms; }
-.resolve > *:nth-child(4) { animation-delay: 260ms; }
-.resolve > *:nth-child(5) { animation-delay: 320ms; }
-.resolve > *:nth-child(6) { animation-delay: 380ms; }
-.resolve > *:nth-child(7) { animation-delay: 440ms; }
-.resolve > *:nth-child(8) { animation-delay: 500ms; }
-.resolve > *:nth-child(9) { animation-delay: 560ms; }
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
-.pulse-dot {
-  animation: pulse-dot 2.4s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .resolve > *,
-  .pulse-dot {
-    animation: none !important;
-  }
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  }
+}
+
+/* Shiki dual theme: follow the system colour scheme. */
+.shiki-wrap .shiki,
+.shiki-wrap .shiki span {
+  color: var(--shiki-light);
+  background-color: transparent !important;
+}
+@media (prefers-color-scheme: dark) {
+  .shiki-wrap .shiki,
+  .shiki-wrap .shiki span {
+    color: var(--shiki-dark);
   }
 }

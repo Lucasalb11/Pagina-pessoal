@@ -1,31 +1,22 @@
-# Lucas de Almeida — Protocol Engineer
+# Lucas de Almeida
 
-> Protocol engineer building on Solana (Rust, Anchor) and Stellar (Soroban), with Solidity/Foundry on EVM. Every project ships with a written threat model. Based in Recife, Brazil (UTC−3). Open to full-time remote roles in protocol and smart-contract engineering.
+> Computer Engineering student at UFRPE (Recife, Brazil) focused on Blockchain & DeFi security. Learning to build and secure DeFi protocols; previously worked in real estate (construction, development, sales and operations, teams of 100+ people). The site documents what he is studying, building and learning.
+
+## Now
+
+- Studying Computer Engineering fundamentals at UFRPE.
+- Smart-contract security (Cyfrin Updraft) and cybersecurity basics (TryHackMe).
+- Tools: Solidity, Foundry, Hardhat, Rust, Anchor.
+
+## Experiments (learning projects, not live products)
+
+- Paga no @ — crypto payments to social handles (Colosseum Frontier hackathon, 2026): https://lucasalmeida.me/work/paga-no-arroba
+- Structa — tokenized real-estate funding with stage-linked payouts (Colosseum Frontier, 2026, co-founder, product and protocol design): https://lucasalmeida.me/work/structa
+- NexusFi — Chainlink Runtime Environment, risk monitoring, cross-chain integrations (Chainlink Convergence hackathon, 2026): https://lucasalmeida.me/work/nexusfi
+- Also: Stellar Pulse, Aegis, Blinkpay, FoxFi, KaleFi — notes at https://lucasalmeida.me
 
 ## Contact
 
-- Site: https://lucasalmeida.me
 - Email: lucasalb11@gmail.com
 - GitHub: https://github.com/Lucasalb11
 - LinkedIn: https://www.linkedin.com/in/lucasalb11/
-
-## Work (deep dives with threat models)
-
-- Structa — USDC fundraising for Brazilian real-estate developments; non-transferable cotas, O(1) yield accumulator, refund path. Program on Solana devnet. Co-founder, protocol design. https://lucasalmeida.me/work/structa
-- Paga no @ — pay a social handle; 7-day escrow PDAs claimed via a handle registry. https://lucasalmeida.me/work/paga-no-arroba
-- Aegis — spending limits and human approval for AI agents on Solana, plus a constant-product AMM. https://lucasalmeida.me/work/aegis
-- NexusFi — credit lines scored by Chainlink CRE workflows; Soroban contracts + Solidity attestations. https://lucasalmeida.me/work/nexusfi
-- Stellar Pulse — source-badged analytics for the Stellar economy, Zod-validated adapters, 192 tests. https://lucasalmeida.me/work/stellar-pulse
-- FoxFi — intent-based swaps with staked solvers on Solana. https://lucasalmeida.me/work/foxfi
-- KaleFi — collateralised lending on Soroban. https://lucasalmeida.me/work/kalefi
-- Blinkpay — payment requests and scheduled charges on Solana. https://lucasalmeida.me/work/blinkpay
-
-## Credentials (soulbound NFTs on Solana devnet)
-
-School of Solana Season 8 (Ackee), Colosseum Frontier, Stellar Build, NearX Rust & WebAssembly, NearX Solidity 101, DeFiverso. https://lucasalmeida.me/credentials
-
-## Background
-
-- 2023–now: independent protocol engineer.
-- 2019–2025: co-founder & director, Arcos Construtora (12 concurrent projects, 100+ people, Caixa Econômica Federal financing).
-- Education: BSc Computer Engineering, UFRPE (in progress); Economics, UFPE.

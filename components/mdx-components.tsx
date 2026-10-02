@@ -6,11 +6,9 @@ import type { BundledLanguage } from "shiki";
 const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 export const mdxComponents: MDXComponents = {
-  h2: (props) => (
-    <h2 className="mb-4 mt-14 scroll-mt-8 text-[24px] font-semibold tracking-tight" {...props} />
-  ),
-  h3: (props) => <h3 className="mb-3 mt-8 text-[18px] font-semibold tracking-tight" {...props} />,
-  p: (props) => <p className="mb-5 text-[17px] leading-[1.7] text-[var(--color-dim)]" {...props} />,
+  h2: (props) => <h2 className="mb-3 mt-10 scroll-mt-8 text-[17px] font-semibold" {...props} />,
+  h3: (props) => <h3 className="mb-2 mt-6 font-semibold" {...props} />,
+  p: (props) => <p className="mb-4" {...props} />,
   a: ({ href, children, ...rest }) => {
     const url = href ?? "#";
     return isExternal(url) ? (
@@ -23,40 +21,24 @@ export const mdxComponents: MDXComponents = {
       </Link>
     );
   },
-  ul: (props) => (
-    <ul
-      className="mb-5 list-disc pl-6 text-[17px] leading-[1.7] text-[var(--color-dim)] marker:text-[var(--color-faint)]"
-      {...props}
-    />
-  ),
-  ol: (props) => (
-    <ol
-      className="mb-5 list-decimal pl-6 text-[17px] leading-[1.7] text-[var(--color-dim)] marker:text-[var(--color-faint)]"
-      {...props}
-    />
-  ),
-  li: (props) => <li className="mb-1.5 pl-1" {...props} />,
-  strong: (props) => <strong className="font-semibold text-[var(--color-bone)]" {...props} />,
-  hr: () => <hr className="my-12 border-[var(--color-line)]" />,
+  ul: (props) => <ul className="mb-4 list-disc space-y-1.5 pl-5 marker:text-[var(--color-faint)]" {...props} />,
+  ol: (props) => <ol className="mb-4 list-decimal space-y-1.5 pl-5 marker:text-[var(--color-faint)]" {...props} />,
+  strong: (props) => <strong className="font-semibold" {...props} />,
+  hr: () => <hr className="my-10 border-[var(--color-rule)]" />,
   blockquote: (props) => (
-    <blockquote className="my-6 border-l-2 border-[var(--color-mint)]/50 pl-5 text-[var(--color-bone)]" {...props} />
+    <blockquote className="my-5 border-l-2 border-[var(--color-rule)] pl-4 text-[var(--color-soft)]" {...props} />
   ),
   table: (props) => (
-    <div className="my-8 overflow-x-auto">
-      <table className="w-full min-w-[36rem] border-collapse text-left text-[15px]" {...props} />
+    <div className="my-6 overflow-x-auto">
+      <table className="w-full min-w-[32rem] border-collapse text-left text-[14px]" {...props} />
     </div>
   ),
   th: (props) => (
-    <th className="border-b border-[var(--color-line-strong)] py-2.5 pr-4 text-[13px] font-normal text-[var(--color-faint)]" {...props} />
+    <th className="border-b border-[var(--color-rule)] py-2 pr-4 font-medium text-[var(--color-faint)]" {...props} />
   ),
-  td: (props) => (
-    <td className="border-b border-[var(--color-line)] py-3 pr-4 align-top leading-relaxed text-[var(--color-dim)]" {...props} />
-  ),
+  td: (props) => <td className="border-b border-[var(--color-rule)] py-2.5 pr-4 align-top" {...props} />,
   code: (props) => (
-    <code
-      className="rounded bg-[var(--color-raised)] px-1.5 py-0.5 font-mono text-[0.86em] text-[var(--color-bone)]"
-      {...props}
-    />
+    <code className="rounded bg-[color-mix(in_oklab,var(--color-ink)_7%,transparent)] px-1 py-0.5 font-mono text-[0.88em]" {...props} />
   ),
   pre: ({ children, ...rest }) => {
     if (typeof children === "object" && children !== null && "props" in children) {
