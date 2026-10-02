@@ -10,25 +10,29 @@
 - [x] 6. Auto-publish: live links resolved from Vercel + GitHub, refreshed on every deploy
 - [x] 7. Build, visual review, commit
 
-## Phase 2 — Ship the remaining projects (after Phase 1)
+## Phase 2 — Ship the remaining projects
 
-Goal: every project on the site has a working live demo on Vercel.
+Status on 2026-10-02. Local clones live in `~/Documents/projects/portfolio-apps/`.
 
-| Project | Repo | What's missing | Target |
+| Project | Code | On-chain | Vercel |
 | --- | --- | --- | --- |
-| Aegis | Lucasalb11/Aegis | Vercel deployment deleted (404). Program lists vault/Jupiter instructions in `instructions/` that are not exported from `lib.rs`; only pool + tokenomics are callable. Wire the vault policy instructions, redeploy program to devnet, redeploy frontend. | Vercel |
-| Blinkpay | Lucasalb11/Blinkpay | Vercel deployment deleted (404). `current_time` is a client-supplied instruction arg used in PDA seeds/`created_at`; replace with `Clock`. Redeploy frontend from `blinkpay/frontend`. | Vercel |
-| KaleFi | Lucasalb11/KaleFi | No deployment. Repo nested as `KaleFi/KaleFi/Kalefi` — flatten. Mock price oracle (`set_mock_price`) → Reflector. Pages Router app; deploy to Vercel with Stellar testnet contract IDs. | Vercel |
-| FoxFi | Lucasalb11/FoxFi | No deployment, no frontend live. Settlement pays `min_output_amount`, not the solver's quoted output; input vault is never released to the solver. Fix settlement, deploy program to devnet, deploy `app/`. | Vercel |
-| NexusFi | Lucasalb11/NexusFi | Railway domain returns 404. Redeploy (Railway or move frontend to Vercel). | Vercel / Railway |
+| Blinkpay | Done, pushed: SPL redirect + client-time fixes, frontend wired, 9 tests | Devnet `J888…CjjM` | Needs `vercel login` |
+| Aegis | Done, committed locally (not pushed): real agent vault, 8 tests, /vault page | Needs ~4.5 devnet SOL to deploy `EqmX…R3gL` | After deploy |
+| FoxFi | Done, committed locally (not pushed): auction + settlement rewrite, 7 tests, frontend wired, faucet | Needs ~2.8 devnet SOL, then `scripts/setup-devnet.ts` | After deploy |
+| KaleFi | Done, committed locally (not pushed): market rewrite, liquidations, 8 tests, frontend wired | Testnet market `CBIK…A2IM` (live) | Needs `vercel login` + env |
+| NexusFi | Not started: Railway app is down | Testnet contracts still there | — |
 
-For each project:
-1. Clone, install, build locally; fix build errors.
-2. Fix the correctness issues listed above; run tests.
-3. Deploy program/contracts to devnet/testnet where relevant.
-4. `vercel link` + `vercel --prod`; connect the GitHub repo so every push deploys.
-5. Add the deploy hook workflow (below) to the repo.
-6. Take a fresh screenshot into `public/projects/<id>.webp` and drop the generated cover.
+Blockers that need Lucas:
+1. `git push` from each repo (the macOS Keychain prompt blocks pushes from this session).
+2. `vercel login`.
+3. ~8 devnet SOL at faucet.solana.com for the Aegis and FoxFi deploys.
+
+Vercel env per app:
+- Blinkpay: none required (`NEXT_PUBLIC_RPC_ENDPOINT` optional).
+- Aegis: `NEXT_PUBLIC_AEGIS_PROGRAM_ID`, `NEXT_PUBLIC_SOLANA_RPC`.
+- FoxFi: `NEXT_PUBLIC_FOXFI_INPUT_MINT`, `NEXT_PUBLIC_FOXFI_OUTPUT_MINT`, `FOXFI_FAUCET_SECRET_KEY` (from `scripts/setup-devnet.ts`).
+- KaleFi: `KALEFI_ADMIN_SECRET` (`stellar keys show kalefi-admin`), `CRON_SECRET`; repo secrets `KALEFI_APP_URL` and `CRON_SECRET` for the price workflow.
+- All: repo secret `PORTFOLIO_REVALIDATE_SECRET` for the notify workflow.
 
 ## Auto-publish (shipped in Phase 1, used by Phase 2)
 
