@@ -28,16 +28,27 @@ updated on every settlement.
 
 ## What could go wrong
 
+When I came back to this project, it looked finished but didn't work. The first bid closed the
+auction, so there was no competition. Settlement paid the user their *minimum* (minus fees) instead
+of the winning quote, never released the locked input to the solver, and overflowed the BPF stack,
+so it couldn't run at all. The original tests never initialised the vault and didn't pass either.
+
 | Vector | Status |
 | --- | --- |
-| Settlement by a losing solver | Mitigated: winner checked on settlement |
-| Settling an expired intent | Mitigated: `can_settle` checks status and expiry |
-| Cancel after execution | Mitigated: `can_cancel` requires an unexecuted intent |
-| Fee overflow | Mitigated: checked arithmetic |
-| **Settlement pays the minimum (High)** | **Open.** The user receives `min_output_amount` minus fees instead of the solver's winning quote, so the competition gives the user nothing. Worse, the fees are taken out of that minimum, so the user can end up below what they asked for |
-| **Input never released (High)** | **Open.** Settlement moves the solver's output but never moves the locked input to the solver; the input stays in the vault. Fix: transfer `input_amount` to the solver in the same instruction, and pay out the quoted amount with fees on top |
-| Front-running submissions | Open: solutions are public; a commit-reveal round would make bids sealed |
+| No real auction | Fixed: bids accepted for 20 seconds; only strictly better quotes take the lead |
+| User paid the minimum, not the quote | Fixed: the user receives the winning quote minus a 0.05% fee, never below their minimum |
+| Input never released | Fixed: the solver pays and receives the input in the same transaction |
+| Solver pays someone else | Fixed: settlement is bound to the intent's user and both mints |
+| Tokens stuck after expiry | Fixed: refund before any bid, or after expiry if the winner didn't settle (the winner loses reputation) |
+| Fake stake | Fixed: the stake moves into the solver's account and comes back on exit |
+| Front-running between solvers | Open: bids are public; a commit-reveal round would hide them |
+
+## What I learned
+
+A complete-looking instruction list says nothing about whether the protocol works. Writing the
+tests as a user and as a competing solver is what showed that none of the economics held up.
 
 ## Where it stands
 
-A self-study project. Settlement needs the fixes above before it's worth a demo.
+A self-study project. The program and a rewritten test suite (7 tests) are done; the devnet
+deploy and demo are next.

@@ -34,16 +34,21 @@ human ── approve_pending_action ──► swap
 
 ## What could go wrong
 
+The spending policy was the whole point of the project, and it wasn't reachable: the vault
+instructions weren't exported from the program, swaps were simulated, and pending actions could be
+any account passed in by the caller.
+
 | Vector | Status |
 | --- | --- |
-| Runaway agent spending | Designed: daily limit plus human approval above a threshold |
-| Sandwich and slippage | Mitigated: `min_amount_out` enforced on every swap |
-| Pool initialised at a skewed ratio | Mitigated: first deposit must mint at least `MIN_LIQUIDITY` |
-| Arithmetic overflow | Mostly mitigated with `u128` and checked math; one `checked_add(...).unwrap()` in the daily-limit path should return an error instead |
-| **Policy not reachable (Medium)** | **Open.** The vault, deposit, approval and swap-request instructions are written but not exported from `lib.rs`; the deployed program only exposes the AMM and rewards. Fix: wire them into `#[program]`, add tests, redeploy |
-| Swap is simulated | Open: the approved path updates `daily_spent` but doesn't yet CPI into Jupiter |
-| Oracle not compiled | Open: `oracle.rs` (Pyth reader with staleness bound) isn't declared as a module, so swaps don't compare against the market price yet |
+| Policy not reachable | Fixed: vault instructions are part of the program and move real SOL |
+| Pending action overwritten | Fixed: each request is its own account at `[action, vault, nonce]` |
+| Approval paying the wrong address | Fixed: approval pays only the destination recorded in the request, with a test |
+| Agent approving itself | Fixed: approval is bound to the owner's key; tested |
+| Vault drained below rent | Fixed: payouts stop at the rent-exempt minimum |
+| Sandwich and slippage on the AMM | Mitigated: `min_amount_out` enforced on every swap |
+| Oracle not compiled | Open: the Pyth reader still isn't wired in |
 
 ## Where it stands
 
-A hackathon project. I'm reworking the vault so the spending rules actually move funds, not just track them.
+A hackathon project, reworked. The vault has 8 tests and a page where you play the agent and the
+owner; the devnet redeploy is next.

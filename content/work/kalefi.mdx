@@ -29,14 +29,14 @@ close they are to the limit.
 
 | Vector | Status |
 | --- | --- |
-| Borrowing for someone else | Mitigated: `require_auth()` on the position owner |
-| Withdrawing collateral that backs debt | Mitigated: health factor checked after the withdrawal |
-| Overpaying debt | Mitigated: repayment above the debt is rejected |
-| Overflow in valuation | Mitigated: checked multiplication with an explicit panic |
-| **Mock price (High)** | **Open.** Collateral is priced from `set_mock_price`, set by the admin. Whoever holds the admin key sets everyone's borrowing power. Fix: read the Reflector oracle with a staleness bound |
-| **No liquidations (High)** | **Open.** Underwater positions can't be liquidated, so bad debt just accumulates. Fix: a `liquidate` entrypoint with a close factor and a bonus for the liquidator |
-| Error handling | Open: `panic!` with strings instead of typed contract errors |
+| Admin takeover through `init` | Fixed: `init` could be called again by anyone with their own address as admin; it now runs once |
+| Admin-set price with no age | Partly fixed: the price carries a timestamp and borrowing, withdrawing and liquidating refuse it after an hour. It's still set by the admin, not an oracle |
+| No liquidations | Fixed: anyone can repay up to half of an unhealthy position's debt for the same value in KALE plus 5% |
+| Unbounded instance storage | Fixed: each position lives in persistent storage with its own TTL |
+| Zero and negative amounts | Fixed: rejected with typed errors instead of relying on the token contract to panic |
+| Frontend showed fake data | Fixed: every value is read from the contract; the UI claimed an 80% LTV the contract never had |
 
 ## Where it stands
 
-A hackathon project. Pricing and liquidations are the missing pieces.
+Redeployed to Stellar testnet with demo KALE and USDC assets, 8 contract tests, and a frontend
+that signs real transactions through Freighter. The next step is a Reflector price feed for KALE.
