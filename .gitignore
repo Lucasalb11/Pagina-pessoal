@@ -44,3 +44,5 @@ scripts/.mint-output.json
 # TypeScript
 *.tsbuildinfo
 .shots/
+.vercel
+.env*

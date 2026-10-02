@@ -12,27 +12,36 @@
 
 ## Phase 2 — Ship the remaining projects
 
-Status on 2026-10-02. Local clones live in `~/Documents/projects/portfolio-apps/`.
+**Paused on 2026-10-02. Resume from "Next steps" below.** Local clones: `~/Documents/projects/portfolio-apps/`.
 
 | Project | Code | On-chain | Vercel |
 | --- | --- | --- | --- |
-| Blinkpay | Done, pushed: SPL redirect + client-time fixes, frontend wired, 9 tests | Devnet `J888…CjjM` | Needs `vercel login` |
-| Aegis | Done, committed locally (not pushed): real agent vault, 8 tests, /vault page | Needs ~4.5 devnet SOL to deploy `EqmX…R3gL` | After deploy |
-| FoxFi | Done, committed locally (not pushed): auction + settlement rewrite, 7 tests, frontend wired, faucet | Needs ~2.8 devnet SOL, then `scripts/setup-devnet.ts` | After deploy |
-| KaleFi | Done, committed locally (not pushed): market rewrite, liquidations, 8 tests, frontend wired | Testnet market `CBIK…A2IM` (live) | Needs `vercel login` + env |
-| NexusFi | Not started: Railway app is down | Testnet contracts still there | — |
+| Personal site | Minimal rewrite, live | — | **Live** at www.lucasalmeida.me (`lucas-portfolio`), env `REVALIDATE_SECRET`, `SOLANA_CLUSTER` set |
+| Blinkpay | Done, pushed, 9 tests | Devnet `J888…CjjM` | **Live** at blinkpay-alpha.vercel.app, GitHub-linked, root `blinkpay/frontend` |
+| KaleFi | Done, 8 tests; last commit (Next 15.5.27 upgrade) **not pushed** | Testnet market `CBIK…A2IM` | Project `kalefi` created, env `KALEFI_ADMIN_SECRET` + `CRON_SECRET` set; last `vercel --prod` failed with "fetch failed" (network) — retry |
+| FoxFi | Done, pushed, 7 tests | Needs ~2.8 devnet SOL | Not created |
+| Aegis | Done, pushed, 8 tests | Needs ~4.5 devnet SOL (`EqmX…R3gL`) | Project `aegis` exists and auto-builds; `NEXT_PUBLIC_AEGIS_PROGRAM_ID` must point to the new program after deploy |
+| NexusFi | Not started (Railway down) | Testnet contracts exist | — |
 
-Blockers that need Lucas:
-1. `git push` from each repo (the macOS Keychain prompt blocks pushes from this session).
-2. `vercel login`.
-3. ~8 devnet SOL at faucet.solana.com for the Aegis and FoxFi deploys.
+### Next steps
 
-Vercel env per app:
-- Blinkpay: none required (`NEXT_PUBLIC_RPC_ENDPOINT` optional).
-- Aegis: `NEXT_PUBLIC_AEGIS_PROGRAM_ID`, `NEXT_PUBLIC_SOLANA_RPC`.
-- FoxFi: `NEXT_PUBLIC_FOXFI_INPUT_MINT`, `NEXT_PUBLIC_FOXFI_OUTPUT_MINT`, `FOXFI_FAUCET_SECRET_KEY` (from `scripts/setup-devnet.ts`).
-- KaleFi: `KALEFI_ADMIN_SECRET` (`stellar keys show kalefi-admin`), `CRON_SECRET`; repo secrets `KALEFI_APP_URL` and `CRON_SECRET` for the price workflow.
-- All: repo secret `PORTFOLIO_REVALIDATE_SECRET` for the notify workflow.
+1. KaleFi: `git push` (Keychain prompt), then `vercel --prod` from the repo root; link GitHub
+   (root `.`) and add GitHub repo secrets `KALEFI_APP_URL` + `CRON_SECRET`
+   (value in `KaleFi/.secrets/cron_secret`) so the price workflow runs every 30 min.
+2. Get ~8 devnet SOL (faucet.solana.com) to `GfPESpzMYrw1fz4jH58ynpsMYeutXfBzmh2CXYY5Whuk`.
+3. Aegis: `anchor deploy --provider.cluster devnet` in `aegis-protocol/program`; set
+   `NEXT_PUBLIC_AEGIS_PROGRAM_ID=EqmXtjocXyA8ZL9PVDEyfwfSut4KkRUxg5bmNQwfR3gL` on Vercel; redeploy.
+   AMM pages still point at old pools/mints (authority key not available): reseed or hide.
+4. FoxFi: `anchor deploy`, `npx ts-node scripts/setup-devnet.ts`, create Vercel project with root
+   `app/` and env `NEXT_PUBLIC_FOXFI_INPUT_MINT`, `NEXT_PUBLIC_FOXFI_OUTPUT_MINT`,
+   `FOXFI_FAUCET_SECRET_KEY` (from `.secrets/faucet.json`).
+5. Personal site: set `live` in `data/projects.ts` for each deployed app (no `VERCEL_TOKEN` on the
+   site, so discovery falls back to GitHub homepages), take screenshots into `public/projects/`,
+   update the notes' "Where it stands".
+6. NexusFi: redeploy or mark offline.
+
+Helper: `portfolio-apps/tools/cdp-check.mjs <url> [waitMs] [shot.png]` renders a page in headless
+Chrome and prints text + console errors (`SCHEME=light FULL=1 WIDTH=390` options).
 
 ## Auto-publish (shipped in Phase 1, used by Phase 2)
 
