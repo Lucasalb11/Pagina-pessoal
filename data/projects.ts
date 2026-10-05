@@ -98,6 +98,7 @@ export const PROJECTS: Project[] = [
     year: 2025,
     stack: ["Anchor", "Next.js"],
     repo: "Lucasalb11/Blinkpay",
+    live: "https://blinkpay-alpha.vercel.app",
   },
   {
     id: "foxfi",
@@ -108,6 +109,7 @@ export const PROJECTS: Project[] = [
     year: 2025,
     stack: ["Rust", "Anchor"],
     repo: "Lucasalb11/FoxFi",
+    live: "https://foxfi.vercel.app",
   },
   {
     id: "kalefi",
@@ -118,6 +120,7 @@ export const PROJECTS: Project[] = [
     year: 2025,
     stack: ["Rust", "Soroban"],
     repo: "Lucasalb11/KaleFi",
+    live: "https://kalefi.vercel.app",
   },
 ];
 

@@ -18,15 +18,15 @@
 | --- | --- | --- | --- |
 | Personal site | Minimal rewrite, live | — | **Live** at www.lucasalmeida.me (`lucas-portfolio`), env `REVALIDATE_SECRET`, `SOLANA_CLUSTER` set |
 | Blinkpay | Done, pushed, 9 tests | Devnet `J888…CjjM` | **Live** at blinkpay-alpha.vercel.app, GitHub-linked, root `blinkpay/frontend` |
-| KaleFi | Done, 8 tests; last commit (Next 15.5.27 upgrade) **not pushed** | Testnet market `CBIK…A2IM` | Project `kalefi` created, env `KALEFI_ADMIN_SECRET` + `CRON_SECRET` set; last `vercel --prod` failed with "fetch failed" (network) — retry |
-| FoxFi | Done, 7 tests; security fix `843334c` **not pushed** | **Devnet** `FBC9…tXtb`, mints `DWdS…Uocc` / `Hbx7…Vcz`, faucet `9ZMU…U2gn` (0.5 SOL) | Not created |
+| KaleFi | Done, 8 tests, pushed (faucet capped) | Testnet market `CBIK…A2IM` | **Live** at kalefi.vercel.app, GitHub-linked |
+| FoxFi | Done, 7 tests, pushed | Devnet `FBC9…tXtb`, mints `DWdS…Uocc` / `Hbx7…Vcz`, faucet `9ZMU…U2gn` | **Live** at foxfi.vercel.app (project `foxfi`, root `app/`, env set) |
 | Aegis | Done, pushed, 8 tests | Needs ~4.5 devnet SOL (`EqmX…R3gL`) | Project `aegis` exists and auto-builds; `NEXT_PUBLIC_AEGIS_PROGRAM_ID` must point to the new program after deploy |
 | NexusFi | Not started (Railway down) | Testnet contracts exist | — |
 
 ### Security review (2026-10-03)
 
-Unauthenticated surface reviewed across the site, the four dapps, Paga no @ and gym. Fix commits,
-all local until pushed: KaleFi `566332a` (faucet capped per account and by total supply, so it can't
+Unauthenticated surface reviewed across the site, the four dapps, Paga no @ and gym. Fix commits
+(pushed 2026-10-05): KaleFi `566332a` (faucet capped per account and by total supply, so it can't
 drain the market), FoxFi `843334c` and Aegis `4641317` (faucets: user pays fees and rent, server only
 co-signs), Blinkpay `5045569` (anti-framing headers; also on the other dapps), gym `9cbf24c` (session
 ownership), pay-on-handle (cloned to `portfolio-apps/pay-on-handle`; webhook fails closed, PIX payouts
@@ -35,14 +35,13 @@ off, `/api/pix-intent` removed). Still open, on-chain: Paga no @ handle registra
 
 ### Next steps
 
-1. KaleFi: `git push` (Keychain prompt), then `vercel --prod` from the repo root; link GitHub
-   (root `.`) and add GitHub repo secrets `KALEFI_APP_URL` + `CRON_SECRET`
+1. KaleFi: ~~push, deploy, link GitHub~~ (done 2026-10-05). Confirm the GitHub repo secrets `KALEFI_APP_URL` + `CRON_SECRET`
    (value in `KaleFi/.secrets/cron_secret`) so the price workflow runs every 30 min.
 2. Get ~8 devnet SOL (faucet.solana.com) to `GfPESpzMYrw1fz4jH58ynpsMYeutXfBzmh2CXYY5Whuk`.
 3. Aegis: `anchor deploy --provider.cluster devnet` in `aegis-protocol/program`; set
    `NEXT_PUBLIC_AEGIS_PROGRAM_ID=EqmXtjocXyA8ZL9PVDEyfwfSut4KkRUxg5bmNQwfR3gL` on Vercel; redeploy.
    AMM pages still point at old pools/mints (authority key not available): reseed or hide.
-4. FoxFi: ~~`anchor deploy`, `npx ts-node scripts/setup-devnet.ts`~~ (done 2026-10-03), create Vercel project with root
+4. FoxFi: done 2026-10-05 (live at foxfi.vercel.app). Was: create Vercel project with root
    `app/` and env `NEXT_PUBLIC_FOXFI_INPUT_MINT`, `NEXT_PUBLIC_FOXFI_OUTPUT_MINT`,
    `FOXFI_FAUCET_SECRET_KEY` (from `.secrets/faucet.json`).
 5. Personal site: set `live` in `data/projects.ts` for each deployed app (no `VERCEL_TOKEN` on the
