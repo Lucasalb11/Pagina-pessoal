@@ -11,6 +11,9 @@ export const PROFILE = {
   location: "Recife, Brazil",
 };
 
+/** When NOW was last reviewed. Shown on the page so a stale list is visible as stale. */
+export const NOW_UPDATED = "October 2026";
+
 /** What I'm working through right now. Keep it honest and current. */
 export const NOW: { label: string; text: string }[] = [
   { label: "Studying", text: "Computer Engineering at UFRPE: programming, systems and computer science fundamentals." },

@@ -37,29 +37,24 @@ export default async function NotesPage({ params }: { params: Promise<{ slug: st
 
   return (
     <main>
-      <p className="mb-10 text-[15px]">
-        <Link href="/" className="text-[var(--color-soft)] hover:text-[var(--color-ink)]">
-          ← Lucas de Almeida
-        </Link>
-      </p>
 
       <header className="mb-8">
         <h1 className="text-[26px] font-semibold tracking-tight">{project.name}</h1>
         <p className="mt-1 text-[var(--color-soft)]">{project.summary}</p>
         <dl className="mt-5 grid grid-cols-[6rem_1fr] gap-x-4 gap-y-1 text-[15px]">
-          <dt className="text-[var(--color-faint)]">Context</dt>
+          <dt className="meta pt-[2px]">Context</dt>
           <dd>
             {project.context}, {project.year}
           </dd>
           {project.role ? (
             <>
-              <dt className="text-[var(--color-faint)]">My part</dt>
+              <dt className="meta pt-[2px]">My part</dt>
               <dd>{project.role}</dd>
             </>
           ) : null}
-          <dt className="text-[var(--color-faint)]">Stack</dt>
+          <dt className="meta pt-[2px]">Stack</dt>
           <dd>{project.stack.join(", ")}</dd>
-          <dt className="text-[var(--color-faint)]">Links</dt>
+          <dt className="meta pt-[2px]">Links</dt>
           <dd className="flex flex-wrap gap-x-4">
             <a href={`https://github.com/${project.repo}`} className="link">
               code

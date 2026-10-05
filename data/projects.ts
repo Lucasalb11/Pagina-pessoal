@@ -21,6 +21,8 @@ export interface Project {
   /** Screenshot in /public/projects, shown on the notes page. */
   image?: string;
   onchain?: { label: string; href: string };
+  /** Where the demo runs, when it isn't the chain's test network. */
+  network?: string;
   role?: string;
 }
 
@@ -77,6 +79,7 @@ export const PROJECTS: Project[] = [
     year: 2026,
     stack: ["Next.js", "Zod", "Horizon"],
     repo: "Lucasalb11/Stellar-pulse",
+    network: "reads Stellar mainnet, read-only",
     image: "/projects/stellarpulse.webp",
   },
   {

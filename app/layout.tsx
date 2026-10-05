@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SiteHeader } from "@/components/SiteHeader";
 import { PROFILE, SITE_URL } from "@/data/profile";
 import "./globals.css";
 
@@ -49,7 +50,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body>
-        <div className="mx-auto max-w-[40rem] px-6 pb-20 pt-16 sm:pt-24">{children}</div>
+        <div className="mx-auto max-w-[40rem] px-6 pb-20 pt-8 sm:pt-10">
+          <SiteHeader />
+          {children}
+        </div>
       </body>
     </html>
   );

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CERTS } from "@/data/certs.config";
 import { SITE_URL } from "@/data/profile";
 import { solscan, truncateAddress } from "@/lib/format";
@@ -13,11 +12,6 @@ export const metadata: Metadata = {
 export default function CredentialsPage() {
   return (
     <main>
-      <p className="mb-10 text-[15px]">
-        <Link href="/" className="text-[var(--color-soft)] hover:text-[var(--color-ink)]">
-          ← Lucas de Almeida
-        </Link>
-      </p>
 
       <h1 className="text-[26px] font-semibold tracking-tight">Course certificates</h1>
       <p className="mt-2 mb-8 text-[var(--color-soft)]">

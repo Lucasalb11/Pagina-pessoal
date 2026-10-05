@@ -63,10 +63,30 @@
     text-decoration-color: var(--color-link);
   }
 
-  .heading {
-    font-size: 15px;
-    font-weight: 600;
+  /* Section label: small, mono, quiet. The content carries the page, not the headings. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-faint);
     margin-bottom: 1rem;
+  }
+
+  /* Dates, periods and statuses: mono so they line up down the page. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-link {
+    color: var(--color-soft);
+  }
+  .nav-link:hover {
+    color: var(--color-ink);
   }
 }
 
