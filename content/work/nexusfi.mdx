@@ -40,10 +40,14 @@ CRE WF1 every 30s: reserves ÷ supply ─► ReserveAttestation.sol ─► alert
 | One oracle node lying | Mitigated: median or identical aggregation across the DON |
 | PII leakage | Mitigated: hashed user id plus boolean only |
 | Unauthorised credit use | Mitigated: `require_auth()` on `use_credit` and `repay` |
-| Forged MoonPay webhooks | Mitigated: HMAC-SHA256 with constant-time comparison |
+| **API trusted a client header (High)** | **Fixed (Oct 2026).** The backend took the user's address from an `x-stellar-address` header and moved funds with the admin key, so anyone could send or burn another user's tokens. Now transfers, burns and credit use are signed by the user's passkey and only relayed by a fee payer with no contract role |
+| Forged MoonPay webhooks | Fixed (Oct 2026): the signature check was skipped when the header was missing; it is now required, with a timestamp window against replays |
 | **Trusted bridge between chains (Medium)** | **Open.** The Soroban credit line trusts the admin key to submit the score; it doesn't verify the Sepolia attestation. Fix: relay the attestation with a signature the Soroban contract checks |
 | Gas growth in attestation history | Open: history shifts the whole array on each write; replace with a ring-buffer index |
 
 ## Where it stands
 
-A hackathon project. The Soroban contracts are still on Stellar testnet; the app itself is offline.
+A hackathon project, back online on Vercel. Moving it off Railway meant dropping the Express
+server's in-memory sessions, and the review on the way turned up the header-trust bug above.
+The Soroban contracts are the original testnet deployment; the Chainlink CRE workflows run as
+simulations, and the bridge's non-Stellar side is simulated.

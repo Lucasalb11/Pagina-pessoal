@@ -68,6 +68,7 @@ export const PROJECTS: Project[] = [
     year: 2026,
     stack: ["Chainlink CRE", "Soroban", "Solidity"],
     repo: "Lucasalb11/NexusFi",
+    live: "https://nexusfi-six.vercel.app",
     image: "/projects/nexusfi.webp",
   },
   {

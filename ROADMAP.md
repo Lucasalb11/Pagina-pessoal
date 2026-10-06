@@ -21,7 +21,7 @@
 | KaleFi | Done, 8 tests; faucet capped; price refreshed on demand (`/api/price/refresh`), no cron | Testnet market `CBIK…A2IM` | **Live** at kalefi.vercel.app, GitHub-linked; only env needed: `KALEFI_ADMIN_SECRET` (`CRON_SECRET` is now unused) |
 | FoxFi | Done, 7 tests, pushed | Devnet `FBC9…tXtb`, mints `DWdS…Uocc` / `Hbx7…Vcz`, faucet `9ZMU…U2gn` | **Live** at foxfi.vercel.app (project `foxfi`, root `app/`, env set) |
 | Aegis | Done, pushed, 8 tests; AMM pages hidden (old pools) | **Devnet** `EqmX…R3gL` (size-optimized build, 470 KB) | **Live** at aegis-indol.vercel.app, env points at the new program |
-| NexusFi | Not started (Railway down) | Testnet contracts exist | — |
+| NexusFi | Reworked: Express backend moved into Next API routes, user-signed relay (passkey), capped mints | Testnet contracts (original deploy) | **Live** at nexusfi-six.vercel.app (project `nexusfi`, root `apps/frontend`); env: 4 contract IDs, `SOROBAN_SECRET_KEY`, `FEE_PAYER_SECRET` (stellar key `nexusfi-fee`) |
 
 ### Security review (2026-10-03)
 
@@ -46,7 +46,7 @@ off, `/api/pix-intent` removed). Still open, on-chain: Paga no @ handle registra
 5. Personal site: set `live` in `data/projects.ts` for each deployed app (no `VERCEL_TOKEN` on the
    site, so discovery falls back to GitHub homepages), take screenshots into `public/projects/`,
    update the notes' "Where it stands".
-6. NexusFi: redeploy or mark offline.
+6. NexusFi: done 2026-10-06 (live on Vercel). Not covered by automated tests: the passkey flow in a real browser.
 
 Helper: `portfolio-apps/tools/cdp-check.mjs <url> [waitMs] [shot.png]` renders a page in headless
 Chrome and prints text + console errors (`SCHEME=light FULL=1 WIDTH=390` options).
