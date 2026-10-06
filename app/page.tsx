@@ -53,13 +53,12 @@ export default async function Home() {
         <h1 className="mb-5 text-[22px] font-semibold leading-snug tracking-tight">{PROFILE.headline}.</h1>
         <div className="space-y-4">
           <p>
-            I study Computer Engineering at UFRPE in Recife and I&rsquo;m learning to build and secure DeFi protocols. I
-            build on Solana and Stellar, and I go back over my own code the way an auditor would: what breaks, who
-            can abuse it, what I&rsquo;d change.
+            I&rsquo;m a Computer Engineering student at UFRPE with a background in Economics, business, finance, and
+            leadership.
           </p>
           <p>
-            Before software I spent six years in real estate (construction, development, sales and operations),
-            coordinating teams of more than 100 people. This site is a record of what I&rsquo;m studying and building.
+            I&rsquo;m now turning that experience toward software and blockchain, with a particular interest in DeFi,
+            protocol engineering, and security.
           </p>
         </div>
       </section>
