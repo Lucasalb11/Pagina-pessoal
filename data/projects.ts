@@ -91,6 +91,7 @@ export const PROJECTS: Project[] = [
     year: 2025,
     stack: ["Rust", "Anchor"],
     repo: "Lucasalb11/Aegis",
+    live: "https://aegis-indol.vercel.app",
   },
   {
     id: "blinkpay",

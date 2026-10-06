@@ -20,7 +20,7 @@
 | Blinkpay | Done, pushed, 9 tests | Devnet `J888…CjjM` | **Live** at blinkpay-alpha.vercel.app, GitHub-linked, root `blinkpay/frontend` |
 | KaleFi | Done, 8 tests; faucet capped; price refreshed on demand (`/api/price/refresh`), no cron | Testnet market `CBIK…A2IM` | **Live** at kalefi.vercel.app, GitHub-linked; only env needed: `KALEFI_ADMIN_SECRET` (`CRON_SECRET` is now unused) |
 | FoxFi | Done, 7 tests, pushed | Devnet `FBC9…tXtb`, mints `DWdS…Uocc` / `Hbx7…Vcz`, faucet `9ZMU…U2gn` | **Live** at foxfi.vercel.app (project `foxfi`, root `app/`, env set) |
-| Aegis | Done, pushed, 8 tests | Needs ~4.5 devnet SOL (`EqmX…R3gL`) | Project `aegis` exists and auto-builds; `NEXT_PUBLIC_AEGIS_PROGRAM_ID` must point to the new program after deploy |
+| Aegis | Done, pushed, 8 tests; AMM pages hidden (old pools) | **Devnet** `EqmX…R3gL` (size-optimized build, 470 KB) | **Live** at aegis-indol.vercel.app, env points at the new program |
 | NexusFi | Not started (Railway down) | Testnet contracts exist | — |
 
 ### Security review (2026-10-03)
@@ -37,10 +37,9 @@ off, `/api/pix-intent` removed). Still open, on-chain: Paga no @ handle registra
 
 1. KaleFi: done 2026-10-05. The GitHub price workflow was replaced by an on-demand refresh (GitHub delays
    schedules by hours, the contract rejects prices older than 1h). Optional cleanup: remove `CRON_SECRET` on Vercel.
-2. Get ~4.5 devnet SOL (faucet rate-limited on 2026-10-05; retry scheduled; faucet.solana.com) to `GfPESpzMYrw1fz4jH58ynpsMYeutXfBzmh2CXYY5Whuk`.
-3. Aegis: `anchor deploy --provider.cluster devnet` in `aegis-protocol/program`; set
-   `NEXT_PUBLIC_AEGIS_PROGRAM_ID=EqmXtjocXyA8ZL9PVDEyfwfSut4KkRUxg5bmNQwfR3gL` on Vercel; redeploy.
-   AMM pages still point at old pools/mints (authority key not available): reseed or hide.
+2. ~~Devnet SOL~~ and 3. ~~Aegis deploy~~: done 2026-10-06. Built with opt-level z + fat LTO (470 KB,
+   2.39 SOL rent instead of 2.98); SOL came from an orphan buffer and the idle FoxFi faucet. Smoke-tested
+   on devnet: vault, deposit, agent payment, approval threshold, withdraw.
 4. FoxFi: done 2026-10-05 (live at foxfi.vercel.app). Was: create Vercel project with root
    `app/` and env `NEXT_PUBLIC_FOXFI_INPUT_MINT`, `NEXT_PUBLIC_FOXFI_OUTPUT_MINT`,
    `FOXFI_FAUCET_SECRET_KEY` (from `.secrets/faucet.json`).
