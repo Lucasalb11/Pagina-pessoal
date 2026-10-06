@@ -53,12 +53,23 @@ export default async function Home() {
         <h1 className="mb-5 text-[22px] font-semibold leading-snug tracking-tight">{PROFILE.headline}.</h1>
         <div className="space-y-4">
           <p>
-            I&rsquo;m a Computer Engineering student at UFRPE with a background in Economics, business, finance, and
-            leadership.
+            I&rsquo;m Lucas de Almeida, a Computer Engineering student and developer focused on Blockchain, DeFi, and
+            financial applications.
           </p>
           <p>
-            I&rsquo;m now turning that experience toward software and blockchain, with a particular interest in DeFi,
-            protocol engineering, and security.
+            My background combines Computer Engineering with Economics, business, and finance. After working closely
+            with real businesses and financial decisions, I became increasingly interested in the systems behind them
+            and started moving deeper into software and blockchain.
+          </p>
+          <p>
+            Today, I build and explore Web3 applications across Solana, Ethereum, and Stellar, working mainly with Rust,
+            Solidity, and TypeScript. My interests are centered around DeFi, protocol engineering, asset tokenization,
+            and smart-contract security.
+          </p>
+          <p>
+            Currently, I&rsquo;m pursuing my degree in Computer Engineering at UFRPE, strengthening my foundations in
+            programming, computer systems, mathematics, and software engineering while continuing to explore blockchain
+            and decentralized systems through projects and hands-on development.
           </p>
         </div>
       </section>

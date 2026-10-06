@@ -16,10 +16,19 @@ export const NOW_UPDATED = "October 2026";
 
 /** What I'm working through right now. Keep it honest and current. */
 export const NOW: { label: string; text: string }[] = [
-  { label: "Studying", text: "Computer Engineering at UFRPE: programming, systems and computer science fundamentals." },
-  { label: "Security", text: "Smart-contract security with Cyfrin Updraft, and cybersecurity basics on TryHackMe." },
-  { label: "Tools", text: "Solidity, Foundry, Hardhat, Rust and Anchor." },
-  { label: "Building", text: "Revisiting my earlier projects: fixing what I got wrong and writing down why." },
+  {
+    label: "Studying",
+    text: "Computer Engineering at UFRPE, building a stronger foundation in programming, systems, and computer science.",
+  },
+  {
+    label: "Security",
+    text: "Going deeper into smart-contract security and cybersecurity fundamentals through Cyfrin Updraft and TryHackMe.",
+  },
+  { label: "Building", text: "Exploring DeFi and protocol engineering through Solana, Rust, Anchor, and Solidity." },
+  {
+    label: "Learning",
+    text: "Revisiting earlier blockchain projects, understanding what went wrong, and documenting the lessons behind them.",
+  },
 ];
 
 export interface PathEntry {
@@ -34,4 +43,5 @@ export const PATH: PathEntry[] = [
     period: "2019 — 2025",
     text: "Real estate at Arcos: construction, development, sales and operations, coordinating teams of 100+ people.",
   },
+  { period: "2019 — 2020", text: "Economics, UNICAP." },
 ];
