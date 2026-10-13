@@ -5,7 +5,7 @@ import { PROFILE } from "@/data/profile";
 const NAV = [
   { href: "/#projects", label: "Projects" },
   { href: "/#path", label: "Path" },
-  { href: "/credentials", label: "Certificates" },
+  { href: "/#certificates", label: "Certificates" },
   { href: "/#contact", label: "Contact" },
 ];
 

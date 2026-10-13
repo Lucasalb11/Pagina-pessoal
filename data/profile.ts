@@ -9,6 +9,8 @@ export const PROFILE = {
   x: "https://x.com/11lucasa",
   cv: "/lucas-almeida-cv.pdf",
   location: "Recife, Brazil",
+  lookingFor:
+    "Open to blockchain internships and junior opportunities, especially in the Solana ecosystem, smart-contract engineering, and security.",
 };
 
 /** When NOW was last reviewed. Shown on the page so a stale list is visible as stale. */
@@ -37,11 +39,14 @@ export interface PathEntry {
 }
 
 export const PATH: PathEntry[] = [
-  { period: "2026 —", text: "Computer Engineering, UFRPE." },
-  { period: "2023 —", text: "Web3: hackathons, communities and small projects on Solana, Stellar and Ethereum." },
+  { period: "2019 — 2020", text: "Economics, UNICAP." },
   {
     period: "2019 — 2025",
-    text: "Real estate at Arcos: construction, development, sales and operations, coordinating teams of 100+ people.",
+    text: "Real estate at Arcos: construction, development, sales and business operations, leading teams of 100+ people.",
   },
-  { period: "2019 — 2020", text: "Economics, UNICAP." },
+  { period: "2023 —", text: "Exploring blockchain through hackathons, technical communities and projects on Solana, Stellar and Ethereum." },
+  {
+    period: "2026 —",
+    text: "Computer Engineering, UFRPE: strengthening computer science fundamentals and developing a security focus.",
+  },
 ];

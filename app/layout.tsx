@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 
 const TITLE = "Lucas de Almeida";
 const DESCRIPTION =
-  "Computer Engineering student at UFRPE, learning to build and secure DeFi protocols. Notes on what I'm studying, building and learning.";
+  "Computer Engineering student at UFRPE exploring how to build and secure blockchain applications, with a focus on Solana, smart contracts and DeFi security. Notes on what I'm building, learning and improving.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -1,6 +1,6 @@
 # Lucas de Almeida
 
-> Computer Engineering student at UFRPE (Recife, Brazil) focused on Blockchain & DeFi security. Learning to build and secure DeFi protocols; previously worked in real estate (construction, development, sales and operations, teams of 100+ people). The site documents what he is studying, building and learning.
+> Computer Engineering student at UFRPE (Recife, Brazil) exploring how to build and secure blockchain applications, with a particular interest in Solana, smart contracts and DeFi security. Before software, spent several years in real estate, construction and business operations, leading teams and managing projects. Open to blockchain internships and junior opportunities (Solana, smart-contract engineering, security). The site documents what he is building, learning and improving.
 
 ## Now
 

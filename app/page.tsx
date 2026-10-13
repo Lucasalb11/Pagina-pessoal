@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CERTS } from "@/data/certs.config";
 import { NOW, NOW_UPDATED, PATH, PROFILE } from "@/data/profile";
 import { getPortfolio, type ResolvedProject } from "@/lib/portfolio";
 
@@ -53,25 +54,32 @@ export default async function Home() {
         <h1 className="mb-5 text-[22px] font-semibold leading-snug tracking-tight">{PROFILE.headline}.</h1>
         <div className="space-y-4">
           <p>
-            I&rsquo;m Lucas de Almeida, a Computer Engineering student and developer focused on Blockchain, DeFi, and
-            financial applications.
+            I&rsquo;m studying Computer Engineering at UFRPE and exploring how to build and secure blockchain
+            applications, with a particular interest in Solana, smart contracts, and DeFi security.
           </p>
           <p>
-            My background combines Computer Engineering with Economics, business, and finance. After working closely
-            with real businesses and financial decisions, I became increasingly interested in the systems behind them
-            and started moving deeper into software and blockchain.
+            Before moving into software, I spent several years working in real estate, construction, and business
+            operations, leading teams and managing projects. That experience shaped how I approach technology: start
+            with a real problem, understand the business behind it, and build something useful.
           </p>
           <p>
-            Today, I build and explore Web3 applications across Solana, Ethereum, and Stellar, working mainly with Rust,
-            Solidity, and TypeScript. My interests are centered around DeFi, protocol engineering, asset tokenization,
-            and smart-contract security.
-          </p>
-          <p>
-            Currently, I&rsquo;m pursuing my degree in Computer Engineering at UFRPE, strengthening my foundations in
-            programming, computer systems, mathematics, and software engineering while continuing to explore blockchain
-            and decentralized systems through projects and hands-on development.
+            I&rsquo;m now strengthening my foundations in computer science, developing Web3 projects, and learning to
+            analyze smart contracts from a security perspective. This site documents what I&rsquo;m building, what
+            I&rsquo;m learning, and what I&rsquo;m improving along the way.
           </p>
         </div>
+        <p className="mt-6 text-[15px]">{PROFILE.lookingFor}</p>
+        <p className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[15px]">
+          <a href={PROFILE.cv} className="link">
+            CV (PDF)
+          </a>
+          <a href={PROFILE.github} className="link">
+            GitHub
+          </a>
+          <a href={PROFILE.linkedin} className="link">
+            LinkedIn
+          </a>
+        </p>
       </section>
 
       <section id="now">
@@ -137,9 +145,34 @@ export default async function Home() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section id="certificates">
+        <h2 className="label">Certificates</h2>
+        <p className="mb-4 text-[15px] text-[var(--color-soft)]">
+          Courses and hackathons I&rsquo;ve completed. They record what I&rsquo;ve studied; the projects above are where
+          I show what I can do with it.
+        </p>
+        <ul className="space-y-2">
+          {CERTS.filter((c) => c.status !== "PENDING").map((c) => (
+            <li key={c.credentialId} className="grid grid-cols-[6.5rem_1fr] gap-4 max-sm:grid-cols-1 max-sm:gap-0">
+              <span className="meta pt-[3px]">{c.dateIssued.slice(0, 4)}</span>
+              <span>
+                {c.verifyUrl ? (
+                  <a href={c.verifyUrl} className="link">
+                    {c.name}
+                  </a>
+                ) : (
+                  c.name
+                )}
+                <span className="text-[var(--color-soft)]"> · {c.issuer}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
         <p className="mt-5 text-[15px]">
           <Link href="/credentials" className="link">
-            Course certificates
+            Details
           </Link>
           <span className="text-[var(--color-soft)]">, each also minted as a soulbound NFT on Solana devnet.</span>
         </p>
