@@ -93,7 +93,274 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
   }
+}
+
+/* Visit card animations, optical lighting & orbital keyframes */
+@keyframes vc-fade-bg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vc-corona-emerge {
+  0% {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes vc-orbit-emerge {
+  0% {
+    opacity: 0;
+    transform: scale(0.84) rotate(-14deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes vc-disc-emerge {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes vc-avatar-emerge {
+  0% {
+    opacity: 0;
+    transform: scale(0.88) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes vc-rise-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes vc-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vc-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes vc-float-a {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10px, -12px, 0) scale(1.035);
+  }
+}
+
+@keyframes vc-float-b {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-12px, 9px, 0) scale(0.97);
+  }
+}
+
+@keyframes vc-pulse-glow {
+  0%, 100% {
+    opacity: 0.78;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes vc-sonar {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.vc-animate-bg {
+  animation: vc-fade-bg 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-animate-corona {
+  animation: vc-corona-emerge 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-animate-disc {
+  animation: vc-disc-emerge 1.2s cubic-bezier(0.34, 1.45, 0.64, 1) both;
+}
+
+.vc-animate-orbit {
+  animation: vc-orbit-emerge 1.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-animate-avatar {
+  animation: vc-avatar-emerge 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-animate-rise {
+  animation: vc-rise-fade 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-spin-cw-78 {
+  animation: vc-spin-slow 78s linear infinite;
+}
+
+.vc-spin-ccw-44 {
+  animation: vc-spin-reverse 44s linear infinite;
+}
+
+.vc-spin-cw-29 {
+  animation: vc-spin-slow 29s linear infinite;
+}
+
+.vc-float-disc-a {
+  animation: vc-float-a 11s ease-in-out infinite;
+}
+
+.vc-float-disc-b {
+  animation: vc-float-b 14s ease-in-out infinite;
+}
+
+.vc-pulse-aura {
+  animation: vc-pulse-glow 8s ease-in-out infinite;
+}
+
+.vc-sonar-ping {
+  animation: vc-sonar 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Optical Portrait Rim & Lighting Integration */
+.vc-avatar-ring {
+  padding: 1.5px;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from var(--rim-angle, 215deg) at 50% 50%,
+    rgba(255, 180, 119, 0.9) 0deg,
+    rgba(255, 107, 53, 0.28) 95deg,
+    rgba(255, 138, 61, 0.72) 165deg,
+    rgba(23, 23, 23, 0.92) 255deg,
+    rgba(255, 180, 119, 0.9) 360deg
+  );
+  box-shadow:
+    0 14px 36px -8px rgba(0, 0, 0, 0.88),
+    0 0 38px -4px rgba(255, 107, 53, 0.34),
+    0 0 84px -10px rgba(255, 138, 61, 0.22);
+  transition: box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1), transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vc-avatar-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 54%, rgba(17, 17, 17, 0.76) 100%),
+    radial-gradient(circle at 50% 50%, transparent 62%, rgba(255, 107, 53, 0.2) 88%, rgba(255, 180, 119, 0.36) 100%);
+  box-shadow:
+    inset 0 1.5px 2px rgba(255, 180, 119, 0.52),
+    inset 0 -10px 20px rgba(17, 17, 17, 0.82),
+    inset 0 0 18px rgba(255, 107, 53, 0.24);
+}
+
+/* Primary Tactile Lit Capsule Button */
+.vc-btn-portfolio {
+  position: relative;
+  border-radius: 9999px;
+  color: #111111;
+  font-weight: 600;
+  background:
+    radial-gradient(120px circle at var(--bx, 50%) var(--by, 0%), rgba(255, 220, 185, 0.72) 0%, transparent 70%),
+    linear-gradient(180deg, #FF934B 0%, #FF6B35 100%);
+  box-shadow:
+    inset 0 1px 0.5px rgba(255, 248, 240, 0.72),
+    inset 0 -1.5px 2px rgba(140, 35, 5, 0.42),
+    0 0 0 1px rgba(255, 180, 119, 0.38),
+    0 10px 28px -6px rgba(255, 107, 53, 0.48),
+    0 2px 6px rgba(0, 0, 0, 0.6);
+  transition:
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vc-btn-portfolio:hover {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 250, 245, 0.88),
+    inset 0 -1.5px 2px rgba(140, 35, 5, 0.32),
+    0 0 0 1px rgba(255, 180, 119, 0.68),
+    0 0 0 6px rgba(255, 107, 53, 0.14),
+    0 14px 36px -4px rgba(255, 107, 53, 0.65),
+    0 0 52px -8px rgba(255, 138, 61, 0.45);
+}
+
+/* Obsidian Glass Social Pills */
+.vc-social-pill {
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(28, 26, 25, 0.78) 0%, rgba(20, 20, 20, 0.92) 100%);
+  color: rgba(242, 240, 235, 0.68);
+  border: 1px solid rgba(242, 240, 235, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 180, 119, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  transition: all 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vc-social-pill:hover {
+  color: #F2F0EB;
+  border-color: rgba(255, 180, 119, 0.34);
+  background:
+    radial-gradient(100% 100% at 50% 0%, rgba(255, 107, 53, 0.16) 0%, transparent 80%),
+    linear-gradient(180deg, rgba(34, 28, 25, 0.92) 0%, rgba(23, 23, 23, 0.96) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 180, 119, 0.24),
+    0 6px 18px -4px rgba(255, 107, 53, 0.24),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  transform: translateY(-1.5px);
 }
 
 /* Shiki dual theme: follow the system colour scheme. */

@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SiteHeader } from "@/components/SiteHeader";
 import { PROFILE, SITE_URL } from "@/data/profile";
 import "./globals.css";
 
@@ -9,7 +8,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 
 const TITLE = "Lucas de Almeida";
 const DESCRIPTION =
-  "Computer Engineering student at UFRPE exploring how to build and secure blockchain applications, with a focus on Solana, smart contracts and DeFi security. Notes on what I'm building, learning and improving.";
+  "Computer Engineering | Blockchain, DeFi & Security — Personal landing page and portfolio of Lucas de Almeida.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -22,10 +21,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#141414" },
-  ],
+  themeColor: "#111111",
 };
 
 const jsonLd = {
@@ -33,9 +29,9 @@ const jsonLd = {
   "@type": "Person",
   name: PROFILE.name,
   url: SITE_URL,
-  image: `${SITE_URL}/portrait.jpg`,
+  image: `${SITE_URL}/lucas-avatar.jpg`,
   email: `mailto:${PROFILE.email}`,
-  description: PROFILE.headline,
+  description: "Computer Engineering | Blockchain, DeFi & Security",
   address: { "@type": "PostalAddress", addressLocality: "Recife", addressRegion: "PE", addressCountry: "BR" },
   alumniOf: { "@type": "CollegeOrUniversity", name: "Universidade Federal Rural de Pernambuco" },
   knowsAbout: ["Blockchain", "DeFi", "Smart contract security", "Solidity", "Rust", "Solana"],
@@ -49,12 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body>
-        <div className="mx-auto max-w-[40rem] px-6 pb-20 pt-8 sm:pt-10">
-          <SiteHeader />
-          {children}
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

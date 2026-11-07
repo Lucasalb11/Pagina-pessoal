@@ -3,10 +3,11 @@ import Link from "next/link";
 import { PROFILE } from "@/data/profile";
 
 const NAV = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#path", label: "Path" },
-  { href: "/#certificates", label: "Certificates" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/portfolio", label: "About" },
+  { href: "/portfolio#projects", label: "Projects" },
+  { href: "/portfolio#path", label: "Path" },
+  { href: "/portfolio#certificates", label: "Certificates" },
+  { href: "/portfolio#contact", label: "Contact" },
 ];
 
 /** Same bar on every page: who this is on the left, where to go on the right. */
