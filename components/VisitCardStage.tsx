@@ -445,7 +445,7 @@ export function VisitCardStage() {
                   fill
                   priority
                   sizes="(max-width: 640px) 248px, 292px"
-                  className="scale-[1.15] object-cover object-[50%_29%] contrast-[1.03] brightness-[0.98] transition-transform duration-700 ease-out"
+                  className="object-cover object-center transition-transform duration-700 ease-out"
                 />
               </div>
             </div>
