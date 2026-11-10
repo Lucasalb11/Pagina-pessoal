@@ -1,32 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #ffffff;
-  --color-ink: #161616;
-  --color-soft: #5f5f5f;
-  --color-faint: #8d8d8d;
-  --color-rule: #ebebeb;
-  /* One accent, used only for links. */
-  --color-link: #1a56db;
+  --color-paper: #111111;
+  --color-ink: #f2f0eb;
+  --color-soft: #b2aca5;
+  --color-faint: #7c756e;
+  --color-rule: rgba(255, 138, 61, 0.16);
+  /* Warm solar accent matching the landing page. */
+  --color-link: #ff9a52;
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-paper: #141414;
-    --color-ink: #ececec;
-    --color-soft: #a8a8a8;
-    --color-faint: #7a7a7a;
-    --color-rule: #2a2a2a;
-    --color-link: #7aa2ff;
-  }
-}
-
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
   }
 
   body {
@@ -37,6 +27,11 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(255, 107, 53, 0.3);
+    color: #f2f0eb;
   }
 
   a {
@@ -58,20 +53,34 @@
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
     text-decoration-color: color-mix(in oklab, var(--color-link) 35%, transparent);
+    transition: color 180ms ease, text-decoration-color 180ms ease;
   }
   .link:hover {
-    text-decoration-color: var(--color-link);
+    color: #ffb477;
+    text-decoration-color: #ffb477;
   }
 
-  /* Section label: small, mono, quiet. The content carries the page, not the headings. */
+  /* Section label: small, mono, quiet with a subtle warm orange indicator. */
   .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--color-faint);
+    color: rgba(255, 180, 119, 0.85);
     margin-bottom: 1rem;
+  }
+  .label::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: rgba(255, 107, 53, 0.85);
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.55);
   }
 
   /* Dates, periods and statuses: mono so they line up down the page. */
@@ -84,9 +93,10 @@
 
   .nav-link {
     color: var(--color-soft);
+    transition: color 180ms ease;
   }
   .nav-link:hover {
-    color: var(--color-ink);
+    color: #ffb477;
   }
 }
 
@@ -363,15 +373,9 @@
   transform: translateY(-1.5px);
 }
 
-/* Shiki dual theme: follow the system colour scheme. */
+/* Shiki dark theme matching the obsidian canvas. */
 .shiki-wrap .shiki,
 .shiki-wrap .shiki span {
-  color: var(--shiki-light);
+  color: var(--shiki-dark);
   background-color: transparent !important;
-}
-@media (prefers-color-scheme: dark) {
-  .shiki-wrap .shiki,
-  .shiki-wrap .shiki span {
-    color: var(--shiki-dark);
-  }
 }

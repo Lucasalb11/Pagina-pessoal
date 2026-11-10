@@ -26,7 +26,7 @@ export const mdxComponents: MDXComponents = {
   strong: (props) => <strong className="font-semibold" {...props} />,
   hr: () => <hr className="my-10 border-[var(--color-rule)]" />,
   blockquote: (props) => (
-    <blockquote className="my-5 border-l-2 border-[var(--color-rule)] pl-4 text-[var(--color-soft)]" {...props} />
+    <blockquote className="my-5 border-l-2 border-[#FF8A3D]/45 pl-4 text-[var(--color-soft)]" {...props} />
   ),
   table: (props) => (
     <div className="my-6 overflow-x-auto">

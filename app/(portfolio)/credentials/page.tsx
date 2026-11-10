@@ -19,31 +19,35 @@ export default function CredentialsPage() {
         non-transferable NFT, mostly as an exercise with Metaplex Core; the issuer links are the real proof.
       </p>
 
-      <ul className="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
-        {CERTS.map((c) => (
-          <li key={c.credentialId} className="py-4">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-              <span className="font-medium">{c.name}</span>
-              <span className="text-[14px] text-[var(--color-faint)]">{c.issuer}</span>
-            </div>
-            <p className="mt-1 text-[15px] text-[var(--color-soft)]">{c.description}</p>
-            <p className="mt-1.5 flex gap-4 text-[14px]">
-              {c.verifyUrl ? (
-                <a href={c.verifyUrl} className="link">
-                  issuer
-                </a>
-              ) : null}
-              {c.status === "MINTED" && c.mintAddress ? (
-                <a href={solscan(c.mintAddress)} className="link">
-                  nft {truncateAddress(c.mintAddress, 4, 4)}
-                </a>
-              ) : (
-                <span className="text-[var(--color-faint)]">in progress</span>
-              )}
-            </p>
-          </li>
-        ))}
-      </ul>
+      <div className="relative">
+        <span aria-hidden="true" className="pointer-events-none absolute -top-px left-0 h-px w-5 bg-[#FF8A3D]/55" />
+        <span aria-hidden="true" className="pointer-events-none absolute -bottom-px right-0 h-px w-5 bg-[#FF8A3D]/55" />
+        <ul className="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
+          {CERTS.map((c) => (
+            <li key={c.credentialId} className="py-4">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
+                <span className="font-medium">{c.name}</span>
+                <span className="text-[14px] text-[var(--color-faint)]">{c.issuer}</span>
+              </div>
+              <p className="mt-1 text-[15px] text-[var(--color-soft)]">{c.description}</p>
+              <p className="mt-1.5 flex gap-4 text-[14px]">
+                {c.verifyUrl ? (
+                  <a href={c.verifyUrl} className="link">
+                    issuer
+                  </a>
+                ) : null}
+                {c.status === "MINTED" && c.mintAddress ? (
+                  <a href={solscan(c.mintAddress)} className="link">
+                    nft {truncateAddress(c.mintAddress, 4, 4)}
+                  </a>
+                ) : (
+                  <span className="text-[var(--color-faint)]">in progress</span>
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 }

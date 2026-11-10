@@ -23,7 +23,7 @@ function ProjectRow({ p }: { p: ResolvedProject }) {
   return (
     <li className="py-4">
       <div className="flex items-baseline justify-between gap-4">
-        <Link href={`/work/${p.id}`} className="font-medium hover:text-[var(--color-link)]">
+        <Link href={`/work/${p.id}`} className="font-medium transition-colors hover:text-[#FFB477]">
           {p.name}
         </Link>
         <span className="meta whitespace-nowrap">{p.year}</span>
@@ -31,7 +31,12 @@ function ProjectRow({ p }: { p: ResolvedProject }) {
       <p className="mt-1 text-[15px] text-[var(--color-soft)]">{p.summary}</p>
       <p className="meta mt-2">
         {p.context}
-        {p.liveUrl ? ` · ${p.network ?? NETWORK[p.chain]}` : ""}
+        {p.liveUrl ? (
+          <>
+            <span className="text-[#FF8A3D]/65"> · </span>
+            {p.network ?? NETWORK[p.chain]}
+          </>
+        ) : null}
       </p>
       <p className="mt-1 flex gap-4 text-[14px]">
         <Link href={`/work/${p.id}`} className="link">
@@ -112,34 +117,42 @@ export default async function Home() {
         </p>
 
         <h3 className="meta mb-1">With a working demo</h3>
-        <ul className="mb-8 divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
-          {withDemo.map((p) => (
-            <ProjectRow key={p.id} p={p} />
-          ))}
-        </ul>
+        <div className="relative mb-8">
+          <span aria-hidden="true" className="pointer-events-none absolute -top-px left-0 h-px w-5 bg-[#FF8A3D]/55" />
+          <span aria-hidden="true" className="pointer-events-none absolute -bottom-px right-0 h-px w-5 bg-[#FF8A3D]/55" />
+          <ul className="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
+            {withDemo.map((p) => (
+              <ProjectRow key={p.id} p={p} />
+            ))}
+          </ul>
+        </div>
 
         <h3 className="meta mb-1">Code and notes only</h3>
-        <ul className="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
-          {codeOnly.map((p) => (
-            <ProjectRow key={p.id} p={p} />
-          ))}
-          {extras.map((e) => (
-            <li key={e.repoUrl} className="py-4">
-              <span className="font-medium">{e.name}</span>
-              {e.summary ? <p className="mt-1 text-[15px] text-[var(--color-soft)]">{e.summary}</p> : null}
-              <p className="mt-2 flex gap-4 text-[14px]">
-                <a href={e.repoUrl} className="link">
-                  code
-                </a>
-                {e.liveUrl ? (
-                  <a href={e.liveUrl} className="link">
-                    demo
+        <div className="relative">
+          <span aria-hidden="true" className="pointer-events-none absolute -top-px left-0 h-px w-5 bg-[#FF8A3D]/55" />
+          <span aria-hidden="true" className="pointer-events-none absolute -bottom-px right-0 h-px w-5 bg-[#FF8A3D]/55" />
+          <ul className="divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
+            {codeOnly.map((p) => (
+              <ProjectRow key={p.id} p={p} />
+            ))}
+            {extras.map((e) => (
+              <li key={e.repoUrl} className="py-4">
+                <span className="font-medium">{e.name}</span>
+                {e.summary ? <p className="mt-1 text-[15px] text-[var(--color-soft)]">{e.summary}</p> : null}
+                <p className="mt-2 flex gap-4 text-[14px]">
+                  <a href={e.repoUrl} className="link">
+                    code
                   </a>
-                ) : null}
-              </p>
-            </li>
-          ))}
-        </ul>
+                  {e.liveUrl ? (
+                    <a href={e.liveUrl} className="link">
+                      demo
+                    </a>
+                  ) : null}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section id="path">
@@ -172,7 +185,8 @@ export default async function Home() {
                 ) : (
                   c.name
                 )}
-                <span className="text-[var(--color-soft)]"> · {c.issuer}</span>
+                <span className="text-[#FF8A3D]/65"> · </span>
+                <span className="text-[var(--color-soft)]">{c.issuer}</span>
               </span>
             </li>
           ))}
